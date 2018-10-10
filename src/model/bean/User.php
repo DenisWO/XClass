@@ -13,6 +13,21 @@
     private $photo;      // Object Attachment -> Profile Photo
     private $thumbnail;  // Object Attachment -> Low resolution profile photo
 
+    public function __construct($id , $firstName , $lastName , $email , $password , $age , $created_at , $updated_at , $photo , $thumbnail) {
+      $this->setId($id);
+      $this->setFirstName($firstName);
+      $this->setLastName($lastName);
+      $this->setEmail($email);
+      $this->setPassword($password);
+      $this->setAge($age);
+      $this->setCreated_at();
+      $this->setUpdated_at();
+      $this->setPhoto($photo);
+      $this->thumbnail($thumbnail);
+
+      // Verificar se a photo e thumbnail estao no BDA (funcao clase AttachmentManager)
+    }
+
     public function __construct($firstName , $lastName , $email , $password , $age) {
       $this->setFirstName($firstName);
       $this->setLastName($lastName);
@@ -27,10 +42,12 @@
     }
     public function __construct($name, $email, $password){
       $this->setFirstName($name);
+      $this->setLastName("");
       $this->setEmail($email);
       $this->setPassword($password);
       $this->setCreated_at();
       $this->setUpdated_at();
+      $this->setAge(0);
     }
 
     public function getId() {
@@ -79,8 +96,7 @@
 
     public function setAge($age) {
       if ($age < 0 | $age >120) {
-        $error = "Improbable age"
-        return $error;
+        throw new WrongAgeException("Idade fora do padrão","Improbable age" , $age);
       }else{
         $this->age = $age;
       }
@@ -94,9 +110,12 @@
       if (empty($this->created_at)) {
         $this->created_at = date('Y-m-d H:i:s');
       }else{
-        $error = "Can only be created once";
-        return error;
+        throw new Created_atException("Can only be created once");
       }
+    }
+
+    private function setCreated_at($date) {
+      $this->created_at = $date
     }
 
     public function getUpdated_At() {
@@ -107,17 +126,24 @@
       $this->updated_at = date('Y-m-d H:i:s');
     }
 
+    private function setUpdated_at($date) {
+      $this->updated_at = $date;
+    }
+
     public function getPhoto() {
       return $this->photo;
     }
 
-    public function setPhoto($photo) {
-      // Usar a classe AttachmentManager futuramente
-      // O $thumbnail sera gerado com ela tambem
+    private function setPhoto($photo) {
+      $this->photo = $photo;
     }
 
     public function getThumbnail() {
       return $this->thumbnail;
+    }
+
+    private function setThumbnail($thumbnail) {
+      $this->thumbnail = $thumbnail;
     }
 
   }

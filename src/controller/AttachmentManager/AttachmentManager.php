@@ -72,8 +72,11 @@
       //Se ja estiver salvo, atualizar
       //Senao criar um novo
       //Usar a this->loadProfilePhoto
-
-      $attachment = new Attachment($directory , $filename , $extension);
+      try {
+        $attachment = new Attachment($directory , $filename , $extension);
+      }catch(Created_atException $ex) {
+        echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
+      }
     }
 
     public function loadProfilePhoto ($objectUser) {

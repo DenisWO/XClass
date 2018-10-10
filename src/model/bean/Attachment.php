@@ -3,11 +3,20 @@
   class Attachment{
 
     var $id;
-    var $directory
-    var $filename
-    var $extension
-    var $created_at // Timestamp object
-    var $updated_at // Timestamp object
+    var $directory;
+    var $filename;
+    var $extension;
+    var $created_at; // Timestamp object
+    var $updated_at; // Timestamp object
+
+    public function __construct($id , $directory , $filename , $extension , $created_at , $updated_at) {
+      $this->setId($id);
+      $this->setDirectory($directory);
+      $this->setFilename($filename);
+      $this->setExtension($extension);
+      $this->setCreated_at($created_at);
+      $this->setUpdated_at($updated_at);
+    }
 
     public function __construct( $directory , $filename , $extension ) {
       $this->setDirectory($directory);
@@ -57,8 +66,12 @@
       if (empty($this->created_at)) {
         $this->created_at = date('Y-m-d H:i:s');
       }else{
-        // Error
+        throw new Created_atException("Can only be created once");
       }
+    }
+
+    private function setCreated_at($date) {
+      $this->created_at = $date
     }
 
     public function getUpdated_at() {
@@ -67,6 +80,10 @@
 
     private function setUpdated_at() {
       $this->updated_at = date('Y-m-d H:i:s');
+    }
+
+    private function setUpdated_at($date) {
+      $this->updated_at = $date;
     }
 
   }

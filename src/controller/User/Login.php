@@ -1,26 +1,25 @@
 <?php
+
   include '../../model/User.php';
   include '../connection/Connection.php';
 
-  $user = null;
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+  public function login() {
+    $user = null;
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-  $sql = "SELECT * FROM User WHERE email = '{$email}'";
+    try {
+      $dao = new UserDAO();
+      $user = $dao->loadEmail($email);
 
-  if($dados = $conector->query($sql) === TRUE){
-    if($dados["password"] === $password){
-      echo "Logado com sucesso!";
-      
-    }
-    else{
-      echo "Senha inválida!";
+      if($user->getPassword === $password){
+        echo "Logado com sucesso!";
+      }else{
+        throw new WrongPasswordException("Senha inválida!" , $email);
+      }
+    }catch(UnregistredUserException $e) {
+      $e->getMessageToUser(); //Email incorreto
     }
   }
-  else{
-    echo "Email ou senha inválida!";
-  }
-
-
 
 ?>

@@ -2,31 +2,39 @@
   include '../model/bean/User.php';
   include '../model/dao/UserDAO.php';
 
-  private $user = new User();
-
   public function createAccount(){
-    $user = new User(
-      $_POST['firstName'],
-      $_POST['lastName'],
-      $_POST['email'],
-      $_POST['password'],
-      $_POST['age']
-    );
+    try {
+      $user = new User(
+        $_POST['firstName'],
+        $_POST['lastName'],
+        $_POST['email'],
+        $_POST['password'],
+        $_POST['age']
+      );
 
-    $dao = new UserDAO();
-    $retorno = $dao->save($user);
-    echo $retorno;
+      $dao = new UserDAO();
+      $retorno = $dao->save($user);
+      echo $retorno;
+
+    }catch(WrongAgeException $e) {
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
+    }catch(Created_atException $e) {
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
+    }catch(WrongObjectException $e) {
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
+    }
   }
   public function login(){
-    session_start();
-    $user->email = $_POST['email'];
-    $user->password = $_POST['password'];
+    try {
+      session_start();
 
-    $sql = "SELECT * FROM User WHERE email = '$user->email' AND password = '$user->password'";
-    $conect = $conector->query($sql);
-    while($data = $conect->fetch_array()){
-      $_SESSION = $data["id"];
+      $dao = new UserDAO();
+      $user = $dao->validateLogin($_POST['email'] , $_POST['password']);
+
+      $_SESSION = $user->getId();
+      echo "Login realizado com sucesso!";
+    }catch(WrongPasswordException $e) {
+      echo $e->getMessageToUser(); //Email ou senha incorreto
     }
-    echo "Login realizado com sucesso!";
   }
 ?>
