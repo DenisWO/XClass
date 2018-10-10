@@ -3,20 +3,26 @@
 /*Esse script tem o intuito de cadastrar rapidamente o cliente que deseja utilizar
 o sistema e ainda não possui login*/
   include '../../model/User.php';
-  include 'ValidationUser.php';
+  include '../connection/Connection.php';
 
-  private $user = new User();
+  $user;
   $name = $_POST['name'];
   $email = $_POST['email'];
   $password = $_POST['password'];
 
 /*Os métodos de validação de nome, email e senha precisam ser implementados aqui*/
   if(is_string($name) && is_string($email) && is_string($password)){
-    $user->firstName = $name;
-    $user->email = $email;
-    $user->password = $password;
+    $user = new User($name, $email, $password);
   }
 
-  /*Criar função de conectar no banco e incluir o mesmo lá*/
-  
+  $sql = "SELECT * FROM User WHERE email = '{$email}'";
+  if($conector->query($sql) === NULL){
+    $sql = 'INSERT INTO User (first_name, email, password) VALUES (?,?,?)';
+    $stmt = $conector->prepare($sql);
+    $stmt->bind_param("sss", $user->firstName, $user->email, $user->password);
+    echo "Usuário inserido com sucesso!";
+  }
+
+  echo "Sua conta foi criada com sucesso!";
+
 ?>

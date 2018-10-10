@@ -25,6 +25,13 @@
       // add photo default using AttachmentManager
       // add thumbnail default using AttachmentManager
     }
+    public function __construct($name, $email, $password){
+      $this->setFirstName($name);
+      $this->setEmail($email);
+      $this->setPassword($password);
+      $this->setCreated_at();
+      $this->setUpdated_at();
+    }
 
     public function getId() {
       return $this->id;
