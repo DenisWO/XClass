@@ -22,7 +22,7 @@
 
     }
 
-    //Load ALL Attachment
+    //Load ALL Attachmentments
     public function loadAll() {
 
     }
