@@ -1,24 +1,21 @@
 <?php
   include '../model/bean/User.php';
-  include 'Connection.php';
-
+  include '../model/dao/UserDAO.php';
 
   private $user = new User();
 
   public function createAccount(){
-    $user->firstName = $_POST['firstName'];
-    $user->lastName = $_POST['lastName'];
-    $user->email = $_POST['email'];
-    $user->password = $_POST['password'];
-    $user->age = $_POST['age'];
+    $user = new User(
+      $_POST['firstName'],
+      $_POST['lastName'],
+      $_POST['email'],
+      $_POST['password'],
+      $_POST['age']
+    );
 
-    $sql = 'INSERT INTO User (first_name, last_name, email, password, age) VALUES (?,?,?,?,?)';
-
-    $conect = $conector->prepare($sql);
-    $conect->bind_param("ssssi", $user->firstName, $user->lastName, $user->email, $user->password, $user->age);
-    $conect->execute();
-
-    echo "Registros inseridos" . $conect->affected_rows;
+    $dao = new UserDAO();
+    $retorno = $dao->save($user);
+    echo $retorno;
   }
   public function login(){
     session_start();

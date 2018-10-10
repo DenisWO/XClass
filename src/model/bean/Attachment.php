@@ -6,11 +6,15 @@
     var $directory
     var $filename
     var $extension
-    var $created_at
-    var $updated_at
+    var $created_at // Timestamp object
+    var $updated_at // Timestamp object
 
     public function __construct( $directory , $filename , $extension ) {
-      // Construction default
+      $this->setDirectory($directory);
+      $this->setFilename($filename);
+      $this->setExtension($extension);
+      $this->setCreated_at();
+      $this->setUpdated_at();
     }
 
     public function getId() {
@@ -49,8 +53,20 @@
       return $this->created_at;
     }
 
+    private function setCreated_at() {
+      if (empty($this->created_at)) {
+        $this->created_at = date('Y-m-d H:i:s');
+      }else{
+        // Error
+      }
+    }
+
     public function getUpdated_at() {
       return $this->updated_at;
+    }
+
+    private function setUpdated_at() {
+      $this->updated_at = date('Y-m-d H:i:s');
     }
 
   }
