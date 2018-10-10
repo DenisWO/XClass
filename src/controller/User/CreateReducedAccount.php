@@ -19,8 +19,12 @@ o sistema e ainda não possui login*/
   if($conector->query($sql) === NULL){
     $sql = 'INSERT INTO User (first_name, email, password) VALUES (?,?,?)';
     $stmt = $conector->prepare($sql);
-    $stmt->bind_param("sss", $user->firstName, $user->email, $user->password);
+    $stmt->bind_param("sss", $user->getFirstName(), $user->getEmail(), $user->getPassword());
+    $stmt->execute();
     echo "Usuário inserido com sucesso!";
+  }
+  else{
+    echo "Esse email já está cadastrado por um usuário!";
   }
 
   echo "Sua conta foi criada com sucesso!";
