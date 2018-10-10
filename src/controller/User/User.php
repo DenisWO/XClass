@@ -2,9 +2,9 @@
   include '../model/bean/User.php';
   include '../model/dao/UserDAO.php';
 
-  private $user = new User();
+  $user = new User();
 
-  public function createAccount(){
+  function createAccount(){
     $user = new User(
       $_POST['firstName'],
       $_POST['lastName'],
@@ -17,7 +17,8 @@
     $retorno = $dao->save($user);
     echo $retorno;
   }
-  public function login(){
+
+  function login(){
     session_start();
     $user->email = $_POST['email'];
     $user->password = $_POST['password'];

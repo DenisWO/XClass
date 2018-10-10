@@ -79,7 +79,7 @@
 
     public function setAge($age) {
       if ($age < 0 | $age >120) {
-        $error = "Improbable age"
+        $error = "Improbable age";
         return $error;
       }else{
         $this->age = $age;

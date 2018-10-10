@@ -3,11 +3,11 @@
   class Attachment{
 
     var $id;
-    var $directory
-    var $filename
-    var $extension
-    var $created_at // Timestamp object
-    var $updated_at // Timestamp object
+    var $directory;
+    var $filename;
+    var $extension;
+    var $created_at;// Timestamp object
+    var $updated_at;// Timestamp object
 
     public function __construct( $directory , $filename , $extension ) {
       $this->setDirectory($directory);
