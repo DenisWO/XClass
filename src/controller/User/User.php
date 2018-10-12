@@ -16,6 +16,8 @@
       $retorno = $dao->save($user);
       echo $retorno;
 
+    }catch(CannotConnectSQLException $e) {
+      echo $e->getMessageToUser();
     }catch(WrongAgeException $e) {
       echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }catch(Created_atException $e) {
@@ -33,6 +35,8 @@
 
       $_SESSION = $user->getId();
       echo "Login realizado com sucesso!";
+    }catch(CannotConnectSQLException $e) {
+      echo $e->getMessageToUser();
     }catch(WrongPasswordException $e) {
       echo $e->getMessageToUser(); //Email ou senha incorreto
     }

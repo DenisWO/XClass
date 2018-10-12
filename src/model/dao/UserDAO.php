@@ -4,7 +4,11 @@
 
   class UserDAO() {
     public function __construct() {
-      //Default constructor
+      try {
+        connection();
+      }catch(CannotConnectSQLException $e) {
+        throw $e;
+      }
     }
 
     //Save a new User

@@ -17,6 +17,8 @@
       }else{
         throw new WrongPasswordException("Senha inválida!" , $email);
       }
+    }catch(CannotConnectSQLException $e) {
+      echo $e->getMessageToUser();
     }catch(UnregistredUserException $e) {
       $e->getMessageToUser(); //Email incorreto
     }

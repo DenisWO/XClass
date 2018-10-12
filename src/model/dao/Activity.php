@@ -4,7 +4,11 @@
 
   class Activity() {
     public function __construct() {
-      //Default constructor
+      try {
+        connection();
+      }catch(CannotConnectSQLException $e) {
+        throw $e;
+      }
     }
 
     //Save a new Activity

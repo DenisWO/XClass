@@ -4,7 +4,11 @@
 
   class Class() {
     public function __construct() {
-      //Default constructor
+      try {
+        connection();
+      }catch(CannotConnectSQLException $e) {
+        throw $e;
+      }
     }
 
     //Save a new ActivityDelivery
@@ -12,7 +16,7 @@
       if (get_class($objectActivityDelivery) == "Class") {
         throw new WrongObjectException("Wrong object" , "ActivityDelivery" , get_class($objectActivityDelivery));
       }
-      
+
     }
 
     //Update an existing ActivityDelivery

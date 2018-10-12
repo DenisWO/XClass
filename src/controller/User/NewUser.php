@@ -43,6 +43,8 @@
       $dao->save($user);
 
       echo "Sua conta foi criada com sucesso!";
+    }catch(CannotConnectSQLException $e) {
+      echo $e->getMessageToUser();
     }catch(WrongObjectException $e) {
       echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }catch(EmailAlreadyRegistered $e) {

@@ -3,15 +3,11 @@
   class Exception{
 
     private $date;
-    private $file;
-    private $line;
     private $messageToUser;
     private $messageToDeveloper;
 
     public function __construct($messageToUser , $messageToDeveloper) {
       $this->date = date('Y-m-d H:i:s');
-      $this->file = __FILE__;
-      $this->line = __LINE__;
       $this->setMessageToUser($messageToUser);
       $this->setMessageToDeveloper($messageToDeveloper);
 
@@ -19,23 +15,19 @@
     }
 
     public function __construct($messageToUserAndToDeveloper) {
-      $this->__construct($messageToUserAndToDeveloper , $messageToUserAndToDeveloper);
+      $this->date = date('Y-m-d H:i:s');
+      $this->setMessageToUser($messageToUserAndToDeveloper);
+      $this->setMessageToDeveloper($messageToUserAndToDeveloper);
+
+      $this->printLog();
     }
 
     private function printLog() {
-      //Colocar algo para printar log
+      system.out.println( $this->getMessageToDeveloper . " at Date: " . $this->getDate());
     }
 
     public function getDate() {
       return $this->date;
-    }
-
-    public function getFile() {
-      return $this->file;
-    }
-
-    public function getLine() {
-      return $this->Line;
     }
 
     public function getMessageToUser() {
