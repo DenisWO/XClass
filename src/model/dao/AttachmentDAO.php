@@ -21,7 +21,16 @@
         $sql = 'INSERT INTO Attachment (directory , filename , extension , created_at , updated_at) VALUES (?,?,?,?,?)';
         $stmt = $conector->prepare($sql);
         $stmt->bind_param("sssss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() );
+
+        if (!$stmt) {
+          throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
+        }
+
         $stmt->execute();
+
+        if (!$stmt) {
+          throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+        }
       }else{
         $this->update($objectAttachment);
       }
@@ -36,7 +45,16 @@
       $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? , created_at = ? , updated_at = ? WHERE id = '$objectAttachment->getId()' "
       $stmt = $conector->prepare($sql);
       $stmt->bind_param("sssss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() );
+
+      if (!$stmt) {
+        throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
+      }
+
       $stmt->execute();
+
+      if (!$stmt) {
+        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+      }
     }
 
     //Load ALL Attachmentments
@@ -59,6 +77,8 @@
           $data["updated_at"]
         );
         return $attachment;
+      }else{
+        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
       }
     }
 

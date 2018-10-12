@@ -44,11 +44,13 @@
 
       echo "Sua conta foi criada com sucesso!";
     }catch(CannotConnectSQLException $e) {
-      echo $e->getMessageToUser();
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
+    }catch(SQLException $e) {
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }catch(WrongObjectException $e) {
       echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }catch(EmailAlreadyRegistered $e) {
-      $e->getMessageToUser(); //Email ja cadastrado
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }
   }
 ?>

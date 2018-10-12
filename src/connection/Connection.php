@@ -11,7 +11,7 @@
 
 	  //Verifying connection to the bank
 		if(mysqli_connect_errno()) {
-			throw new CannotConnectSQLException("Não foi possivel conectar ao banco", trigger_error(mysqli_connect_errno()));
+			throw new CannotConnectSQLException("Não foi possivel conectar ao banco de dados", trigger_error(mysqli_connect_errno()));
 		}
 	}
 

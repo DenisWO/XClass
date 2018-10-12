@@ -17,7 +17,9 @@
       echo $retorno;
 
     }catch(CannotConnectSQLException $e) {
-      echo $e->getMessageToUser();
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
+    }catch(SQLException $e) {
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }catch(WrongAgeException $e) {
       echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }catch(Created_atException $e) {
@@ -36,9 +38,11 @@
       $_SESSION = $user->getId();
       echo "Login realizado com sucesso!";
     }catch(CannotConnectSQLException $e) {
-      echo $e->getMessageToUser();
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
+    }catch(SQLException $e) {
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }catch(WrongPasswordException $e) {
-      echo $e->getMessageToUser(); //Email ou senha incorreto
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }
   }
 ?>
