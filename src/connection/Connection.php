@@ -2,7 +2,7 @@
 
 	$servidor = "localhost";
 	$usuario = "root";
-	$senha = "";
+	$senha = "root";
 	$banco = "XClass";
 
   //Conector BDA line

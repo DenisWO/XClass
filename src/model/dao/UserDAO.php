@@ -27,6 +27,9 @@
 
     //Update an existing user
     public function update($objectUser) {
+      if (get_class($objectUser) == "User") {
+        throw new WrongObjectException("Wrong object" , "User" , get_class($objectUser));
+      }
 
     }
 

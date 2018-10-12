@@ -12,6 +12,15 @@
       if (get_class($objectAttachment) == "Attachment") {
         throw new WrongObjectException("Wrong object" , "Attachment" , get_class($objectAttachment));
       }
+
+      if(empty($objectAttachment->getId())){
+        $sql = 'INSERT INTO Attachment (directory , filename , extension , created_at , updated_at) VALUES (?,?,?,?,?)';
+        $stmt = $conector->prepare($sql);
+        $stmt->bind_param("sssss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() );
+        $stmt->execute();
+      }else{
+        $this->update($objectAttachment);
+      }
     }
 
     //Update an existing Attachment
@@ -20,6 +29,10 @@
         throw new WrongObjectException("Wrong object" , "Attachment" , get_class($objectAttachment));
       }
 
+      $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? , created_at = ? , updated_at = ? WHERE id = '$objectAttachment->getId()' "
+      $stmt = $conector->prepare($sql);
+      $stmt->bind_param("sssss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() );
+      $stmt->execute();
     }
 
     //Load ALL Attachmentments
