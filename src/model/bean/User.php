@@ -51,6 +51,11 @@
       $this->setAge(0);
     }
 
+    public function changePhoto($tmp_photo) {
+      $profileAttachmentManager = new ProfileAttachmentManager();
+      $this = $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
+    }
+
     public function getId() {
       return $this->id;
     }
@@ -97,8 +102,7 @@
 
     public function setAge($age) {
       if ($age < 0 | $age >120) {
-        throw new WrongAgeException("Idade fora do padrão","Improbable age" , $age);
-      }else{
+        throw new WrongAgeExcepti
         $this->age = $age;
       }
     }

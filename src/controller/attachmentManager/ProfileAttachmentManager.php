@@ -74,7 +74,12 @@
         $dao->save($attachment);
       }
 
-      generateThumbnail($attachment);
+      $thumbnail = generateThumbnail($attachment);
+
+      $objectUser->setPhoto($attachment);
+      $objectUser->setThumbnail($thumbnail);
+
+      return $objectUser;
     }
 
     private function generateThumbnail($attachment){
@@ -112,15 +117,17 @@
       imagejpeg($image_p, ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL . "/" . $attachment->getFullFilename() , 75);
 
       // Atualiza os registros no banco
-      updateThumbnail($attachment->getFilename() , $attachment->getExtension());
-    }
+      $thumbnail = updateThumbnail($attachment->getFilename() , $attachment->getExtension());
 
+      return $thumbnail;
+    }
 
     private function updateThumbnail($filename , $extension) {
       //Esta função pode lançar as seguintes exceções CannotConnectSQLException, SQLException, Created_atException e WrongObjectException
 
       $directory = ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL;
 
+      $thumbnail;
       try {
         $dao = new AttachmentDAO();
         $thumbnail = $dao->load($directory , $filename , $extension);
@@ -133,6 +140,8 @@
         $dao = new AttachmentDAO();
         $dao->save($attachment);
       }
+
+      return $thumbnail;
     }
 
   }
