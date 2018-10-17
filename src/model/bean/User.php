@@ -102,7 +102,8 @@
 
     public function setAge($age) {
       if ($age < 0 | $age >120) {
-        throw new WrongAgeExcepti
+        throw new WrongAgeException("Idade fora do padrão","Improbable age" , $age);
+      }else{
         $this->age = $age;
       }
     }
@@ -120,7 +121,7 @@
     }
 
     private function setCreated_at($date) {
-      $this->created_at = $date
+      $this->created_at = $date;
     }
 
     public function getUpdated_At() {
@@ -136,7 +137,7 @@
     }
 
     public function getPhoto() {
-      return $this->photo
+      return $this->photo;
     }
 
     private function setPhoto($photo) {
