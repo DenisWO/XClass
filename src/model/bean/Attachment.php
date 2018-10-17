@@ -26,6 +26,10 @@
       $this->setUpdated_at();
     }
 
+    public function getFullFilename() {
+      return $this->getFilename() . "." . $this->getExtension();
+    }
+
     public function getId() {
       return $this->id;
     }
@@ -78,7 +82,7 @@
       return $this->updated_at;
     }
 
-    private function setUpdated_at() {
+    public function setUpdated_at() {
       $this->updated_at = date('Y-m-d H:i:s');
     }
 

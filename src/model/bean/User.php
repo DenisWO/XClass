@@ -1,5 +1,7 @@
 <?php
 
+  include "./../controller/attachmentManager/ProfileAttachmentManager.php";
+
   class User{
 
     private $id;
@@ -37,8 +39,7 @@
       $this->setCreated_at();
       $this->setUpdated_at();
 
-      // add photo default using AttachmentManager
-      // add thumbnail default using AttachmentManager
+      $this->photo = new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO , "default" , "png");
     }
     public function __construct($name, $email, $password){
       $this->setFirstName($name);
@@ -131,7 +132,7 @@
     }
 
     public function getPhoto() {
-      return $this->photo;
+      return $this->photo
     }
 
     private function setPhoto($photo) {

@@ -47,6 +47,9 @@
         throw new WrongObjectException("Wrong object" , "User" , get_class($objectUser));
       }
 
+      //Refresh updated_at
+      $objectUser->setUpdated_at();
+
     }
 
     //Load ALL users

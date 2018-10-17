@@ -42,6 +42,9 @@
         throw new WrongObjectException("Wrong object" , "Attachment" , get_class($objectAttachment));
       }
 
+      //Refresh updated_at();
+      $objectAttachment->setUpdated_at();
+
       $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? , created_at = ? , updated_at = ? WHERE id = '$objectAttachment->getId()' "
       $stmt = $conector->prepare($sql);
       $stmt->bind_param("sssss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() );
@@ -80,6 +83,51 @@
       }else{
         throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
       }
+
+      throw new NotFoundSQLException("Nenhum registro encontrado" , $conect);
+    }
+
+    //Loads only the filename specific Attachment
+    public function loadFilename($filename) {
+      $sql = "SELECT * FROM Attachment WHERE filename = '$filename'";
+      $conect = $conector->query($sql);
+
+      if($dados = $conector->query($sql) === TRUE){
+        $attachment = new Attachment(
+          $data["id"],
+          $data["directory"],
+          $data["filename"],
+          $data["extension"],
+          $data["created_at"],
+          $data["updated_at"]
+        );
+        return $attachment;
+      }else{
+        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+      }
+
+      throw new NotFoundSQLException("Nenhum registro encontrado" , $conect);
+    }
+
+    public function load($directory , $filename , $extension) {
+      $sql = "SELECT * FROM Attachment WHERE directory = '$directory' AND filename = '$filename' AND extension = '$extension'";
+      $conect = $conector->query($sql);
+
+      if($dados = $conector->query($sql) === TRUE){
+        $attachment = new Attachment(
+          $data["id"],
+          $data["directory"],
+          $data["filename"],
+          $data["extension"],
+          $data["created_at"],
+          $data["updated_at"]
+        );
+        return $attachment;
+      }else{
+        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+      }
+
+      throw new NotFoundSQLException("Nenhum registro encontrado" , $conect);
     }
 
     //Delete an existing Attachment
