@@ -9,19 +9,19 @@
     private $lastName;
     private $email;
     private $password;   // Nao sei se a senha deve ficar aqui !!!!
-    private $age;
+    private $birthday;   // Format dd/mm/aaaa Ex: 03/10/1997 -> 03 de outubro de 1997
     private $created_at; // Object Timestamp
     private $updated_at; // Object Timestamp
     private $photo;      // Object Attachment -> Profile Photo
     private $thumbnail;  // Object Attachment -> Low resolution profile photo
 
-    public function __construct($id , $firstName , $lastName , $email , $password , $age , $created_at , $updated_at , $photo , $thumbnail) {
+    public function __construct($id , $firstName , $lastName , $email , $password , $birthday , $created_at , $updated_at , $photo , $thumbnail) {
       $this->setId($id);
       $this->setFirstName($firstName);
       $this->setLastName($lastName);
       $this->setEmail($email);
       $this->setPassword($password);
-      $this->setAge($age);
+      $this->setBirthday($birthday);
       $this->setCreated_at();
       $this->setUpdated_at();
       $this->setPhoto($photo);
@@ -35,11 +35,12 @@
       $this->setLastName($lastName);
       $this->setEmail($email);
       $this->setPassword($password);
-      $this->setAge($age);
+      $this->setBirthday($age);
       $this->setCreated_at();
       $this->setUpdated_at();
 
-      $this->photo = new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO , "default" , "png");
+      $this->photo     = new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO     , "default" , "png");
+      $this->thumbnail = new Attachment(ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , "default" , "png");
     }
     public function __construct($name, $email, $password){
       $this->setFirstName($name);
@@ -48,7 +49,10 @@
       $this->setPassword($password);
       $this->setCreated_at();
       $this->setUpdated_at();
-      $this->setAge(0);
+      $this->setBirthday(0);
+
+      $this->photo     = new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO     , "default" , "png");
+      $this->thumbnail = new Attachment(ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , "default" , "png");
     }
 
     public function changePhoto($tmp_photo) {
@@ -96,16 +100,12 @@
       $this->password = $password;
     }
 
-    public function getAge() {
-      return $this->age;
+    public function getBirthday() {
+      return $this->birthday;
     }
 
-    public function setAge($age) {
-      if ($age < 0 | $age >120) {
-        throw new WrongAgeException("Idade fora do padrão","Improbable age" , $age);
-      }else{
-        $this->age = $age;
-      }
+    public function setBirthday($birthday) {
+      $this->birthday = $birthday;
     }
 
     public function getCreated_At() {

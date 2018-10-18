@@ -19,12 +19,12 @@
 
       $sql = "SELECT * FROM user WHERE email = '$objectUser->email'";
       if($conector->query($sql) === NULL){
-        $sql = 'INSERT INTO User (first_name , last_name , email, password , age , created_at , updated_at , photo_id , thumbnail) VALUES (?,?,?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO User (first_name , last_name , email, password , birthday , created_at , updated_at , photo_id , thumbnail_id) VALUES (?,?,?,?,?,?,?,?,?)';
         $stmt = $conector->prepare($sql);
 
 
 
-        $stmt->bind_param("ssssissii", $objectUser->getFirstName(), $objectUser->getLastName() , $objectUser->getEmail(), $objectUser->getPassword() , $objectUser->getAge() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() );
+        $stmt->bind_param("sssssssii", $objectUser->getFirstName(), $objectUser->getLastName() , $objectUser->getEmail(), $objectUser->getPassword() , $objectUser->getBirthday() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() );
 
         if (!$stmt) {
           throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
@@ -49,6 +49,20 @@
 
       //Refresh updated_at
       $objectUser->setUpdated_at();
+
+      $sql = "UPDATE User SET first_name = ? , last_name = ? , email = ? , password = ? , birthday = ? , created_at = ? , updated_at = ? , photo_id = ? , thumbnail_id = ? WHERE id = ? "
+      $stmt = $conector->prepare($sql);
+      $stmt->bind_param("sssssssiii",  $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() , $objectUser->getId() );
+
+      if (!$stmt) {
+        throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
+      }
+
+      $stmt->execute();
+
+      if (!$stmt) {
+        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+      }
 
     }
 
@@ -83,7 +97,7 @@
             $data["lastName"],
             $data["email"],
             $data["password"],
-            $data["age"],
+            $data["birthday"],
             $data["created_at"],
             $data["updated_at"],
             $photo,

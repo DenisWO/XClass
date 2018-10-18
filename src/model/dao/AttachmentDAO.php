@@ -45,9 +45,9 @@
       //Refresh updated_at();
       $objectAttachment->setUpdated_at();
 
-      $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? , created_at = ? , updated_at = ? WHERE id = '$objectAttachment->getId()' "
+      $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? , created_at = ? , updated_at = ? WHERE id = ? "
       $stmt = $conector->prepare($sql);
-      $stmt->bind_param("sssss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() );
+      $stmt->bind_param("sssssi", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() , $objectAttachment->getId() );
 
       if (!$stmt) {
         throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
