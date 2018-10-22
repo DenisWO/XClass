@@ -1,29 +1,25 @@
 <?php
 
-  include '../../model/User.php';
-  include '../connection/Connection.php';
+  include './../../model/bean/User.php';
+  include './ValidateLogin.php';
 
-  public function login() {
-    $user = null;
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
+  public function login(){
     try {
-      $dao = new UserDAO();
-      $user = $dao->loadEmail($email);
+      session_start();
 
-      if($user->getPassword === $password){
-        echo "Logado com sucesso!";
-      }else{
-        throw new WrongPasswordException("Senha inválida!" , $email);
-      }
-    }catch(CannotConnectSQLException $e) {
+      $user = validateLogin($_POST['email'] , $_POST['password']);
+
+      $_SESSION = $user->getId();
+      echo "Login realizado com sucesso!";
+    }catch (CannotConnectSQLException $e) {
       echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
-    }catch(SQLException $e) {
+    }catch (SQLException $e) {
       echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
-    }catch(UnregistredUserException $e) {
+    }catch (WrongPasswordException $e) {
+      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
+    }catch (UnregistredUserException $e) {
       echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }
   }
-
+  
 ?>
