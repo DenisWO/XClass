@@ -1,7 +1,7 @@
 <?php
 
-  include './../../model/bean/User.php';
-  include './../../model/dao/UserDAO.php';
+  include_once './../../model/bean/User.php';
+  include_once './../../model/dao/UserDAO.php';
 
   //Esta função retorna TRUE caso o email e senha conferem
   //Exceções que podem ser lançadas:
@@ -20,5 +20,5 @@
       throw new WrongPasswordException("Senha inválida!" , $email);
     }
   }
-  
+
 ?>

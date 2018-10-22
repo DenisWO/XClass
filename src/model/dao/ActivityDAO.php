@@ -1,10 +1,10 @@
 <?php
-  include './../connection/Connection.php';
-  include './../bean/Activity.php';
+  include_once './../connection/Connection.php';
+  include_once './../bean/Activity.php';
 
   class Activity() {
     public function __construct() {
-      
+
     }
 
     //Save a new Activity

@@ -3,8 +3,8 @@
   /*Essa função tem o intuito de cadastrar rapidamente o cliente que deseja utilizar
   o sistema e ainda não possui login*/
 
-  include './../../model/bean/User.php';
-  include './SaveUser.php';
+  include_once './../../model/bean/User.php';
+  include_once './SaveUser.php';
 
   $user;
   $name = $_POST['name'];

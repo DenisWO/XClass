@@ -1,10 +1,10 @@
 <?php
-  include './../connection/Connection.php';
-  include './../bean/Attachment.php';
+  include_once './../connection/Connection.php';
+  include_once './../bean/Attachment.php';
 
   class AttachmentDAO() {
     public function __construct() {
-      
+
     }
 
     //Save a new Attachment

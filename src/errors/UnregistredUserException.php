@@ -1,5 +1,7 @@
 <?php
 
+  include_once './Exception.php';
+
   class UnregistredUserException extends Exception{
 
     private $email;

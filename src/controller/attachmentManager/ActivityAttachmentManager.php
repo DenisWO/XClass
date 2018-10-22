@@ -1,7 +1,7 @@
 <?php
 
-  include "./../model/dao/Connection.php";
-  include "./../model/bean/Attachment.php";
+  include_once "./../../model/bean/Attachment.php";
+  include_once "./../../model/dao/AttachmentDAO.php";
 
   class ActivityAttachmentManager{
     const PATH_ACTIVIES_DELIVERY = "./../resources/image/activies_delivery";

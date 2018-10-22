@@ -1,10 +1,10 @@
 <?php
-  include './../connection/Connection.php';
-  include './../bean/User.php';
+  include_once './../connection/Connection.php';
+  include_once './../bean/User.php';
 
   class UserDAO() {
     public function __construct() {
-      
+
     }
 
     //Save a new User

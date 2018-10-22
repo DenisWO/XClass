@@ -1,7 +1,7 @@
 <?php
 
-  include './../../model/bean/User.php';
-  include './../../model/dao/UserDAO.php';
+  include_once './../../model/bean/User.php';
+  include_once './../../model/dao/UserDAO.php';
 
   private function saveNewUser($user) {
     try {

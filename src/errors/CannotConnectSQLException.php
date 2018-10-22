@@ -1,5 +1,7 @@
 <?php
 
+  include_once './SQLException.php';
+
   class CannotConnectSQLException extends SQLException{
 
     private $mysqli;

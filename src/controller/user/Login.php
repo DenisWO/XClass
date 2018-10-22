@@ -1,7 +1,7 @@
 <?php
 
-  include './../../model/bean/User.php';
-  include './ValidateLogin.php';
+  include_once './../../model/bean/User.php';
+  include_once './../validate/ValidateLogin.php';
 
   public function login(){
     try {
@@ -21,5 +21,5 @@
       echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
     }
   }
-  
+
 ?>

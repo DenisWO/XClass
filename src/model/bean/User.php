@@ -1,6 +1,7 @@
 <?php
 
-  include "./../controller/attachmentManager/ProfileAttachmentManager.php";
+  include_once "./../controller/attachmentManager/ProfileAttachmentManager.php";
+  include_once "./../../controller/validate/ValidationUser.php";
 
   class User{
 
@@ -73,7 +74,9 @@
     }
 
     public function setFirstName($firstName) {
-      $this->firstName = $firstName;
+      if (validateFirstName($firstName)) {
+        $this->firstName = $firstName;
+      }
     }
 
     public function getLastName() {
@@ -81,7 +84,9 @@
     }
 
     public function setLastName($lastName) {
-      $this->lastName = $lastName;
+      if (validateLastName($lastName)) {
+        $this->lastName = $lastName;
+      }
     }
 
     public function getEmail() {
@@ -89,7 +94,9 @@
     }
 
     public function setEmail($email) {
-      $this->email-> $email;
+      if (validateEmail($email)) {
+          $this->email-> $email;
+      }
     }
 
     public function getPassword() {

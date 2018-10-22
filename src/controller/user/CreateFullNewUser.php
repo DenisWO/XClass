@@ -2,8 +2,8 @@
 
   /*Essa função tem o intuito de cadastrar um cliente completo */
 
-  include './../../model/bean/User.php';
-  include './SaveUser.php';
+  include_once './../../model/bean/User.php';
+  include_once './SaveUser.php';
 
   $user;
   $firstName = $_POST['firstName'];

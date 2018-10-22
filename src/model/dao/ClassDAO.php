@@ -1,10 +1,10 @@
 <?php
-  include './../connection/Connection.php';
-  include './../bean/Class.php';
+  include_once './../connection/Connection.php';
+  include_once './../bean/Class.php';
 
   class Class() {
     public function __construct() {
-      
+
     }
 
     //Save a new Class

@@ -1,5 +1,7 @@
 <?php
 
+  include_once './Exception.php';
+
   class SQLException extends Exception{
 
     private $mysqli;
