@@ -41,8 +41,8 @@
       $this->setCreated_at();
       $this->setUpdated_at();
 
-      $this->photo     = new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO     , "default" , "png");
-      $this->thumbnail = new Attachment(ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , "default" , "png");
+      $this->photo     = ProfileAttachmentManager::getDefaultPhoto();
+      $this->thumbnail = ProfileAttachmentManager::getDefaultThumbnail();
     }
     public function __construct($name, $email, $password){
       $this->setFirstName($name);
@@ -53,13 +53,18 @@
       $this->setUpdated_at();
       $this->setBirthday(0);
 
-      $this->photo     = new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO     , "default" , "png");
-      $this->thumbnail = new Attachment(ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , "default" , "png");
+      $this->photo     = ProfileAttachmentManager::getDefaultPhoto();
+      $this->thumbnail = ProfileAttachmentManager::getDefaultThumbnail();
     }
 
+    //Esta função pode lançar as seguintes exceções:
+    //CannotConnectSQLException, SQLException, Created_atException, WrongObjectException, NullException e NotAImageException
     public function changePhoto($tmp_photo) {
       $profileAttachmentManager = new ProfileAttachmentManager();
-      $this = $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
+      $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
+
+      $this->setPhoto($profileAttachmentManager->getPhoto());
+      $this->setThumbnail($profileAttachmentManager->getThumbnail());
     }
 
     public function getId() {
