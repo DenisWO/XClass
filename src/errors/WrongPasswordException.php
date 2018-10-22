@@ -4,15 +4,12 @@
 
   class WrongPasswordException extends Exception{
 
+    const MENSAGEM_DEFAULT = "Password incorreto";
+
     private $email;
 
     public function __construct($messageToUser , $messageToDeveloper , $email) {
-      parent::__construct($messageToUser, $messageToDeveloper);
-      $this->setEmail($email);
-    }
-
-    public function __construct($messageToUserAndToDeveloper , $email) {
-      parent::__construct($messageToUserAndToDeveloper, $messageToUserAndToDeveloper);
+      parent::__construct(WrongPasswordException::MENSAGEM_DEFAULT);
       $this->setEmail($email);
     }
 

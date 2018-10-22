@@ -4,12 +4,10 @@
 
   class Created_atException extends Exception{
 
-    public function __construct($messageToUser , $messageToDeveloper) {
-      parent::__construct($messageToUser, $messageToDeveloper);
-    }
+    const MENSAGEM_DEFAULT = "Created_at não pode ser alterado duas vezes";
 
-    public function __construct($messageToUserAndToDeveloper) {
-      parent::__construct($messageToUserAndToDeveloper, $messageToUserAndToDeveloper);
+    public function __construct() {
+      parent::__construct(Created_atException::MENSAGEM_DEFAULT);
     }
 
   }

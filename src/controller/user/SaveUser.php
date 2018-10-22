@@ -2,6 +2,10 @@
 
   include_once './../../model/bean/User.php';
   include_once './../../model/dao/UserDAO.php';
+  include_once './../../errors/CannotConnectSQLException.php';
+  include_once './../../errors/SQLException.php';
+  include_once './../../errors/WrongObjectException.php';
+  include_once './../../errors/EmailAlreadyRegistered.php';
 
   private function saveNewUser($user) {
     try {

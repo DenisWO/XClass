@@ -2,6 +2,7 @@
 
   include_once "./../controller/attachmentManager/ProfileAttachmentManager.php";
   include_once "./../../controller/validate/ValidationUser.php";
+  include_once "./../../errors/Created_atException.php";
 
   class User{
 
@@ -66,7 +67,7 @@
     }
 
     public function setId($id) {
-      $this->id = $id;
+      $this->id = $id;include_once "./../../error/Created_atException.php";
     }
 
     public function getFirstName() {
@@ -123,7 +124,7 @@
       if (empty($this->created_at)) {
         $this->created_at = date('Y-m-d H:i:s');
       }else{
-        throw new Created_atException("Can only be created once");
+        throw new Created_atException();
       }
     }
 

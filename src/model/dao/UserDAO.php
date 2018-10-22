@@ -1,8 +1,14 @@
 <?php
-  include_once './../connection/Connection.php';
+
+  include_once './../../connection/Connection.php';
   include_once './../bean/User.php';
+  include_once './../../errors/WrongObjectException.php';
+  include_once './../../errors/SQLException.php';
+  include_once './../../errors/EmailAlreadyRegistered.php';
+  include_once './../../errors/UnregistredUserException.php';
 
   class UserDAO() {
+
     public function __construct() {
 
     }
@@ -10,7 +16,7 @@
     //Save a new User
     public function save($objectUser) {
       if (get_class($objectUser) == "User") {
-        throw new WrongObjectException("Wrong object" , "User" , get_class($objectUser));
+        throw new WrongObjectException("User" , get_class($objectUser));
       }
 
       $sql = "SELECT * FROM user WHERE email = '$objectUser->email'";
@@ -23,24 +29,24 @@
         $stmt->bind_param("sssssssii", $objectUser->getFirstName(), $objectUser->getLastName() , $objectUser->getEmail(), $objectUser->getPassword() , $objectUser->getBirthday() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() );
 
         if (!$stmt) {
-          throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
+          throw new SQLException($stmt , $sql);
         }
 
         $stmt->execute();
 
         if (!$stmt) {
-          throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+          throw new SQLException($stmt , $sql);
         }
       }
       else{
-        throw new EmailAlreadyRegistered("Esse email já está cadastrado por um usuário!" , $email);
+        throw new EmailAlreadyRegistered($email);
       }
     }
 
     //Update an existing user
     public function update($objectUser) {
       if (get_class($objectUser) == "User") {
-        throw new WrongObjectException("Wrong object" , "User" , get_class($objectUser));
+        throw new WrongObjectException("User" , get_class($objectUser));
       }
 
       //Refresh updated_at
@@ -51,13 +57,13 @@
       $stmt->bind_param("sssssssiii",  $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() , $objectUser->getId() );
 
       if (!$stmt) {
-        throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
+        throw new SQLException($stmt , $sql);
       }
 
       $stmt->execute();
 
       if (!$stmt) {
-        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+        throw new SQLException($stmt , $sql);
       }
 
     }
@@ -104,16 +110,17 @@
           throw $e;
         }
       }else{
-        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+        throw new SQLException($stmt , $sql);
       }
 
-      throw new UnregistredUserException("Email incorreto" , $email);
+      throw new UnregistredUserException($email);
     }
 
     //Delete an existing user
     public function delete() {
 
     }
+
   }
 
 ?>

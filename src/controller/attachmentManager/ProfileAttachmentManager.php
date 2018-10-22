@@ -2,6 +2,7 @@
 
   include_once "./../../model/dao/AttachmentDAO.php";
   include_once "./../../model/bean/Attachment.php";
+  include_once "./../../errors/WrongObjectException.php";
 
   class ProfileAttachmentManager{
 
@@ -16,8 +17,9 @@
       //Construction default
     }
 
+    //Esta função pode lançar as seguintes exceções:
+    //CannotConnectSQLException, SQLException, Created_atException e WrongObjectException
     public function updateProfilePhoto ($objectUser , $tmp_photo) {
-      //Esta função pode lançar as seguintes exceções CannotConnectSQLException, SQLException, Created_atException e WrongObjectException
 
       //Checks whether the object is null
       if (!empty($objectUser)) {
@@ -27,7 +29,7 @@
 
       //Checks if there is a user object
       if (get_class($objectUser) == "User") {
-        $error = "Wrong object";
+        throw new WrongObjectException("User" , get_class($objectUser));
         return;
       }
 

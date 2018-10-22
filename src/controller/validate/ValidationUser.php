@@ -1,5 +1,7 @@
 <?php
 
+  include_once "./../../error/WrongObjectException.php";
+
   function validateFirstName($firstName){
     if(gettype($firstName) == string) return TRUE;
     else throw new WrongObjectException("Type Object not validated" , "string" , gettype($firstName));

@@ -1,8 +1,11 @@
 <?php
-  include_once './../connection/Connection.php';
+
+  include_once './../../connection/Connection.php';
   include_once './../bean/ActivityDelivery.php';
+  include_once './../../errors/WrongObjectException.php';
 
   class Class() {
+
     public function __construct() {
 
     }
@@ -10,7 +13,7 @@
     //Save a new ActivityDelivery
     public function save($objectActivityDelivery) {
       if (get_class($objectActivityDelivery) == "Class") {
-        throw new WrongObjectException("Wrong object" , "ActivityDelivery" , get_class($objectActivityDelivery));
+        throw new WrongObjectException("ActivityDelivery" , get_class($objectActivityDelivery));
       }
 
     }
@@ -18,7 +21,7 @@
     //Update an existing ActivityDelivery
     public function update($objectActivityDelivery) {
       if (get_class($objectActivityDelivery) == "Class") {
-        throw new WrongObjectException("Wrong object" , "ActivityDelivery" , get_class($objectActivityDelivery));
+        throw new WrongObjectException("ActivityDelivery" , get_class($objectActivityDelivery));
       }
 
     }
@@ -37,6 +40,7 @@
     public function delete() {
 
     }
+
   }
 
 ?>
