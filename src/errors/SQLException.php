@@ -1,18 +1,20 @@
 <?php
 
+  include_once './Exception.php';
+
   class SQLException extends Exception{
+
+    const MENSAGEM_DEFAULT = "Ocorreu um erro ao tentar realizar comandos SQL";
 
     private $mysqli;
     private $querySql;
 
-    public function __construct($messageToUser , $messageToDeveloper , $mysqli , $querySql) {
-      parent::__construct($messageToUser, $messageToDeveloper);
-      $this->setMysqli($mysqli);
-      $this->setQuerySql($querySql);
+    public function __construct() {
+      parent::__construct(SQLException::MENSAGEM_DEFAULT);
     }
 
-    public function __construct($messageToUserAndToDeveloper , $mysqli , $querySql) {
-      parent::__construct($messageToUserAndToDeveloper, $messageToUserAndToDeveloper);
+    public function __construct($mysqli , $querySql) {
+      parent::__construct(SQLException::MENSAGEM_DEFAULT);
       $this->setMysqli($mysqli);
       $this->setQuerySql($querySql);
     }

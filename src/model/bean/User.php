@@ -1,6 +1,8 @@
 <?php
 
-  include "./../controller/attachmentManager/ProfileAttachmentManager.php";
+  include_once "./../controller/attachmentManager/ProfileAttachmentManager.php";
+  include_once "./../../controller/validate/ValidationUser.php";
+  include_once "./../../errors/Created_atException.php";
 
   class User{
 
@@ -39,8 +41,8 @@
       $this->setCreated_at();
       $this->setUpdated_at();
 
-      $this->photo     = new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO     , "default" , "png");
-      $this->thumbnail = new Attachment(ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , "default" , "png");
+      $this->photo     = ProfileAttachmentManager::getDefaultPhoto();
+      $this->thumbnail = ProfileAttachmentManager::getDefaultThumbnail();
     }
     public function __construct($name, $email, $password){
       $this->setFirstName($name);
@@ -51,13 +53,18 @@
       $this->setUpdated_at();
       $this->setBirthday(0);
 
-      $this->photo     = new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO     , "default" , "png");
-      $this->thumbnail = new Attachment(ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , "default" , "png");
+      $this->photo     = ProfileAttachmentManager::getDefaultPhoto();
+      $this->thumbnail = ProfileAttachmentManager::getDefaultThumbnail();
     }
 
+    //Esta função pode lançar as seguintes exceções:
+    //CannotConnectSQLException, SQLException, Created_atException, WrongObjectException, NullException e NotAImageException
     public function changePhoto($tmp_photo) {
       $profileAttachmentManager = new ProfileAttachmentManager();
-      $this = $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
+      $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
+
+      $this->setPhoto($profileAttachmentManager->getPhoto());
+      $this->setThumbnail($profileAttachmentManager->getThumbnail());
     }
 
     public function getId() {
@@ -65,7 +72,7 @@
     }
 
     public function setId($id) {
-      $this->id = $id;
+      $this->id = $id;include_once "./../../error/Created_atException.php";
     }
 
     public function getFirstName() {
@@ -73,7 +80,9 @@
     }
 
     public function setFirstName($firstName) {
-      $this->firstName = $firstName;
+      if (validateFirstName($firstName)) {
+        $this->firstName = $firstName;
+      }
     }
 
     public function getLastName() {
@@ -81,7 +90,9 @@
     }
 
     public function setLastName($lastName) {
-      $this->lastName = $lastName;
+      if (validateLastName($lastName)) {
+        $this->lastName = $lastName;
+      }
     }
 
     public function getEmail() {
@@ -89,7 +100,9 @@
     }
 
     public function setEmail($email) {
-      $this->email-> $email;
+      if (validateEmail($email)) {
+          $this->email-> $email;
+      }
     }
 
     public function getPassword() {
@@ -116,7 +129,7 @@
       if (empty($this->created_at)) {
         $this->created_at = date('Y-m-d H:i:s');
       }else{
-        throw new Created_atException("Can only be created once");
+        throw new Created_atException();
       }
     }
 

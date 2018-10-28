@@ -1,16 +1,15 @@
 <?php
 
+  include_once './Exception.php';
+
   class UnregistredUserException extends Exception{
+
+    const MENSAGEM_DEFAULT = "Usuário não registrado"
 
     private $email;
 
-    public function __construct($messageToUser , $messageToDeveloper , $email) {
-      parent::__construct($messageToUser, $messageToDeveloper);
-      $this->setEmail($email);
-    }
-
-    public function __construct($messageToUserAndToDeveloper , $email) {
-      parent::__construct($messageToUserAndToDeveloper, $messageToUserAndToDeveloper);
+    public function __construct($email) {
+      parent::__construct(UnregistredUserException::MENSAGEM_DEFAULT);
       $this->setEmail($email);
     }
 

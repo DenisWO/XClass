@@ -1,20 +1,21 @@
 <?php
-  include './../connection/Connection.php';
-  include './../bean/Attachment.php';
+
+  include_once './../../connection/Connection.php';
+  include_once './../bean/Attachment.php';
+  include_once './../../errors/WrongObjectException.php';
+  include_once './../../errors/SQLException.php';
+  include_once './../../errors/NotFoundSQLException.php';
 
   class AttachmentDAO() {
+
     public function __construct() {
-      try {
-        connection();
-      }catch(CannotConnectSQLException $e) {
-        throw $e;
-      }
+
     }
 
     //Save a new Attachment
     public function save($objectAttachment) {
       if (get_class($objectAttachment) == "Attachment") {
-        throw new WrongObjectException("Wrong object" , "Attachment" , get_class($objectAttachment));
+        throw new WrongObjectException("Attachment" , get_class($objectAttachment));
       }
 
       if(empty($objectAttachment->getId())){
@@ -23,23 +24,23 @@
         $stmt->bind_param("sssss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() );
 
         if (!$stmt) {
-          throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
+          throw new SQLException($stmt , $sql);
         }
 
         $stmt->execute();
 
         if (!$stmt) {
-          throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+          throw new SQLException($stmt , $sql);
         }
       }else{
-        $this->update($objectAttachment);
+        $this->update($objectAttachmenSQLExceptiont);
       }
     }
 
     //Update an existing Attachment
     public function update($objectAttachment) {
       if (get_class($objectAttachment) == "Attachment") {
-        throw new WrongObjectException("Wrong object" , "Attachment" , get_class($objectAttachment));
+        throw new WrongObjectException("Attachment" , get_class($objectAttachment));
       }
 
       //Refresh updated_at();
@@ -50,13 +51,13 @@
       $stmt->bind_param("sssssi", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() , $objectAttachment->getId() );
 
       if (!$stmt) {
-        throw new SQLException("Não foi possivel processar a query" , $stmt , $sql);
+        throw new SQLException($stmt , $sql);
       }
 
       $stmt->execute();
 
       if (!$stmt) {
-        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+        throw new SQLException($stmt , $sql);
       }
     }
 
@@ -81,10 +82,10 @@
         );
         return $attachment;
       }else{
-        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+        throw new SQLException($stmt , $sql);
       }
 
-      throw new NotFoundSQLException("Nenhum registro encontrado" , $conect);
+      throw new NotFoundSQLException($conect);
     }
 
     //Loads only the filename specific Attachment
@@ -103,10 +104,10 @@
         );
         return $attachment;
       }else{
-        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+        throw new SQLException($stmt , $sql);
       }
 
-      throw new NotFoundSQLException("Nenhum registro encontrado" , $conect);
+      throw new NotFoundSQLException($conect);
     }
 
     public function load($directory , $filename , $extension) {
@@ -124,16 +125,17 @@
         );
         return $attachment;
       }else{
-        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
+        throw new SQLException($stmt , $sql);
       }
 
-      throw new NotFoundSQLException("Nenhum registro encontrado" , $conect);
+      throw new NotFoundSQLException($conect);
     }
 
     //Delete an existing Attachment
     public function delete() {
 
     }
+
   }
 
 ?>

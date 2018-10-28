@@ -1,5 +1,7 @@
 <?php
 
+  include_once "./../../errors/Created_atException.php";
+
   class Attachment{
 
     var $id;
@@ -70,7 +72,7 @@
       if (empty($this->created_at)) {
         $this->created_at = date('Y-m-d H:i:s');
       }else{
-        throw new Created_atException("Can only be created once");
+        throw new Created_atException();
       }
     }
 

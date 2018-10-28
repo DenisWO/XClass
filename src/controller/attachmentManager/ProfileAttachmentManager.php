@@ -1,7 +1,10 @@
 <?php
 
-  include "./../model/dao/Connection.php";
-  include "./../model/bean/Attachment.php";
+  include_once "./../../model/dao/AttachmentDAO.php";
+  include_once "./../../model/bean/Attachment.php";
+  include_once "./../../errors/WrongObjectException.php";
+  include_once "./../../errors/NullException.php";
+  include_once "./../../errors/NotAImageException.php";
 
   class ProfileAttachmentManager{
 
@@ -12,22 +15,28 @@
     const THUMBNAIL_WIDTH = 200; // Pixels
     const THUMBNAIL_HEIGTH = 200; // Pixels
 
+    const ATTACHMENT_NAME_DEFAULT_PHOTO     = "default";
+    const ATTACHMENT_NAME_DEFAULT_THUMBNAIL = "default";
+
+    private $thumbnail;
+    private $photo;
+
     public function __construct() {
       //Construction default
     }
 
-    public function updateProfilePhoto ($objectUser , $tmp_photo) {
-      //Esta função pode lançar as seguintes exceções CannotConnectSQLException, SQLException, Created_atException e WrongObjectException
+    //Esta função pode lançar as seguintes exceções:
+    //CannotConnectSQLException, SQLException, Created_atException, WrongObjectException, NullException e NotAImageException
+    public function updateProfilePhoto($objectUser , $tmp_photo) {
 
       //Checks whether the object is null
       if (!empty($objectUser)) {
-        $error = "Null object";
-        return $erro;
+        throw new NullException($objectUser);
       }
 
       //Checks if there is a user object
       if (get_class($objectUser) == "User") {
-        $error = "Wrong object";
+        throw new WrongObjectException("User" , get_class($objectUser));
         return;
       }
 
@@ -35,20 +44,17 @@
       //A user object will only have an ID when it is saved on BDA
       //A new user should be saved with the default photo
       if (!empty($objectUser["id"])) {
-        $error = "User without id";
-        return $erro;
+        throw new NullException($objectUser);
       }
 
       //Check if there is an image to save
       if (!empty($tmp_photo) {
-        $error = "Nothing to save";
-        return $erro;
+        throw new NullException($tmp_photo);
       }
 
       //Check if there is an image
       if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $tmp_photo["type"])) {
-				$error = "This is not a image";
-        return $erro;
+				throw new NotAImageException($tmp_photo);
       }
 
       //Take the path where the file will be saved
@@ -74,12 +80,9 @@
         $dao->save($attachment);
       }
 
+      $this->photo = $attachment;
+
       $thumbnail = generateThumbnail($attachment);
-
-      $objectUser->setPhoto($attachment);
-      $objectUser->setThumbnail($thumbnail);
-
-      return $objectUser;
     }
 
     private function generateThumbnail($attachment){
@@ -117,13 +120,10 @@
       imagejpeg($image_p, ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL . "/" . $attachment->getFullFilename() , 75);
 
       // Atualiza os registros no banco
-      $thumbnail = updateThumbnail($attachment->getFilename() , $attachment->getExtension());
-
-      return $thumbnail;
+      $this->thumbnail = updateThumbnail($attachment->getFilename() , $attachment->getExtension());
     }
 
     private function updateThumbnail($filename , $extension) {
-      //Esta função pode lançar as seguintes exceções CannotConnectSQLException, SQLException, Created_atException e WrongObjectException
 
       $directory = ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL;
 
@@ -142,6 +142,22 @@
       }
 
       return $thumbnail;
+    }
+
+    public function getPhoto() {
+      return $this->photo;
+    }
+
+    public function getThumbnail() {
+      return $this->thumbnail;
+    }
+
+    public static function getDefaultPhoto() {
+      return new Attachment(ProfileAttachmentManager::PATH_PROFILE_PHOTO     , ATTACHMENT_NAME_DEFAULT_PHOTO     , "png");
+    }
+
+    public static function getDefaultThumbnail() {
+      return new Attachment(ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , ATTACHMENT_NAME_DEFAULT_THUMBNAIL , "png");
     }
 
   }

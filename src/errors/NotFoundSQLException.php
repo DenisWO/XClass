@@ -1,24 +1,20 @@
 <?php
 
+  include_once './SQLException.php';
+
   class NotFoundSQLException extends SQLException{
+
+    const MENSAGEM_DEFAULT = "O registro não foi encontrado no banco";
 
     private $mysqli;
 
-    public function __construct($messageToUser , $messageToDeveloper) {
-      parent::__construct($messageToUser, $messageToDeveloper);
-    }
-
-    public function __construct($messageToUserAndToDeveloper) {
-      parent::__construct($messageToUserAndToDeveloper, $messageToUserAndToDeveloper);
-    }
-
-    public function __construct($messageToUser , $messageToDeveloper , $mysqli) {
-      parent::__construct($messageToUser, $messageToDeveloper);
+    public function __construct() {
+      parent::__construct(NotFoundSQLException::MENSAGEM_DEFAULT);
       $this->setMysqli($mysqli);
     }
 
-    public function __construct($messageToUserAndToDeveloper , $mysqli) {
-      parent::__construct($messageToUserAndToDeveloper, $messageToUserAndToDeveloper);
+    public function __construct($mysqli) {
+      parent::__construct(NotFoundSQLException::MENSAGEM_DEFAULT);
       $this->setMysqli($mysqli);
     }
 

@@ -1,18 +1,16 @@
 <?php
 
+  include_once './Exception.php';
+
   class WrongAgeException extends Exception{
+
+    const MENSAGEM_DEFAULT = "Tipo de objeto não esperado";
 
     private $objectTypeExpected;
     private $objectTypeArrived;
 
     public function __construct($messageToUser , $messageToDeveloper , $objectTypeExpected , $objectTypeArrived) {
-      parent::__construct($messageToUser, $messageToDeveloper);
-      $this->setObjectTypeExpected($objectTypeExpected);
-      $this->setObjectTypeArrived($objectTypeArrived);
-    }
-
-    public function __construct($messageToUserAndToDeveloper , $objectTypeExpected , $objectTypeArrived) {
-      parent::__construct($messageToUserAndToDeveloper, $messageToUserAndToDeveloper);
+      parent::__construct(WrongAgeException::MENSAGEM_DEFAULT);
       $this->setObjectTypeExpected($objectTypeExpected);
       $this->setObjectTypeArrived($objectTypeArrived);
     }
