@@ -18,7 +18,7 @@
       if (get_class($objectUser) == "User") {
         throw new WrongObjectException("User" , get_class($objectUser));
       }
-      $sql = "SELECT * FROM user WHERE email = '$objectUser->email'";
+      $sql = "SELECT * FROM user WHERE email = " . $objectUser->email;
       if($conector->query($sql) === NULL){
         $sql = 'INSERT INTO User (first_name , last_name , email, password , birthday , created_at , updated_at , photo_id , thumbnail_id) VALUES (?,?,?,?,?,?,?,?,?)';
         $stmt = $conector->prepare($sql);
@@ -65,7 +65,7 @@
 
     //Load ALL users
     public function loadAll() {
-      
+
     }
 
     //Loads only the id specific user
