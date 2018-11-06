@@ -72,34 +72,32 @@
     public function loadAll() {
       $sql = "SELECT * FROM class";
       $stmt = $conector->query($sql);
-      while($dados = $stmt->fetch_array());
-      return $dados;
+      return $stmt;
     }
 
     //Loads only the id specific Class
     public function loadId($id) {
       $sql = "SELECT * FROM class WHERE id = " . $id;
       $stmt = $conector->query($sql);
-      while($dados = $stmt->fetch_array());
-      return $dados;
+      return $stmt;
     }
 
     //Delete an existing Class
-    public function delete() {
-      $this->deleteStudents();
-      $sql = "DELETE FROM class";
+    public function deleteAll() {
+      $this->deleteAllStudents();
+      $sql = "DELETE FROM classes";
       $stmt = $conector->query($sql);
     }
-    public function deleteId($id){
-      $this->deleteAllStudents($id);
-      $sql = "DELETE FROM class WHERE id = " . $id;
+    public function deleteById($id){
+      $this->deleteStudentById($id);
+      $sql = "DELETE FROM classes WHERE id = " . $id;
       $stmt = $conector->query($sql);
     }
-    public function deleteAllStudents($classId){
-      $sql = "DELETE FROM students' WHERE class_id = " . $id;
+    public function deleteStudentById($classId){
+      $sql = "DELETE FROM students WHERE class_id = " . $id;
       $stmt = $conector->query($sql);
     }
-    public function deleteStudents(){
+    public function deleteAllStudents(){
       $sql = "DELETE FROM students";
       $stmt = $conector->query($sql);
     }
