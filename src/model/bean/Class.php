@@ -9,7 +9,7 @@
     private $created_at; //Object  Timestamp
     private $updated_at; //Object Timestamp
     private $students; //Array de objetos usuarios, usados como alunos
-
+    private $activities; //Array de atividades
 
     public function __construct($id, $name, $instituiton, $teacher, $updated_at, $created_at) {
       $this->setId($id);
@@ -66,10 +66,36 @@
         array_push($this->students, $student);
       }
     }
+    public function getStudents(){
+      return $this->students;
+    }
+    public function addStudent($student){
+      if(isset($student)){
+        $this->students[] = $student;
+      }
+    }
     public function removeStudent($student){
-      $index = array_search($student, $this->students)
+      $index = array_search($student, $this->students);
       if($index){
         unset($this->students[$index]);
+      }
+    }
+    public function setActivity($activity){
+      if(isset($activity)){
+        array_push($activity, $this->$activities);
+      }
+    }
+    public function getActivities(){
+      return $this->activities;
+    }
+    public function addActivity($activity){
+      if(isset($activity)){
+        $this->activities[] = $activity;
+      }
+    }
+    public function removeActivity($activity){
+      $index = array_search($activity, $this->activities){
+        unset($this->activities[$index]);
       }
     }
 

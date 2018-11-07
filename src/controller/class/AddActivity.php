@@ -5,14 +5,13 @@
   include_once './../../errors/CannotConnectSQLException.php';
   include_once './../../errors/SQLException.php';
   include_once './../../errors/WrongObjectException.php';
-  include_once './../../errors/EmailAlreadyRegistered.php';
 
-  private function addStudent($class, $student){
+  private function addActivity($class, $activity){
     try{
       $dao = new ClassDAO();
-      $dao->saveStudent($class, $student);
-      $class->addStudent($student);
-      echo "Aluno adicionado à turma com sucesso!";
+      $dao->saveActivity($class, $activity);
+      $class->addActivity($activity);
+      echo "Atividade adicionada à turma com sucesso!";
     }
     catch(Exception $e){
       echo "Excecao capturada " . $e->getMessageToUser(), "\n";

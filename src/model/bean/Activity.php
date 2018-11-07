@@ -1,17 +1,17 @@
 <?php
 
-  class Activity{
-    private $id;
-    private $class;
+  classId Activity{
+    private $id; //Id da atividade
+    private $classId; //classe ao qual a atividade está ligada
     private $name;
     private $description;
     private $dateDelivery;
     private $updated_at;
     private $created_at;
-    
-    public function __construct($id, $class, $name, $description, $dateDelivery, $updated_at, $created_at) {
+
+    public function __construct($id, $classId, $name, $description, $dateDelivery, $updated_at, $created_at) {
       $this->setId($id);
-      $this->setClass($class);
+      $this->setclassId($classId);
       $this->setName($name);
       $this->setDescription($description);
       $this->setDateDelivery($dateDelivery);
@@ -21,8 +21,8 @@
     public setId($id){
       $this->id = $id;
     }
-    public setClass($class){
-      $this->class = $class;
+    public setClassId($classId){
+      $this->classId = $classId;
     }
     public setName($name){
       $this->name = $name;
@@ -42,8 +42,8 @@
     public getId(){
       return $this->id;
     }
-    public getClass(){
-      return $this->class;
+    public getClassId(){
+      return $this->classId;
     }
     public getName(){
       return $this->name;
