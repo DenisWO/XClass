@@ -1,0 +1,19 @@
+#turma{
+   width: 300px;
+   height: 300px;
+   position: relative;
+   display: inline-block;
+   margin-top: 50px;
+}
+
+#disProf{
+   background-color: yellowgreen;
+}
+#nomeDisciplina{
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+   font-size: x-large;
+   margin: 0%;
+}
+#nomeProf{
+   font-family: 'Times New Roman', Times, sans-serif;
+}
