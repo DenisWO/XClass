@@ -1,9 +1,7 @@
 <?php
-  /*Os imports estão dando problema de arquivos não encontrados*/
-
-  //include_once "../../controller/attachmentManager/ProfileAttachmentManager.php";
-  //include_once "../../controller/validate/ValidationUser.php";
-  //include_once "../../errors/Created_atException.php";
+  include_once __DIR__ . "../../controller/attachmentManager/ProfileAttachmentManager.php";
+  include_once __DIR__ . "../../controller/validate/ValidationUser.php";
+  include_once __DIR__ . "../../errors/Created_atException.php";
 
   class User{
 

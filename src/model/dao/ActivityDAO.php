@@ -1,7 +1,7 @@
 <?php
-  include_once './../../connection/Connection.php';
-  include_once './../bean/Activity.php';
-  include_once './../../errors/WrongObjectException.php';
+  include_once __DIR__ . '/../../connection/Connection.php';
+  include_once __DIR__ . '/../bean/Activity.php';
+  include_once __DIR__ . '/../../errors/WrongObjectException.php';
 
   class ActivityDAO {
     public function __construct() {

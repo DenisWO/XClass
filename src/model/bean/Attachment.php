@@ -1,6 +1,6 @@
 <?php
 
-  include_once "./../../errors/Created_atException.php";
+  include_once __DIR__ . "/../../errors/Created_atException.php";
 
   class Attachment{
 

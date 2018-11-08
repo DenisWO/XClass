@@ -1,6 +1,9 @@
 <?php
-  include_once '../model/bean/User.php';
-  include_once '../model/dao/UserDAO.php';
+  include_once __DIR__ . '/../model/bean/User.php';
+  include_once __DIR__ . '/../model/dao/UserDAO.php';
+
+  $bancoDeDados = new Connection();
+  $bd = $bancoDeDados->getConnection();
 
   $id = 1;
   $firstName = "Joao";
@@ -23,5 +26,5 @@
   echo $user->getCreated_At();
   echo $user->getUpdated_At() . "<br />";*/
 
-  $dao = new UserDAO();
+  $dao = new UserDAO($bd);
 ?>

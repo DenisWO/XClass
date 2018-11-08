@@ -1,7 +1,7 @@
 <?php
-  include_once '../model/bean/XClass.php';
-  include_once '../model/dao/XClassDAO.php';
-  include_once '../connection/Connection.php';
+  include_once __DIR__ . '/../model/bean/XClass.php';
+  include_once __DIR__ . '/../model/dao/XClassDAO.php';
+  include_once __DIR__ . '/../connection/Connection.php';
   include 'TestUser.php';
 
   $bancoDeDados = new Connection();

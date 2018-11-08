@@ -1,6 +1,6 @@
 <?php
 
-  include_once "./../../errors/WrongObjectException.php";
+  include_once __DIR__ . "/../../errors/WrongObjectException.php";
 
   function validateFirstName($firstName){
     if(gettype($firstName) == string) return TRUE;

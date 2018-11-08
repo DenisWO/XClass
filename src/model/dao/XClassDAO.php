@@ -1,9 +1,9 @@
 <?php
 
-  include_once '../../connection/Connection.php';
-  include_once '../bean/XClass.php';
-  include_once '../../errors/WrongObjectException.php';
-  include_once '../../errors/SQLException.php';
+  include_once __DIR__ . '/../../connection/Connection.php';
+  include_once __DIR__ . '/../bean/XClass.php';
+  include_once __DIR__ . '/../../errors/WrongObjectException.php';
+  include_once __DIR__ . '/../../errors/SQLException.php';
 
   class XClassDAO{
 

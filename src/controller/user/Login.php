@@ -1,11 +1,11 @@
 <?php
 
-  include_once './../../model/bean/User.php';
-  include_once './../validate/ValidateLogin.php';
-  include_once './../../errors/CannotConnectSQLException.php';
-  include_once './../../errors/SQLException.php';
-  include_once './../../errors/WrongPasswordException.php';
-  include_once './../../errors/UnregistredUserException.php';
+  include_once __DIR__ . '/../../model/bean/User.php';
+  include_once __DIR__ . '/../validate/ValidateLogin.php';
+  include_once __DIR__ . '/../../errors/CannotConnectSQLException.php';
+  include_once __DIR__ . '/../../errors/SQLException.php';
+  include_once __DIR__ . '/../../errors/WrongPasswordException.php';
+  include_once __DIR__ . '/../../errors/UnregistredUserException.php';
 
   public function login(){
     try {

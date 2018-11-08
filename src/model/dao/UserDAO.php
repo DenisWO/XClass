@@ -8,14 +8,14 @@
   include_once '../../errors/UnregistredUserException.php';
 
   class UserDAO{
-
-    public function __construct() {
-
+    private $conector;
+    public function __construct($bd) {
+      $this->conector = $bd;
     }
 
     //Save a new User
     public function save($objectUser) {
-      if (get_class($objectUser) == "User") {
+      if (get_class($objectUser) !== "User") {
         throw new WrongObjectException("User" , get_class($objectUser));
       }
       $sql = "SELECT * FROM user WHERE email = " . $objectUser->email;

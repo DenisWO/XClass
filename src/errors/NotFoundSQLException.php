@@ -1,6 +1,6 @@
 <?php
 
-  include_once './SQLException.php';
+  include_once 'SQLException.php';
 
   class NotFoundSQLException extends SQLException{
 
