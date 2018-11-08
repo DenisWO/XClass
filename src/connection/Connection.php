@@ -1,10 +1,9 @@
 <?php
-class Connection{
-	private $servidor = "localhost";
-	private $banco = "XClass";
-	private $usuario = "root";
-	private $senha = "root";
-	public $conn;
+	$servidor = "localhost";
+	$banco = "XClass";
+	$usuario = "root";
+	$senha = "root";
+	$conn;
 	public function getConnection(){
 		$this->conn = null;
 		try{
@@ -14,5 +13,4 @@ class Connection{
 		}
 		return $this->conn;
 	}
-}
 ?>

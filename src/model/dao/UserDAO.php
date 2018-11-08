@@ -9,8 +9,8 @@
 
   class UserDAO{
     private $conector;
-    public function __construct($bd) {
-      $this->conector = $bd;
+    public function __construct() {
+      $this->conector = getConnection();
     }
 
     //Save a new User

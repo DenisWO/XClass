@@ -4,10 +4,11 @@
   include_once __DIR__ . '/../../errors/WrongObjectException.php';
 
   class ActivityDAO {
+    private $conector;
     public function __construct() {
-
+      $this->conector = getConnection();
     }
-
+    
     //Save a new Activity
     public function save($objectActivity) {
       if (get_class($objectActivity) == "Activity") {

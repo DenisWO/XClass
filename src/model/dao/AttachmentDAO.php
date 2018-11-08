@@ -7,11 +7,11 @@
   include_once __DIR__ . '/../../errors/NotFoundSQLException.php';
 
   class AttachmentDAO {
-
+    private $conector;
     public function __construct() {
-
+      $this->conector = getConnection();
     }
-
+    
     //Save a new Attachment
     public function save($objectAttachment) {
       if (get_class($objectAttachment) == "Attachment") {

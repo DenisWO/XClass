@@ -5,11 +5,11 @@
   include_once __DIR__ . '/../../errors/WrongObjectException.php';
 
   class Class() {
-
+    private $conector;
     public function __construct() {
-
+      $this->conector = getConnection();
     }
-
+    
     //Save a new ActivityDelivery
     public function save($objectActivityDelivery) {
       if (get_class($objectActivityDelivery) == "Class") {
