@@ -1,11 +1,11 @@
 <?php
 
-  include_once '../../connection/Connection.php';
-  include_once '../bean/User.php';
-  include_once '../../errors/WrongObjectException.php';
-  include_once '../../errors/SQLException.php';
-  include_once '../../errors/EmailAlreadyRegistered.php';
-  include_once '../../errors/UnregistredUserException.php';
+  include_once __DIR__ . '/../../connection/Connection.php';
+  include_once __DIR__ . '/../bean/User.php';
+  include_once __DIR__ . '/../../errors/WrongObjectException.php';
+  include_once __DIR__ . '/../../errors/SQLException.php';
+  include_once __DIR__ . '/../../errors/EmailAlreadyRegistered.php';
+  include_once __DIR__ . '/../../errors/UnregistredUserException.php';
 
   class UserDAO{
     private $conector;

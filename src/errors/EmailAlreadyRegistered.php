@@ -1,6 +1,6 @@
 <?php
 
-  include_once 'Exception.php';
+  //include_once 'Exception.php';
 
   class EmailAlreadyRegistered extends Exception{
 

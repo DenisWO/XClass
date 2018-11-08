@@ -4,12 +4,12 @@
 
   class Attachment{
 
-    var $id;
-    var $directory;
-    var $filename;
-    var $extension;
-    var $created_at; // Timestamp object
-    var $updated_at; // Timestamp object
+    private $id;
+    private $directory;
+    private $filename;
+    private $extension;
+    private $created_at; // Timestamp object
+    private $updated_at; // Timestamp object
 
     public function __construct($id , $directory , $filename , $extension , $created_at , $updated_at) {
       $this->setId($id);
@@ -20,13 +20,13 @@
       $this->setUpdated_at($updated_at);
     }
 
-    public function __construct( $directory , $filename , $extension ) {
+    /*public function __construct( $directory , $filename , $extension ) {
       $this->setDirectory($directory);
       $this->setFilename($filename);
       $this->setExtension($extension);
       $this->setCreated_at();
       $this->setUpdated_at();
-    }
+    }*/
 
     public function getFullFilename() {
       return $this->getFilename() . "." . $this->getExtension();
@@ -68,27 +68,27 @@
       return $this->created_at;
     }
 
-    private function setCreated_at() {
+    /*public function setCreated_at() {
       if (empty($this->created_at)) {
         $this->created_at = date('Y-m-d H:i:s');
       }else{
         throw new Created_atException();
       }
-    }
+    }*/
 
-    private function setCreated_at($date) {
-      $this->created_at = $date
+    public function setCreated_at($date) {
+      $this->created_at = $date;
     }
 
     public function getUpdated_at() {
       return $this->updated_at;
     }
 
-    public function setUpdated_at() {
+    /*public function setUpdated_at() {
       $this->updated_at = date('Y-m-d H:i:s');
-    }
+    }*/
 
-    private function setUpdated_at($date) {
+    public function setUpdated_at($date) {
       $this->updated_at = $date;
     }
 

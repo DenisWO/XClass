@@ -16,7 +16,7 @@
 
   $user = new User($id, $firstName, $lastName, $email, $password, $birthday, $created_at, $updated_at, null, null);
 
-  /*echo "Printando os dados de user: <br />";
+  echo "Printando os dados de user: <br />";
   echo $user->getId() . "<br />";
   echo $user->getFirstName() . "<br />";
   echo $user->getLastName() . "<br />";
@@ -24,7 +24,9 @@
   echo $user->getPassword() . "<br />";
   echo $user->getBirthday() . "<br />";
   echo $user->getCreated_At();
-  echo $user->getUpdated_At() . "<br />";*/
+  echo $user->getUpdated_At() . "<br />";
+
 
   $dao = new UserDAO($bd);
+  var_dump($dao);
 ?>

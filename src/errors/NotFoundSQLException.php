@@ -1,6 +1,6 @@
 <?php
 
-  include_once 'SQLException.php';
+  //include_once 'SQLException.php';
 
   class NotFoundSQLException extends SQLException{
 
@@ -13,10 +13,10 @@
       $this->setMysqli($mysqli);
     }
 
-    public function __construct($mysqli) {
+    /*public function __construct($mysqli) {
       parent::__construct(NotFoundSQLException::MENSAGEM_DEFAULT);
       $this->setMysqli($mysqli);
-    }
+    }**/
 
     public function getMysqli() {
       return $this->mysqli;

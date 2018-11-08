@@ -1,8 +1,8 @@
 <?php
 
-  include_once './../../connection/Connection.php';
-  include_once './../bean/ActivityDelivery.php';
-  include_once './../../errors/WrongObjectException.php';
+  include_once __DIR__ . '/../../connection/Connection.php';
+  include_once __DIR__ . '/../bean/ActivityDelivery.php';
+  include_once __DIR__ . '/../../errors/WrongObjectException.php';
 
   class Class() {
 

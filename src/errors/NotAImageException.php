@@ -1,8 +1,8 @@
 <?php
 
-  include_once 'Exception.php';
+  //include_once 'Exception.php';
 
-  class NullException extends Exception{
+  class NotAImageException extends Exception{
 
     const MENSAGEM_DEFAULT = "Era esperado uma imagem";
 
@@ -12,10 +12,10 @@
       parent::__construct(Created_atException::MENSAGEM_DEFAULT);
     }
 
-    public function __construct($tmp) {
+    /*public function __construct($tmp) {
       parent::__construct(Created_atException::MENSAGEM_DEFAULT);
       $this->setTmp($tmp);
-    }
+    }*/
 
     public function getTmp() {
       return $this->tmp;

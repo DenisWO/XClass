@@ -1,10 +1,10 @@
 <?php
 
-  include_once __DIR__ . "../../model/dao/AttachmentDAO.php";
-  include_once __DIR__ . "../../model/bean/Attachment.php";
-  include_once __DIR__ . "../../errors/WrongObjectException.php";
-  include_once __DIR__ . "../../errors/NullException.php";
-  include_once __DIR__ . "../../errors/NotAImageException.php";
+  include_once __DIR__ . "/../../model/dao/AttachmentDAO.php";
+  include_once __DIR__ . "/../../model/bean/Attachment.php";
+  include_once __DIR__ . "/../../errors/WrongObjectException.php";
+  include_once __DIR__ . "/../../errors/NullException.php";
+  include_once __DIR__ . "/../../errors/NotAImageException.php";
 
   class ProfileAttachmentManager{
 

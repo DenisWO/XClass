@@ -1,10 +1,10 @@
 <?php
 
-  include_once __DIR__ . "./../../model/bean/Attachment.php";
-  include_once __DIR__ . "./../../model/dao/AttachmentDAO.php";
+  include_once __DIR__ . "/../../model/bean/Attachment.php";
+  include_once __DIR__ . "/../../model/dao/AttachmentDAO.php";
 
   class ActivityAttachmentManager{
-    const PATH_ACTIVIES_DELIVERY = "./../resources/image/activies_delivery";
+    const PATH_ACTIVIES_DELIVERY = __DIR__ . "/../resources/image/activies_delivery";
 
     public function __construct() {
       //Construction default

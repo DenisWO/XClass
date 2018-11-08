@@ -1,6 +1,6 @@
 <?php
 
-  include_once 'Exception.php';
+  //include_once 'Exception.php';
 
   class NullException extends Exception{
 
@@ -12,10 +12,10 @@
       parent::__construct(Created_atException::MENSAGEM_DEFAULT);
     }
 
-    public function __construct($object) {
+    /*public function __construct($object) {
       parent::__construct(Created_atException::MENSAGEM_DEFAULT);
       $this->setObject($object);
-    }
+    }*/
 
     public function getObject() {
       return $this->object;

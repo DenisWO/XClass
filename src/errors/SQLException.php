@@ -1,6 +1,6 @@
 <?php
 
-  include_once 'Exception.php';
+  //include_once 'Exception.php';
 
   class SQLException extends Exception{
 
@@ -13,11 +13,11 @@
       parent::__construct(SQLException::MENSAGEM_DEFAULT);
     }
 
-    public function __construct($mysqli , $querySql) {
+    /*public function __construct($mysqli , $querySql) {
       parent::__construct(SQLException::MENSAGEM_DEFAULT);
       $this->setMysqli($mysqli);
       $this->setQuerySql($querySql);
-    }
+    }*/
 
     public function getMysqli() {
       return $this->mysqli;

@@ -1,10 +1,10 @@
 <?php
 
-  include_once 'Exception.php';
+  //include_once 'Exception.php';
 
   class UnregistredUserException extends Exception{
 
-    const MENSAGEM_DEFAULT = "Usuário não registrado"
+    const MENSAGEM_DEFAULT = "Usuário não registrado";
 
     private $email;
 

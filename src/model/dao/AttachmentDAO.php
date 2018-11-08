@@ -1,12 +1,12 @@
 <?php
 
-  include_once './../../connection/Connection.php';
-  include_once './../bean/Attachment.php';
-  include_once './../../errors/WrongObjectException.php';
-  include_once './../../errors/SQLException.php';
-  include_once './../../errors/NotFoundSQLException.php';
+  include_once __DIR__ . '/../../connection/Connection.php';
+  include_once __DIR__ . '/../bean/Attachment.php';
+  include_once __DIR__ . '/../../errors/WrongObjectException.php';
+  include_once __DIR__ . '/../../errors/SQLException.php';
+  include_once __DIR__ . '/../../errors/NotFoundSQLException.php';
 
-  class AttachmentDAO() {
+  class AttachmentDAO {
 
     public function __construct() {
 
@@ -46,7 +46,7 @@
       //Refresh updated_at();
       $objectAttachment->setUpdated_at();
 
-      $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? , created_at = ? , updated_at = ? WHERE id = ? "
+      $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? , created_at = ? , updated_at = ? WHERE id = ? ";
       $stmt = $conector->prepare($sql);
       $stmt->bind_param("sssssi", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() , $objectAttachment->getId() );
 
