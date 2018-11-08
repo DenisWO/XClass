@@ -7,7 +7,7 @@
   include_once __DIR__ . '/../../errors/WrongPasswordException.php';
   include_once __DIR__ . '/../../errors/UnregistredUserException.php';
 
-  public function login(){
+  function login(){
     try {
       session_start();
 

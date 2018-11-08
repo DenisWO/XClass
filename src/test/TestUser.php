@@ -28,5 +28,5 @@
 
 
   $dao = new UserDAO($bd);
-  var_dump($dao);
+  $dao->save($user);
 ?>

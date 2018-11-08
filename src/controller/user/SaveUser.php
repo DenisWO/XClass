@@ -7,7 +7,7 @@
   include_once __DIR__ . '/../../errors/WrongObjectException.php';
   include_once __DIR__ . '/../../errors/EmailAlreadyRegistered.php';
 
-  private function saveNewUser($user) {
+  function saveNewUser($user) {
     try {
       $dao = new UserDAO();
       $dao->save($user);

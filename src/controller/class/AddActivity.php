@@ -6,7 +6,7 @@
   include_once __DIR__ . '/../../errors/SQLException.php';
   include_once __DIR__ . '/../../errors/WrongObjectException.php';
 
-  private function addActivity($class, $activity){
+  function addActivity($class, $activity){
     try{
       $dao = new XClassDAO();
       $dao->saveActivity($class, $activity);

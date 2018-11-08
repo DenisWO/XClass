@@ -18,17 +18,19 @@
       if (get_class($objectUser) !== "User") {
         throw new WrongObjectException("User" , get_class($objectUser));
       }
-      $sql = "SELECT * FROM user WHERE email = " . $objectUser->email;
-      if($conector->query($sql) === NULL){
-        $sql = 'INSERT INTO User (first_name , last_name , email, password , birthday , created_at , updated_at , photo_id , thumbnail_id) VALUES (?,?,?,?,?,?,?,?,?)';
-        $stmt = $conector->prepare($sql);
-        $stmt->bind_param("sssssssii", $objectUser->getFirstName(), $objectUser->getLastName() , $objectUser->getEmail(), $objectUser->getPassword() , $objectUser->getBirthday() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() );
-
+      $sql = "SELECT * FROM user WHERE email = " . $objectUser->getEmail();
+      if(!$this->conector->query($sql)){
+        $params = "('" . $objectUser->getFirstName(). "',  '". $objectUser->getLastName() . "', '" .
+        $objectUser->getEmail() ."', '". $objectUser->getPassword() ."', '". $objectUser->getBirthday(). "', '" .
+        $objectUser->getCreated_at() . "', '" . $objectUser->getUpdated_at(). /*"', '" .$objectUser->getPhoto()->getId(). ", ". $objectUser->getThumbnail()->getId() .*/ "')" ;
+        $sql = 'INSERT INTO Users (first_name , last_name , email, password , birthday , created_at , updated_at) VALUES ' . $params;
+        echo $sql . "<br>";
+        $stmt = $this->conector->prepare($sql);
         if (!$stmt) {
           throw new SQLException($stmt , $sql);
         }
 
-        $stmt->execute();
+        var_dump($stmt->execute());
 
         if (!$stmt) {
           throw new SQLException($stmt , $sql);
@@ -48,7 +50,7 @@
       //Refresh updated_at
       $objectUser->setUpdated_at();
       $sql = "UPDATE User SET first_name = ? , last_name = ? , email = ? , password = ? , birthday = ? , created_at = ? , updated_at = ? , photo_id = ? , thumbnail_id = ? WHERE id = ? ";
-      $stmt = $conector->prepare($sql);
+      $stmt = $this->conector->prepare($sql);
       $stmt->bind_param("sssssssiii",  $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() , $objectUser->getId() );
 
       if (!$stmt) {
@@ -71,9 +73,9 @@
     //Loads only the id specific user
     public function loadId($id) {
       $sql = "SELECT * FROM user WHERE email = {'$id'}";
-      $conect = $conector->query($sql);
+      $conect = $this->conector->query($sql);
 
-      if($dados = $conector->query($sql) === TRUE){
+      if($dados = $this->conector->query($sql) === TRUE){
 
         try {
           //Capture the profile photo in the bda
@@ -109,9 +111,9 @@
     //Loads only the email specific user
     public function loadEmail($email) {
       $sql = "SELECT * FROM user WHERE email = '$email'";
-      $conect = $conector->query($sql);
+      $conect = $this->conector->query($sql);
 
-      if($dados = $conector->query($sql) === TRUE){
+      if($dados = $this->conector->query($sql) === TRUE){
 
         try {
           //Capture the profile photo in the bda

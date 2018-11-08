@@ -7,7 +7,7 @@
   include_once __DIR__ . '/../../errors/WrongObjectException.php';
   include_once __DIR__ . '/../../errors/EmailAlreadyRegistered.php';
 
-  private function addStudent($class, $student){
+  function addStudent($class, $student){
     try{
       $dao = new XClassDAO();
       $dao->saveStudent($class, $student);

@@ -7,7 +7,7 @@
   //Esta função retorna TRUE caso o email e senha conferem
   //Exceções que podem ser lançadas:
   //WrongPasswordException , CannotConnectSQLException , SQLException , UnregistredUserException
-  public function validateLogin($email, $password) {
+  function validateLogin($email, $password) {
     $user = null;
     $email = $_POST['email'];
     $password = $_POST['password'];
