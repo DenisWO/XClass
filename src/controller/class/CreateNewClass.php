@@ -1,6 +1,6 @@
 <?php
-  include_once '../model/bean/Class.php';
-  include_once '../model/dao/ClassDAO.php';
+  include_once '../model/bean/XClass.php';
+  include_once '../model/dao/XClassDAO.php';
   include_once './../../errors/CannotConnectSQLException.php';
   include_once './../../errors/SQLException.php';
   include_once './../../errors/WrongObjectException.php';
@@ -8,7 +8,7 @@
 
   private function createNewClass($class){
     try{
-      $dao = new ClassDAO();
+      $dao = new XClassDAO();
       $dao->save($class);
 
       echo "Classe criada com sucesso!";

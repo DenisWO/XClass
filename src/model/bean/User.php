@@ -1,8 +1,9 @@
 <?php
+  /*Os imports estão dando problema de arquivos não encontrados*/
 
-  include_once "./../controller/attachmentManager/ProfileAttachmentManager.php";
-  include_once "./../../controller/validate/ValidationUser.php";
-  include_once "./../../errors/Created_atException.php";
+  //include_once "../../controller/attachmentManager/ProfileAttachmentManager.php";
+  //include_once "../../controller/validate/ValidationUser.php";
+  //include_once "../../errors/Created_atException.php";
 
   class User{
 
@@ -24,15 +25,17 @@
       $this->setEmail($email);
       $this->setPassword($password);
       $this->setBirthday($birthday);
-      $this->setCreated_at();
-      $this->setUpdated_at();
+      $this->setCreated_at($created_at);
+      $this->setUpdated_at($updated_at);
       $this->setPhoto($photo);
-      $this->thumbnail($thumbnail);
+      $this->setThumbnail($thumbnail);
 
       // Verificar se a photo e thumbnail estao no BDA (funcao clase AttachmentManager)
     }
 
-    public function __construct($firstName , $lastName , $email , $password , $age) {
+/*Construtores já criados anteriormente - PHP não permite*/
+
+/*    public function __construct($firstName , $lastName , $email , $password , $age) {
       $this->setFirstName($firstName);
       $this->setLastName($lastName);
       $this->setEmail($email);
@@ -56,7 +59,7 @@
       $this->photo     = ProfileAttachmentManager::getDefaultPhoto();
       $this->thumbnail = ProfileAttachmentManager::getDefaultThumbnail();
     }
-
+*/
     //Esta função pode lançar as seguintes exceções:
     //CannotConnectSQLException, SQLException, Created_atException, WrongObjectException, NullException e NotAImageException
     public function changePhoto($tmp_photo) {
@@ -72,17 +75,17 @@
     }
 
     public function setId($id) {
-      $this->id = $id;include_once "./../../error/Created_atException.php";
+      $this->id = $id;
     }
 
     public function getFirstName() {
       return $this->firstName;
     }
-
+    /*Problema nos scripts de validação*/
     public function setFirstName($firstName) {
-      if (validateFirstName($firstName)) {
+      //if (validateFirstName($firstName)) {
         $this->firstName = $firstName;
-      }
+      //}
     }
 
     public function getLastName() {
@@ -90,9 +93,9 @@
     }
 
     public function setLastName($lastName) {
-      if (validateLastName($lastName)) {
+      //if (validateLastName($lastName)) {
         $this->lastName = $lastName;
-      }
+      //}
     }
 
     public function getEmail() {
@@ -100,9 +103,9 @@
     }
 
     public function setEmail($email) {
-      if (validateEmail($email)) {
-          $this->email-> $email;
-      }
+      //if (validateEmail($email)) {
+          $this->email= $email;
+      //}
     }
 
     public function getPassword() {
@@ -124,14 +127,15 @@
     public function getCreated_At() {
       return $this->created_at;
     }
+    /*Método sobrescrito*/
 
-    private function setCreated_at() {
+    /*private function setCreated_at() {
       if (empty($this->created_at)) {
         $this->created_at = date('Y-m-d H:i:s');
       }else{
         throw new Created_atException();
       }
-    }
+    }*/
 
     private function setCreated_at($date) {
       $this->created_at = $date;
@@ -140,10 +144,11 @@
     public function getUpdated_At() {
       return $this->updated_at;
     }
+    /*Método sobrescrito*/
 
-    private function setUpdated_at() {
+    /*private function setUpdated_at() {
       $this->updated_at = date('Y-m-d H:i:s');
-    }
+    }*/
 
     private function setUpdated_at($date) {
       $this->updated_at = $date;
@@ -163,6 +168,9 @@
 
     private function setThumbnail($thumbnail) {
       $this->thumbnail = $thumbnail;
+    }
+    public function getName(){
+      return $this->firstName . " " . $this->lastName;
     }
 
   }

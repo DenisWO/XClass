@@ -1,13 +1,13 @@
 <?php
 
-  include_once './../../connection/Connection.php';
-  include_once './../bean/User.php';
-  include_once './../../errors/WrongObjectException.php';
-  include_once './../../errors/SQLException.php';
-  include_once './../../errors/EmailAlreadyRegistered.php';
-  include_once './../../errors/UnregistredUserException.php';
+  include_once '../../connection/Connection.php';
+  include_once '../bean/User.php';
+  include_once '../../errors/WrongObjectException.php';
+  include_once '../../errors/SQLException.php';
+  include_once '../../errors/EmailAlreadyRegistered.php';
+  include_once '../../errors/UnregistredUserException.php';
 
-  class UserDAO() {
+  class UserDAO{
 
     public function __construct() {
 
@@ -47,7 +47,7 @@
 
       //Refresh updated_at
       $objectUser->setUpdated_at();
-      $sql = "UPDATE User SET first_name = ? , last_name = ? , email = ? , password = ? , birthday = ? , created_at = ? , updated_at = ? , photo_id = ? , thumbnail_id = ? WHERE id = ? "
+      $sql = "UPDATE User SET first_name = ? , last_name = ? , email = ? , password = ? , birthday = ? , created_at = ? , updated_at = ? , photo_id = ? , thumbnail_id = ? WHERE id = ? ";
       $stmt = $conector->prepare($sql);
       $stmt->bind_param("sssssssiii",  $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() , $objectUser->getId() );
 

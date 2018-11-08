@@ -1,6 +1,7 @@
 <?php
+  include_once 'User.php';
 
-  class Class{
+  class XClass{
 
     private $id;
     private $name;
@@ -11,14 +12,15 @@
     private $students; //Array de objetos usuarios, usados como alunos
     private $activities; //Array de atividades
 
-    public function __construct($id, $name, $instituiton, $teacher, $updated_at, $created_at) {
+    public function __construct($id, $name, $instituiton, $teacher, $updated_at, $created_at){
       $this->setId($id);
       $this->setName($name);
       $this->setInstituiton($instituiton);
       $this->setTeacher($teacher);
       $this->setUpdated_at($updated_at);
       $this->setCreated_at($created_at);
-      $this->students = array();
+      /*$this->students = array();
+      $this->activities = array();*/
     }
     public function getId(){
       return $this->id;
@@ -66,9 +68,6 @@
         array_push($this->students, $student);
       }
     }
-    public function getStudents(){
-      return $this->students;
-    }
     public function addStudent($student){
       if(isset($student)){
         $this->students[] = $student;
@@ -94,9 +93,10 @@
       }
     }
     public function removeActivity($activity){
-      $index = array_search($activity, $this->activities){
-        unset($this->activities[$index]);
-      }
+      $index = array_search($activity, $this->activities);
+        if($index){
+          unset($this->activities[$index]);
+        }
     }
 
   }

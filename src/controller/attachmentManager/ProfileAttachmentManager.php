@@ -1,10 +1,10 @@
 <?php
 
-  include_once "./../../model/dao/AttachmentDAO.php";
-  include_once "./../../model/bean/Attachment.php";
-  include_once "./../../errors/WrongObjectException.php";
-  include_once "./../../errors/NullException.php";
-  include_once "./../../errors/NotAImageException.php";
+  include_once "../../model/dao/AttachmentDAO.php";
+  include_once "../../model/bean/Attachment.php";
+  include_once "../../errors/WrongObjectException.php";
+  include_once "../../errors/NullException.php";
+  include_once "../../errors/NotAImageException.php";
 
   class ProfileAttachmentManager{
 
@@ -48,7 +48,7 @@
       }
 
       //Check if there is an image to save
-      if (!empty($tmp_photo) {
+      if (!empty($tmp_photo)) {
         throw new NullException($tmp_photo);
       }
 
