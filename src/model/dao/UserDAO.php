@@ -21,9 +21,8 @@
       $sql = "SELECT * FROM user WHERE email = " . $objectUser->getEmail();
       if(!$this->conector->query($sql)){
         $params = "('" . $objectUser->getFirstName(). "',  '". $objectUser->getLastName() . "', '" .
-        $objectUser->getEmail() ."', '". $objectUser->getPassword() ."', '". $objectUser->getBirthday(). "', '" .
-        $objectUser->getCreated_at() . "', '" . $objectUser->getUpdated_at(). /*"', '" .$objectUser->getPhoto()->getId(). ", ". $objectUser->getThumbnail()->getId() .*/ "')" ;
-        $sql = 'INSERT INTO Users (first_name , last_name , email, password , birthday , created_at , updated_at) VALUES ' . $params;
+        $objectUser->getEmail() ."', '". $objectUser->getPassword() ."', '". $objectUser->getBirthday(). "', '" . "')" ;
+        $sql = 'INSERT INTO Users (first_name , last_name , email, password , birthday) VALUES ' . $params;
         echo $sql . "<br>";
         $stmt = $this->conector->prepare($sql);
         if (!$stmt) {
@@ -49,9 +48,9 @@
 
       //Refresh updated_at
       $objectUser->setUpdated_at();
-      $sql = "UPDATE User SET first_name = ? , last_name = ? , email = ? , password = ? , birthday = ? , created_at = ? , updated_at = ? , photo_id = ? , thumbnail_id = ? WHERE id = ? ";
+      $sql = "UPDATE User SET first_name = ? , last_name = ? , email = ? , password = ? , birthday = ? WHERE id = ? ";
       $stmt = $this->conector->prepare($sql);
-      $stmt->bind_param("sssssssiii",  $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $objectUser->getCreated_at() , $objectUser->getUpdated_at() , $objectUser->getPhoto()->getId() , $objectUser->getThumbnail()->getId() , $objectUser->getId() );
+      $stmt->bind_param("sssssi",  $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday(), $objectUser->getId() );
 
       if (!$stmt) {
         throw new SQLException($stmt , $sql);
@@ -92,8 +91,6 @@
             $data["email"],
             $data["password"],
             $data["birthday"],
-            $data["created_at"],
-            $data["updated_at"],
             $photo,
             $thumbnail
           );
@@ -130,8 +127,6 @@
             $data["email"],
             $data["password"],
             $data["birthday"],
-            $data["created_at"],
-            $data["updated_at"],
             $photo,
             $thumbnail
           );

@@ -3,7 +3,7 @@ class Connection{
 	private $servidor = "localhost";
 	private $banco = "XClass";
 	private $usuario = "root";
-	private $senha = "";
+	private $senha = "root";
 	public $conn;
 	public function getConnection(){
 		$this->conn = null;

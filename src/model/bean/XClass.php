@@ -7,18 +7,14 @@
     private $name;
     private $instituiton;
     private $teacher;  //Objeto usuario, declarado como professor
-    private $created_at; //Object  Timestamp
-    private $updated_at; //Object Timestamp
     private $students; //Array de objetos usuarios, usados como alunos
     private $activities; //Array de atividades
 
-    public function __construct($id, $name, $instituiton, $teacher, $updated_at, $created_at){
+    public function __construct($id, $name, $instituiton, $teacher){
       $this->setId($id);
       $this->setName($name);
       $this->setInstituiton($instituiton);
       $this->setTeacher($teacher);
-      $this->setUpdated_at($updated_at);
-      $this->setCreated_at($created_at);
       /*$this->students = array();
       $this->activities = array();*/
     }
@@ -57,18 +53,18 @@
         $this->teacher = $teacher;
       }
     }
-    public function setUpdated_at($updated_at){
-      $this->updated_at = $updated_at;
-    }
-    public function setCreated_at($created_at){
-      $this->created_at = $created_at;
-    }
     public function setStudents($student){
       if(isset($student)){
         array_push($this->students, $student);
       }
     }
-    public function addStudent($student){
+    public function
+    public function setUpdated_at($updated_at){
+      $this->updated_at = $updated_at;
+    }
+    public function setCreated_at($created_at){
+      $this->created_at = $created_at;
+    } addStudent($student){
       if(isset($student)){
         $this->students[] = $student;
       }

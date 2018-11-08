@@ -19,9 +19,9 @@
       }
 
       if(empty($objectAttachment->getId())){
-        $sql = 'INSERT INTO Attachment (directory , filename , extension , created_at , updated_at) VALUES (?,?,?,?,?)';
+        $sql = 'INSERT INTO Attachment (directory , filename , extension) VALUES (?,?,?)';
         $stmt = $conector->prepare($sql);
-        $stmt->bind_param("sssss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() );
+        $stmt->bind_param("sss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() );
 
         if (!$stmt) {
           throw new SQLException($stmt , $sql);
@@ -46,9 +46,9 @@
       //Refresh updated_at();
       $objectAttachment->setUpdated_at();
 
-      $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? , created_at = ? , updated_at = ? WHERE id = ? ";
+      $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? WHERE id = ? ";
       $stmt = $conector->prepare($sql);
-      $stmt->bind_param("sssssi", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getCreated_at() , $objectAttachment->getUpdated_at() , $objectAttachment->getId() );
+      $stmt->bind_param("sssssi", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getId() );
 
       if (!$stmt) {
         throw new SQLException($stmt , $sql);
@@ -76,9 +76,7 @@
           $data["id"],
           $data["directory"],
           $data["filename"],
-          $data["extension"],
-          $data["created_at"],
-          $data["updated_at"]
+          $data["extension"]
         );
         return $attachment;
       }else{
@@ -98,9 +96,7 @@
           $data["id"],
           $data["directory"],
           $data["filename"],
-          $data["extension"],
-          $data["created_at"],
-          $data["updated_at"]
+          $data["extension"]
         );
         return $attachment;
       }else{
@@ -119,9 +115,7 @@
           $data["id"],
           $data["directory"],
           $data["filename"],
-          $data["extension"],
-          $data["created_at"],
-          $data["updated_at"]
+          $data["extension"]
         );
         return $attachment;
       }else{

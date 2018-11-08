@@ -20,10 +20,9 @@
       }
 
       $params = "(" . $objectClass->getTeacher()->getId() . ", '" . $objectClass->getName() . "', '" .
-      $objectClass->getInstituiton() . "', '" . $objectClass->getCreated_at() . "', '" .
-      $objectClass->getUpdated_At() . "')";
+      $objectClass->getInstituiton() . "')";
 
-      $sql = "INSERT INTO classes (teacher_id, name, instituiton, created_at, updated_at) VALUES " . $params;
+      $sql = "INSERT INTO classes (teacher_id, name, instituiton) VALUES " . $params;
       $stmt = $this->conector->prepare($sql);
       if(!$stmt){
         throw new SQLException($stmt, $sql);
@@ -38,9 +37,9 @@
       if(get_class($objectClass) == "XClass"){
         throw new WrongObjectException("XClass", get_class($objectClass));
       }
-      $sql = "INSERT INTO students (class_id, user_id, created_at, updated_at) VALUES (?,?,?,?)";
+      $sql = "INSERT INTO students (class_id, user_id) VALUES (?,?)";
       $stmt = $conector->prepare($sql);
-      $stmt->bind_param("iiss", $objectClass->getId(), $user->getId(), $objectClass->getCreated_at(), $objectClass->getUpdated_At());
+      $stmt->bind_param("ii", $objectClass->getId(), $user->getId());
 
       if (!$stmt) {
         throw new SQLException($stmt , $sql);
@@ -58,11 +57,10 @@
         throw new WrongObjectException("XClass" , get_class($objectClass));
       }
       else{
-        $sql = "UPDATE class SET name = ?, instituiton = ?, teacher_id = ?, updated_at = ? WHERE id = ?";
+        $sql = "UPDATE class SET name = ?, instituiton = ?, teacher_id = ? WHERE id = ?";
         $stmt = $conector->prepare($sql);
-        $objectClass->setUpdated_at(); //Passar data do momento da atualização
         $stmt->bind_param("ssisi", $objectClass->getName(), $objectClass->getInstituiton(),
-        $objectClass->getTeacher()->getId(), $objectClass->getUpdated_At(), $objectClass->getId());
+        $objectClass->getTeacher()->getId(), $objectClass->getId());
         if (!$stmt) {
           throw new SQLException($stmt , $sql);
         }

@@ -13,11 +13,11 @@
       if (get_class($objectActivity) == "Activity") {
         throw new WrongObjectException("Activity" , get_class($objectActivity));
       }
-      $sql = "INSERT INTO activities (class_id, name, description, date_delivery, created_at, updated_at)
-      VALUES (?,?,?,?,?,?)";
+      $sql = "INSERT INTO activities (class_id, name, description, date_delivery)
+      VALUES (?,?,?,?)";
       $stmt = $conector->prepare($sql);
-      $stmt->bind_param("isssss", $objectActivity->getClassId(), $objectActivity->getName(), $objectActivity->getDescription(),
-      $objectActivity->getDateDelivery(), $objectActivity->getCreatedAt(), $objectActivity->getUpdatedAt());
+      $stmt->bind_param("isss", $objectActivity->getClassId(), $objectActivity->getName(), $objectActivity->getDescription(),
+      $objectActivity->getDateDelivery());
 
       if(!$stmt){
         throw new SQLException($stmt, $sql);
@@ -33,11 +33,10 @@
       if (get_class($objectActivity) == "Activity") {
         throw new WrongObjectException("Activity" , get_class($objectActivity));
       }
-      $sql = "UPDATE activities SET class_id = ?, name = ?, description = ?, date_delivery = ?, created_at = ?,
-      updated_at = ? WHERE id = ?";
+      $sql = "UPDATE activities SET class_id = ?, name = ?, description = ?, date_delivery = ? WHERE id = ?";
       $stmt = $conector->prepare($sql);
-      $stmt->bind_param("isssss", $objectActivity->getClassId(), $objectActivity->getName(),
-      $objectActivity->getDescription(), $objectActivity->getDateDelivery(), $objectActivity->getCreatedAt(), $objectActivity->getUpdatedAt());
+      $stmt->bind_param("isss", $objectActivity->getClassId(), $objectActivity->getName(),
+      $objectActivity->getDescription(), $objectActivity->getDateDelivery());
       if(!$stmt){
         throw new SQLException($stmt, $sql);
       }

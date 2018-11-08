@@ -1,0 +1,153 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema XClass
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema XClass
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `XClass` DEFAULT CHARACTER SET utf8 ;
+USE `XClass` ;
+
+-- -----------------------------------------------------
+-- Table `XClass`.`attachments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `XClass`.`attachments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `directory` VARCHAR(500) NOT NULL,
+  `filename` VARCHAR(50) NOT NULL,
+  `extension` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `XClass`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `XClass`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(60) NOT NULL,
+  `password` VARCHAR(60) NOT NULL,
+  `birthday` VARCHAR(10) NOT NULL,
+  `photo_id` INT NOT NULL,
+  `thumbnail_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_users_files1_idx` (`photo_id` ASC),
+  INDEX `fk_users_attachments1_idx` (`thumbnail_id` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  CONSTRAINT `fk_users_files1`
+    FOREIGN KEY (`photo_id`)
+    REFERENCES `XClass`.`attachments` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_attachments1`
+    FOREIGN KEY (`thumbnail_id`)
+    REFERENCES `XClass`.`attachments` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `XClass`.`XClassess`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `XClass`.`XClassess` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `teacher_id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `institution` VARCHAR(45) NOT NULL,
+  `year` YEAR NOT NULL,
+  `semester` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_class_user1_idx` (`teacher_id` ASC),
+  CONSTRAINT `fk_class_user1`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `XClass`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `XClass`.`activities`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `XClass`.`activities` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `class_id` INT NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
+  `description` VARCHAR(1000) NOT NULL,
+  `date_delivery` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_activity_class1_idx` (`class_id` ASC),
+  CONSTRAINT `fk_activity_class1`
+    FOREIGN KEY (`class_id`)
+    REFERENCES `XClass`.`XClassess` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `XClass`.`activities_delivery`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `XClass`.`activities_delivery` (
+  `activity_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `attachment_id` INT NULL,
+  `delivery_at` TIMESTAMP NOT NULL,
+  `comment` VARCHAR(1000) NOT NULL,
+  INDEX `fk_activity_delivery_activity_idx` (`activity_id` ASC),
+  PRIMARY KEY (`activity_id`, `user_id`),
+  INDEX `fk_activity_delivery_user1_idx` (`user_id` ASC),
+  INDEX `fk_activities_delivery_files1_idx` (`attachment_id` ASC),
+  CONSTRAINT `fk_activity_delivery_activity`
+    FOREIGN KEY (`activity_id`)
+    REFERENCES `XClass`.`activities` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activity_delivery_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `XClass`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_activities_delivery_files1`
+    FOREIGN KEY (`attachment_id`)
+    REFERENCES `XClass`.`attachments` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `XClass`.`students`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `XClass`.`students` (
+  `class_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`class_id`, `user_id`),
+  INDEX `fk_class_has_user_user1_idx` (`user_id` ASC),
+  INDEX `fk_class_has_user_class1_idx` (`class_id` ASC),
+  CONSTRAINT `fk_class_has_user_class1`
+    FOREIGN KEY (`class_id`)
+    REFERENCES `XClass`.`XClassess` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_class_has_user_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `XClass`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
