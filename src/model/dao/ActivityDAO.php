@@ -11,64 +11,78 @@
 
     //Save a new Activity
     public function save($objectActivity) {
-      if (get_class($objectActivity) == "Activity") {
-        throw new WrongObjectException("Activity" , get_class($objectActivity));
-      }
-      $sql = "INSERT INTO activities (class_id, name, description, date_delivery)
-      VALUES (?,?,?,?)";
-      $stmt = $conector->prepare($sql);
-      $stmt->bind_param("isss", $objectActivity->getClassId(), $objectActivity->getName(), $objectActivity->getDescription(),
-      $objectActivity->getDateDelivery());
 
-      if(!$stmt){
-        throw new SQLException($stmt, $sql);
-      }
-      $stmt->execute();
-      if(!$stmt){
-        throw new SQLException($stmt, $sql);
+      $class = $objectActivity->getClass();
+
+      $sql = "INSERT INTO activities (class_id, name, description, date_delivery) VALUES ($class->getId(), $objectActivity->getName() , $objectActivity->getDescription() , $objectActivity->getDateDelivery())";
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
       }
     }
 
     //Update an existing Activity
     public function update($objectActivity) {
-      if (get_class($objectActivity) == "Activity") {
-        throw new WrongObjectException("Activity" , get_class($objectActivity));
-      }
-      $sql = "UPDATE activities SET class_id = ?, name = ?, description = ?, date_delivery = ? WHERE id = ?";
-      $stmt = $conector->prepare($sql);
-      $stmt->bind_param("isss", $objectActivity->getClassId(), $objectActivity->getName(),
-      $objectActivity->getDescription(), $objectActivity->getDateDelivery());
-      if(!$stmt){
-        throw new SQLException($stmt, $sql);
-      }
-      $stmt->execute();
-      if(!$stmt){
-        throw new SQLException($stmt, $sql);
-      }
+
     }
 
     //Load ALL Activities
     public function loadAll() {
+      $activities = array();
       $sql = "SELECT * FROM activities";
-      $stmt = $conector->query($sql);
-      return $stmt;
+      $stmt = $this->conn->query($sql);
+
+      $nlinhas = $stmt->num_rows;
+
+    	if($nlinhas > 0){
+    		$activities = array();
+
+    		while($linha = mysqli_fetch_array($stmt)){
+    			extract($linha);
+
+
+    			$cliEncontrado = array(
+            "id" => $id,
+            "name" => $name,
+            "description" => $description,
+            "date_delivery" => $dateDelivery
+    			);
+    			array_push($activities, $cliEncontrado);
+    		}
+    	}
+
+      return $activities;
     }
 
     //Loads only the id specific Activity
     public function loadId($id) {
-      $sql = "SELECT * FROM activities WHERE id = " . $id;
-      $stmt = $conector->query($sql);
-      return $stmt;
+      $sql = "SELECT * FROM activities WHERE id = $id";
+      $stmt = $this->conn->query($sql);
+
+      if($dados = $stmt->fetch_array()){
+
+        $activity = new Activity(
+          $dados["id"],
+          $dados["name"],
+          $dados["description"],
+          $dados["date_delivery"],
+        );
+
+        return $activity;
+    	}
+
+      return FALSE;
     }
 
-    //Delete an existing Activity
-    public function deleteAll() {
-      $sql = "DELETE FROM activities";
-      $stmt = $conector->query($sql);
-    }
-    public function deleteById($id){
-      $sql = "DELETE FROM activities WHERE id = " . $id;
-      $stmt = $conector->query($sql);
+    public function delete($objectActivity){
+      $sql = "DELETE FROM activities WHERE id = $objectActivity->id";
+
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
+      }
     }
   }
 
