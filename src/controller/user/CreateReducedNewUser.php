@@ -17,7 +17,7 @@
     return;
   }
 
-  $user = new User($name , "Desconhecido", $email, $password , "01/01/1990");
-  $this->saveNewUser($user);
+  $user = new User(-1 , $name , "Desconhecido", $email, $password , "1990-01-01");
+  saveNewUser($user);
 
 ?>

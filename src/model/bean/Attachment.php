@@ -12,8 +12,6 @@
       $this->setDirectory($directory);
       $this->setFilename($filename);
       $this->setExtension($extension);
-      $this->setCreated_at($created_at);
-      $this->setUpdated_at($updated_at);
     }
 
     public function getFullFilename() {

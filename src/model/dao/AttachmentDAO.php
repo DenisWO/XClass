@@ -38,7 +38,7 @@
           $dados["id"],
           $dados["directory"],
           $dados["filename"],
-          $dados["extension"],
+          $dados["extension"]
         );
 
         array_push($attachments , $attachment);
@@ -58,7 +58,7 @@
           $dados["id"],
           $dados["directory"],
           $dados["filename"],
-          $dados["extension"],
+          $dados["extension"]
         );
 
         return $attachment;
@@ -78,7 +78,7 @@
           $dados["id"],
           $dados["directory"],
           $dados["filename"],
-          $dados["extension"],
+          $dados["extension"]
         );
 
         return $attachment;
@@ -97,7 +97,7 @@
           $dados["id"],
           $dados["directory"],
           $dados["filename"],
-          $dados["extension"],
+          $dados["extension"]
         );
 
         return $attachment;

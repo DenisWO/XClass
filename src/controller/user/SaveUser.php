@@ -10,7 +10,7 @@
     if ($dao) {
       echo "Sua conta foi criada com sucesso!";
     }else{
-      echo "Erro ao salvar!"
+      echo "Erro ao salvar!";
     }
 
 

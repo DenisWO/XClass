@@ -19,8 +19,6 @@
       $this->setEmail($email);
       $this->setPassword($password);
       $this->setBirthday($birthday);
-      $this->setCreated_at($created_at);
-      $this->setUpdated_at($updated_at);
       $this->photo     = ProfileAttachmentManager::getDefaultPhoto();
       $this->thumbnail = ProfileAttachmentManager::getDefaultThumbnail();
 
@@ -33,8 +31,7 @@
       $profileAttachmentManager = new ProfileAttachmentManager();
       $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
 
-      $this->setPhoto($profil
-  include_once __DIR__ . "/../../errors/Created_atException.php";eAttachmentManager->getPhoto());
+      $this->setPhoto($profileAttachmentManager->getPhoto());
       $this->setThumbnail($profileAttachmentManager->getThumbnail());
     }
 
@@ -54,8 +51,7 @@
         $this->firstName = $firstName;
     }
 
-    public function getLast
-  include_once __DIR__ . "/../../errors/Created_atException.php";Name() {
+    public function getLastName() {
       return $this->lastName;
     }
 

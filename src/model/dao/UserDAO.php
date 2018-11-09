@@ -14,6 +14,8 @@
       $photo = $objectUser->getPhoto();
       $thumbnail = $objectUser->getThumbnail();
 
+      var_dump($objectUser);
+
       $sql = "INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail) VALUES ( $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $photo->getId() ,$thumbnail->getId())";
 
       if ($this->conn->query($sql) === TRUE) {
