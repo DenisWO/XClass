@@ -11,9 +11,6 @@
     //Save a new Attachment
     public function save($objectAttachment) {
 
-      $photo = $objectUser->getPhoto();
-      $thumbnail = $objectUser->getThumbnail();
-
       $sql = "INSERT INTO Attachment (directory , filename , extension) VALUES ($objectAttachment->getDirectory(),$objectAttachment->getFilename(),$objectAttachment->getExtension())";
 
       if ($this->conn->query($sql) === TRUE) {

@@ -39,13 +39,13 @@
           $dados["id"],
           $dados["name"],
           $dados["description"],
-          $dados["date_delivery"],
+          $dados["date_delivery"]
         );
 
         array_push($activities , $activity);
     	}
 
-      return FALSE;
+      return $activities;
     }
 
     //Loads only the id specific Activity
@@ -59,7 +59,7 @@
           $dados["id"],
           $dados["name"],
           $dados["description"],
-          $dados["date_delivery"],
+          $dados["date_delivery"]
         );
 
         return $activity;

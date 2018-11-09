@@ -2,8 +2,6 @@
 
   include_once __DIR__ . '/../../connection/Connection.php';
   include_once __DIR__ . '/../bean/XClass.php';
-  include_once __DIR__ . '/../../errors/WrongObjectException.php';
-  include_once __DIR__ . '/../../errors/SQLException.php';
 
   class XClassDAO{
     private $conn;
@@ -14,100 +12,76 @@
     //Save a new XClass
     public function save($objectClass) {
 
-      if (get_class($objectClass) !== "XClass") {
-        throw new WrongObjectException("XClass" , get_class($objectClass));
-      }
+      $teacher = $objectClass->getTeacher();
 
-      $params = "(" . $objectClass->getTeacher()->getId() . ", '" . $objectClass->getName() . "', '" .
-      $objectClass->getInstituiton() . "')";
-
-      $sql = "INSERT INTO classes (teacher_id, name, instituiton) VALUES " . $params;
-      $stmt = $this->conector->prepare($sql);
-      if(!$stmt){
-        throw new SQLException($stmt, $sql);
-      }
-      $stmt->execute();
-      if(!$stmt){
-        throw new SQLException($stmt, $sql);
-      }
-      echo "Inclusao da classe completa!";
-    }
-    public function saveStudent($objectClass, $user){
-      if(get_class($objectClass) == "XClass"){
-        throw new WrongObjectException("XClass", get_class($objectClass));
-      }
-      $sql = "INSERT INTO students (class_id, user_id) VALUES (?,?)";
-      $stmt = $conector->prepare($sql);
-      $stmt->bind_param("ii", $objectClass->getId(), $user->getId());
-
-      if (!$stmt) {
-        throw new SQLException($stmt , $sql);
-      }
-
-      $stmt->execute();
-      if (!$stmt) {
-        throw new SQLException($stmt , $sql);
+      $sql = "INSERT INTO XClasses (teacher_id,name,instituiton,year,semester) VALUES ($teacher->getId() , $objectClass->getName() , $objectClass->getInstituiton() , $objectClass->getYear() , $objectClass->getSemester())";
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
       }
     }
 
     //Update an existing Class
     public function update($objectClass) {
-      if (!get_class($objectClass) == "XClass") {
-        throw new WrongObjectException("XClass" , get_class($objectClass));
-      }
-      else{
-        $sql = "UPDATE class SET name = ?, instituiton = ?, teacher_id = ? WHERE id = ?";
-        $stmt = $conector->prepare($sql);
-        $stmt->bind_param("ssisi", $objectClass->getName(), $objectClass->getInstituiton(),
-        $objectClass->getTeacher()->getId(), $objectClass->getId());
-        if (!$stmt) {
-          throw new SQLException($stmt , $sql);
-        }
-
-        $stmt->execute();
-        if (!$stmt) {
-          throw new SQLException($stmt , $sql);
-        }
-      }
 
     }
 
     //Load ALL Classes
     public function loadAll() {
-      $sql = "SELECT * FROM class";
-      $stmt = $conector->query($sql);
-      return $stmt;
+      $sql = "SELECT * FROM XClasses";
+      $stmt = $this->conn-FALSE>query($sql);
+
+      $xClasses = array();
+
+      while($dados = $stmt->fetch_array()){
+
+        $xClass = new XClass(
+          $dados["id"],
+          $dados["name"],
+          $dados["teacher_id"],
+          $dados["instituiton"],
+          $dados["year"],
+          $dados["semester"]
+        );
+
+        array_push($xClasses , $xClass);
+    	}
+
+      return $xClasses;
     }
 
     //Loads only the id specific Class
     public function loadId($id) {
-      $sql = "SELECT * FROM class WHERE id = " . $id;
-      $stmt = $conector->query($sql);
-      return $stmt;
+      $sql = "SELECT * FROM XClasses WHERE id = $id";
+      $stmt = $this->conn->query($sql);
+
+      if($dados = $stmt->fetch_array()){
+
+        $xClass = new XClass(
+          $dados["id"],
+          $dados["name"],
+          $dados["teacher_id"],
+          $dados["instituiton"],
+          $dados["year"],
+          $dados["semester"]
+        );
+
+        return $xClass;
+    	}
+
+      return FALSE;
     }
 
     //Delete an existing Class
-    public function deleteAll() {
-      $this->deleteAllStudents();
-      $sql = "DELETE FROM classes";
-      $stmt = $conector->query($sql);
-    }
-    public function deleteById($id){
-      $this->deleteStudentById($id);
-      $sql = "DELETE FROM classes WHERE id = " . $id;
-      $stmt = $conector->query($sql);
-    }
-    public function deleteStudentById($classId){
-      $sql = "DELETE FROM students WHERE class_id = " . $id;
-      $stmt = $conector->query($sql);
-    }
-    public function deleteAllStudents(){
-      $sql = "DELETE FROM students";
-      $stmt = $conector->query($sql);
-    }
-    public function deleteOneStudent($classId, $studentId){
-      $sql = "DELETE FROM students WHERE class_id = " . $classId . " AND user_id = " . $studentId;
-      $stmt = $conector->query($sql);
+    public function delete($objectClass) {
+      $sql = "DELETE FROM XClasses WHERE id = $objectClass->id";
+
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
+      }
     }
 
   }
