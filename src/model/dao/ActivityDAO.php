@@ -29,30 +29,24 @@
 
     //Load ALL Activities
     public function loadAll() {
-      $activities = array();
       $sql = "SELECT * FROM activities";
       $stmt = $this->conn->query($sql);
 
-      $nlinhas = $stmt->num_rows;
+      $activities = array();
 
-    	if($nlinhas > 0){
-    		$activities = array();
+      while($dados = $stmt->fetch_array()){
 
-    		while($linha = mysqli_fetch_array($stmt)){
-    			extract($linha);
+        $activity = new Activity(
+          $dados["id"],
+          $dados["name"],
+          $dados["description"],
+          $dados["date_delivery"],
+        );
 
-
-    			$cliEncontrado = array(
-            "id" => $id,
-            "name" => $name,
-            "description" => $description,
-            "date_delivery" => $dateDelivery
-    			);
-    			array_push($activities, $cliEncontrado);
-    		}
+        array_push($activities , $activity);
     	}
 
-      return $activities;
+      return FALSE;
     }
 
     //Loads only the id specific Activity

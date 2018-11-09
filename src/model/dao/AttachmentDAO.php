@@ -34,25 +34,21 @@
 
     //Load ALL Attachmentments
     public function loadAll() {
-      $attachments = array();
-      $sql = "SELECT * FROM attachments";
+      $sql = "SELECT * FROM attachment WHERE id = $id";
       $stmt = $this->conn->query($sql);
 
-      $nlinhas = $stmt->num_rows;
+      $attachments = array();
 
-    	if($nlinhas > 0){
-    		$attachments = array();
+      while($dados = $stmt->fetch_array()){
 
-    		while($linha = mysqli_fetch_array($stmt)){
-    			extract($linha);
+        $attachment = new Attachment(
+          $dados["id"],
+          $dados["directory"],
+          $dados["filename"],
+          $dados["extension"],
+        );
 
-    			$cliEncontrado = array(
-            "directory" => $directory,
-            "filename" => $filename,
-            "extension" => $extension
-    			);
-    			array_push($attachments, $cliEncontrado);
-    		}
+        array_push($attachments , $attachment);
     	}
 
       return $attachments;

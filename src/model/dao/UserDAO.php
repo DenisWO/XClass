@@ -34,35 +34,23 @@
 
     //Load ALL users
     public function loadAll() {
-      $users = array();
-      $sql = "SELECT * FROM users";
+      $sql = "SELECT * FROM user";
       $stmt = $this->conn->query($sql);
 
-      $nlinhas = $stmt->num_rows;
+      $users = array();
 
-    	if($nlinhas > 0){
-    		$users = array();
+      if($dados = $stmt->fetch_array()){
 
-    		while($linha = mysqli_fetch_array($stmt)){
-    			extract($linha);
+        $user = new User(
+          $dados["id"],
+          $dados["firstName"],
+          $dados["lastName"],
+          $dados["email"],
+          $dados["password"],
+          $dados["birthday"]
+        );
 
-          "photo_id" => $photo_id;
-          "thumbnail_id" => $thumbnail_id;
-
-          $photo = getAttachmentById($photo_id);
-          $thumbnail = getAttachmentById($thumbnail_id);
-
-    			$cliEncontrado = array(
-            "first_name" => $first_name,
-            "last_name" => $last_name,
-            "email" => $email,
-            "password" => $password,
-            "birthday" => $birthday,
-            "photo_id" => $photo,
-            "thumbnail" => $thumbnail
-    			);
-    			array_push($users, $cliEncontrado);
-    		}
+        array_push($users , $user);
     	}
 
       return $users;
@@ -70,7 +58,6 @@
 
     //Loads only the id specific user
     public function loadId($id) {
-
       $sql = "SELECT * FROM user WHERE id = $id";
       $stmt = $this->conn->query($sql);
 
@@ -99,12 +86,12 @@
       if($dados = $stmt->fetch_array()){
 
         $user = new User(
-          $data["id"],
-          $data["firstName"],
-          $data["lastName"],
-          $data["email"],
-          $data["password"],
-          $data["birthday"]
+          $dados["id"],
+          $dados["firstName"],
+          $dados["lastName"],
+          $dados["email"],
+          $dados["password"],
+          $dados["birthday"]
         );
 
         return $user;
