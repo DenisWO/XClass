@@ -1,7 +1,5 @@
 <?php
   include_once __DIR__ . "/../../controller/attachmentManager/ProfileAttachmentManager.php";
-  include_once __DIR__ . "/../../controller/validate/ValidationUser.php";
-  include_once __DIR__ . "/../../errors/Created_atException.php";
 
   class User{
 
@@ -35,7 +33,8 @@
       $profileAttachmentManager = new ProfileAttachmentManager();
       $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
 
-      $this->setPhoto($profileAttachmentManager->getPhoto());
+      $this->setPhoto($profil
+  include_once __DIR__ . "/../../errors/Created_atException.php";eAttachmentManager->getPhoto());
       $this->setThumbnail($profileAttachmentManager->getThumbnail());
     }
 
@@ -50,12 +49,13 @@
     public function getFirstName() {
       return $this->firstName;
     }
-    
+
     public function setFirstName($firstName) {
         $this->firstName = $firstName;
     }
 
-    public function getLastName() {
+    public function getLast
+  include_once __DIR__ . "/../../errors/Created_atException.php";Name() {
       return $this->lastName;
     }
 

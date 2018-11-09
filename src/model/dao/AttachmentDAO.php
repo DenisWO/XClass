@@ -2,10 +2,6 @@
 
   include_once __DIR__ . '/../../connection/Connection.php';
   include_once __DIR__ . '/../bean/Attachment.php';
-  include_once __DIR__ . '/../../errors/WrongObjectException.php';
-  include_once __DIR__ . '/../../errors/SQLException.php';
-  include_once __DIR__ . '/../../errors/NotFoundSQLException.php';
-
   class AttachmentDAO {
     private $conn;
     public function __construct() {

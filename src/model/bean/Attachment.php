@@ -1,7 +1,5 @@
 <?php
 
-  include_once __DIR__ . "/../../errors/Created_atException.php";
-
   class Attachment{
 
     private $id;

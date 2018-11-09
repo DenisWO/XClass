@@ -1,7 +1,6 @@
 <?php
   include_once __DIR__ . '/../../connection/Connection.php';
   include_once __DIR__ . '/../bean/Activity.php';
-  include_once __DIR__ . '/../../errors/WrongObjectException.php';
 
   class ActivityDAO {
     private $conn;

@@ -1,11 +1,7 @@
 <?php
 
   include_once __DIR__ . '/../../model/bean/User.php';
-  include_once __DIR__ . '/../validate/ValidateLogin.php';
-  include_once __DIR__ . '/../../errors/CannotConnectSQLException.php';
-  include_once __DIR__ . '/../../errors/SQLException.php';
-  include_once __DIR__ . '/../../errors/WrongPasswordException.php';
-  include_once __DIR__ . '/../../errors/UnregistredUserException.php';
+  include_once __DIR__ . '/../../model/dao/UserDAO.php';
 
   function login(){
     try {
@@ -13,17 +9,26 @@
 
       $user = validateLogin($_POST['email'] , $_POST['password']);
 
-      $_SESSION = $user->getId();
-      echo "Login realizado com sucesso!";
-    }catch (CannotConnectSQLException $e) {
-      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
-    }catch (SQLException $e) {
-      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
-    }catch (WrongPasswordException $e) {
-      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
-    }catch (UnregistredUserException $e) {
-      echo 'Exceção capturada: ',  $e->getMessageToUser(), "\n";
-    }
+      if ($user) {
+        echo "Login realizado com sucesso!";
+      }else{
+        echo "Login não realizado!";
+      }
+
   }
 
+  function validateLogin($email , $password) {
+    $dao = new UserDAO();
+    $user = $dao->loadEmail($email);
+
+    if (!$user) {
+      return FALSE;
+    }
+
+    if ($user->getPassword() === $password) {
+      return TRUE;
+    }else{
+      return FALSE;
+    }
+  }
 ?>

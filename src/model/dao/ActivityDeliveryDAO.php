@@ -2,7 +2,6 @@
 
   include_once __DIR__ . '/../../connection/Connection.php';
   include_once __DIR__ . '/../bean/ActivityDelivery.php';
-  include_once __DIR__ . '/../../errors/WrongObjectException.php';
 
   class Class() {
     private $conn;

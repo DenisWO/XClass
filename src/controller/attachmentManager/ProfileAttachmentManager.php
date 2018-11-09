@@ -2,9 +2,6 @@
 
   include_once __DIR__ . "/../../model/dao/AttachmentDAO.php";
   include_once __DIR__ . "/../../model/bean/Attachment.php";
-  include_once __DIR__ . "/../../errors/WrongObjectException.php";
-  include_once __DIR__ . "/../../errors/NullException.php";
-  include_once __DIR__ . "/../../errors/NotAImageException.php";
 
   class ProfileAttachmentManager{
 
@@ -33,32 +30,9 @@
     //CannotConnectSQLException, SQLException, Created_atException, WrongObjectException, NullException e NotAImageException
     public function updateProfilePhoto($objectUser , $tmp_photo) {
 
-      //Checks whether the object is null
-      if (!empty($objectUser)) {
-        throw new NullException($objectUser);
-      }
-
-      //Checks if there is a user object
-      if (get_class($objectUser) == "User") {
-        throw new WrongObjectException("User" , get_class($objectUser));
-        return;
-      }
-
-      //Checks if the user is already saved in the BDA
-      //A user object will only have an ID when it is saved on BDA
-      //A new user should be saved with the default photo
-      if (!empty($objectUser["id"])) {
-        throw new NullException($objectUser);
-      }
-
-      //Check if there is an image to save
-      if (!empty($tmp_photo)) {
-        throw new NullException($tmp_photo);
-      }
-
       //Check if there is an image
       if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $tmp_photo["type"])) {
-				throw new NotAImageException($tmp_photo);
+				return FALSE;
       }
 
       //Take the path where the file will be saved
@@ -70,14 +44,12 @@
       //The filename will be user->id
       $filename = $objectUser["id"];
 
-      $attachment;
-      try {
-        $dao = new AttachmentDAO();
-        $attachment = $dao->loadFilename($directory , $filename , $extension);
+      $dao = new AttachmentDAO();
+      $attachment = $dao->loadFilename($directory , $filename , $extension);
 
-        //Caso o usuário ja tenha um registro salvo, deve atualizar o registro
-        $dao->update($attachment);
-      }catch(NotFoundSQLException $e) {
+      //Caso o usuário ja tenha um registro salvo, deve atualizar o registro
+      $dao->update($attachment);
+      if ($dao) {
         //Caso o usuário ainda não tenha um foto, deve salvar um novo registro
         $attachment = new Attachment($directory , $filename , $extension);
         $dao = new AttachmentDAO();
@@ -131,14 +103,12 @@
 
       $directory = ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL;
 
-      $thumbnail;
-      try {
-        $dao = new AttachmentDAO();
-        $thumbnail = $dao->load($directory , $filename , $extension);
+      $dao = new AttachmentDAO();
+      $thumbnail = $dao->load($directory , $filename , $extension);
 
-        //Atualizando o registro já existente do thumbnail
-        $dao->update($thumbnail);
-      }catch(NotFoundSQLException $e) {
+      //Atualizando o registro já existente do thumbnail
+      $dao->update($thumbnail);
+      if ($dao) {
         //Caso o thumbnail ainda não exista, deve salvar um novo registro
         $thumbnail = new $thumbnail($directory , $filename , $extension);
         $dao = new AttachmentDAO();
