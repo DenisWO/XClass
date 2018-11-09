@@ -2,8 +2,7 @@
   include_once __DIR__ . '/../model/bean/User.php';
   include_once __DIR__ . '/../model/dao/UserDAO.php';
 
-  $bancoDeDados = new Connection();
-  $bd = $bancoDeDados->getConnection();
+  $bd = getConnection();
 
   $id = 1;
   $firstName = "Joao";
@@ -11,22 +10,20 @@
   $email = "joaodostestes@gmail.com";
   $password = "joaojoao";
   $birthday = "1990-01-01";
-  $created_at = "2018-11-07";
-  $updated_at = "2018-11-07";
 
-  $user = new User($id, $firstName, $lastName, $email, $password, $birthday, $created_at, $updated_at, null, null);
+  $user = new User($id, $firstName, $lastName, $email, $password, $birthday);
 
-  echo "Printando os dados de user: <br />";
+  /*echo "Printando os dados de user: <br />";
   echo $user->getId() . "<br />";
   echo $user->getFirstName() . "<br />";
   echo $user->getLastName() . "<br />";
   echo $user->getEmail() . "<br />";
   echo $user->getPassword() . "<br />";
-  echo $user->getBirthday() . "<br />";
-  echo $user->getCreated_At();
-  echo $user->getUpdated_At() . "<br />";
-
+  echo $user->getBirthday() . "<br />";*/
 
   $dao = new UserDAO($bd);
-  $dao->save($user);
+  //$dao->save($user);
+  $users = $dao->loadAll();
+  echo $users["id"];
+  echo $users["first_name"];
 ?>

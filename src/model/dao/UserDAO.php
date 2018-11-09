@@ -9,13 +9,13 @@
       $this->conn = getConnection();
     }
 
-    //Save a new User 
+    //Save a new User
     public function save($objectUser) {
       $photo = $objectUser->getPhoto();
       $thumbnail = $objectUser->getThumbnail();
-
-      $sql = "INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail) VALUES ( $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $photo->getId() ,$thumbnail->getId())";
-
+      $params = "('".$objectUser->getFirstName(). "', '" . $objectUser->getLastName(). "', '" . $objectUser->getEmail(). "', '" . $objectUser->getPassword(). "', '" . $objectUser->getBirthday(). "', " . $photo->getId(). "," .$thumbnail->getId() . ")";
+      $sql = 'INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail_id) VALUES ' . $params;
+      echo $sql;
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {
@@ -30,17 +30,17 @@
 
     //Load ALL users
     public function loadAll() {
-      $sql = "SELECT * FROM user";
+      $sql = "SELECT * FROM users";
       $stmt = $this->conn->query($sql);
 
       $users = array();
 
-      if($dados = $stmt->fetch_array()){
-
+      while($dados = $stmt->fetch_array()){
+        var_dump($dados);
         $user = new User(
           $dados["id"],
-          $dados["firstName"],
-          $dados["lastName"],
+          $dados["first_name"],
+          $dados["last_name"],
           $dados["email"],
           $dados["password"],
           $dados["birthday"]

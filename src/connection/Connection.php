@@ -3,7 +3,7 @@
 	function getConnection() {
 	  $host = 'localhost';
 	  $user = 'root';
-	  $pass = 'root';
+	  $pass = '';
 	  $db   = 'XClass';
 
 	  // conecta com o banco de dados
