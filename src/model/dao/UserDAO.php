@@ -9,12 +9,10 @@
       $this->conn = getConnection();
     }
 
-    //Save a new User
+    //Save a new User 
     public function save($objectUser) {
       $photo = $objectUser->getPhoto();
       $thumbnail = $objectUser->getThumbnail();
-
-      var_dump($objectUser);
 
       $sql = "INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail) VALUES ( $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $photo->getId() ,$thumbnail->getId())";
 
