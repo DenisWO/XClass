@@ -6,11 +6,11 @@
   include_once __DIR__ . '/../../errors/SQLException.php';
 
   class XClassDAO{
-    private $conector;
+    private $conn;
     public function __construct() {
-      $this->conector = getConnection();
+      $this->conn = getConnection();
     }
-    
+
     //Save a new XClass
     public function save($objectClass) {
 

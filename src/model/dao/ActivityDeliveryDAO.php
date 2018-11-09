@@ -5,24 +5,20 @@
   include_once __DIR__ . '/../../errors/WrongObjectException.php';
 
   class Class() {
-    private $conector;
+    private $conn;
     public function __construct() {
-      $this->conector = getConnection();
+      $this->conn = getConnection();
     }
-    
+
     //Save a new ActivityDelivery
     public function save($objectActivityDelivery) {
-      if (get_class($objectActivityDelivery) == "Class") {
-        throw new WrongObjectException("ActivityDelivery" , get_class($objectActivityDelivery));
-      }
+
 
     }
 
     //Update an existing ActivityDelivery
     public function update($objectActivityDelivery) {
-      if (get_class($objectActivityDelivery) == "Class") {
-        throw new WrongObjectException("ActivityDelivery" , get_class($objectActivityDelivery));
-      }
+
 
     }
 

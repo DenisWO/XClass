@@ -8,142 +8,120 @@
   include_once __DIR__ . '/../../errors/UnregistredUserException.php';
 
   class UserDAO{
-    private $conector;
+    private $conn;
     public function __construct() {
-      $this->conector = getConnection();
+      $this->conn = getConnection();
     }
 
     //Save a new User
     public function save($objectUser) {
-      if (get_class($objectUser) !== "User") {
-        throw new WrongObjectException("User" , get_class($objectUser));
-      }
-      $sql = "SELECT * FROM user WHERE email = " . $objectUser->getEmail();
-      if(!$this->conector->query($sql)){
-        $params = "('" . $objectUser->getFirstName(). "',  '". $objectUser->getLastName() . "', '" .
-        $objectUser->getEmail() ."', '". $objectUser->getPassword() ."', '". $objectUser->getBirthday(). "', '" . "')" ;
-        $sql = 'INSERT INTO Users (first_name , last_name , email, password , birthday) VALUES ' . $params;
-        echo $sql . "<br>";
-        $stmt = $this->conector->prepare($sql);
-        if (!$stmt) {
-          throw new SQLException($stmt , $sql);
-        }
+      $photo = $objectUser->getPhoto();
+      $thumbnail = $objectUser->getThumbnail();
 
-        var_dump($stmt->execute());
+      $sql = "INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail) VALUES ( $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday() , $photo->getId() ,$thumbnail->getId())";
 
-        if (!$stmt) {
-          throw new SQLException($stmt , $sql);
-        }
-      }
-      else{
-        throw new EmailAlreadyRegistered($email);
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
       }
     }
 
     //Update an existing user
     public function update($objectUser) {
-      if (get_class($objectUser) == "User") {
-        throw new WrongObjectException("User" , get_class($objectUser));
-      }
-
-      //Refresh updated_at
-      $objectUser->setUpdated_at();
-      $sql = "UPDATE User SET first_name = ? , last_name = ? , email = ? , password = ? , birthday = ? WHERE id = ? ";
-      $stmt = $this->conector->prepare($sql);
-      $stmt->bind_param("sssssi",  $objectUser->getFirstName() , $objectUser->getLastName() , $objectUser->getEmail() , $objectUser->getPassword() , $objectUser->getBirthday(), $objectUser->getId() );
-
-      if (!$stmt) {
-        throw new SQLException($stmt , $sql);
-      }
-
-      $stmt->execute();
-
-      if (!$stmt) {
-        throw new SQLException($stmt , $sql);
-      }
 
     }
 
     //Load ALL users
     public function loadAll() {
+      $users = array();
+      $sql = "SELECT * FROM users";
+      $stmt = $this->conn->query($sql);
 
+      $nlinhas = $stmt->num_rows;
+
+    	if($nlinhas > 0){
+    		$users = array();
+
+    		while($linha = mysqli_fetch_array($stmt)){
+    			extract($linha);
+
+          "photo_id" => $photo_id;
+          "thumbnail_id" => $thumbnail_id;
+
+          $photo = getAttachmentById($photo_id);
+          $thumbnail = getAttachmentById($thumbnail_id);
+
+    			$cliEncontrado = array(
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "email" => $email,
+            "password" => $password,
+            "birthday" => $birthday,
+            "photo_id" => $photo,
+            "thumbnail" => $thumbnail
+    			);
+    			array_push($users, $cliEncontrado);
+    		}
+    	}
+
+      return $users;
     }
 
     //Loads only the id specific user
     public function loadId($id) {
-      $sql = "SELECT * FROM user WHERE email = {'$id'}";
-      $conect = $this->conector->query($sql);
 
-      if($dados = $this->conector->query($sql) === TRUE){
+      $sql = "SELECT * FROM user WHERE id = $id";
+      $stmt = $this->conn->query($sql);
 
-        try {
-          //Capture the profile photo in the bda
-          $photoDAO = new AttachmentDAO();
-          $photo = $photoDAO->loadId($data["photo_id"]);
+      if($dados = $stmt->fetch_array()){
 
-          //Capture the thumbnail in the bda
-          $thumbnailDAO = new AttachmentDAO();
-          $thumbnail = $thumbnailDAO->loadId($data["thumbnail_id"]);
+        $user = new User(
+          $dados["id"],
+          $dados["firstName"],
+          $dados["lastName"],
+          $dados["email"],
+          $dados["password"],
+          $dados["birthday"]
+        );
 
-          $user = new User($data["id"],
-            $data["firstName"],
-            $data["lastName"],
-            $data["email"],
-            $data["password"],
-            $data["birthday"],
-            $photo,
-            $thumbnail
-          );
-          return $user;
-        }catch(SQLException $e) {
-          throw $e;
-        }
-      }else{
-        throw new SQLException("Não foi possivel executar a query" , $stmt , $sql);
-      }
+        return $user;
+    	}
 
-      throw new UnregistredUserException("Id incorreto" , $id);
+      return FALSE;
     }
 
     //Loads only the email specific user
     public function loadEmail($email) {
-      $sql = "SELECT * FROM user WHERE email = '$email'";
-      $conect = $this->conector->query($sql);
+      $sql = "SELECT * FROM user WHERE email = $email";
+      $stmt = $this->conn->query($sql);
 
-      if($dados = $this->conector->query($sql) === TRUE){
+      if($dados = $stmt->fetch_array()){
 
-        try {
-          //Capture the profile photo in the bda
-          $photoDAO = new AttachmentDAO();
-          $photo = $photoDAO->loadId($data["photo_id"]);
+        $user = new User(
+          $data["id"],
+          $data["firstName"],
+          $data["lastName"],
+          $data["email"],
+          $data["password"],
+          $data["birthday"]
+        );
 
-          //Capture the thumbnail in the bda
-          $thumbnailDAO = new AttachmentDAO();
-          $thumbnail = $thumbnailDAO->loadId($data["thumbnail_id"]);
+        return $user;
+    	}
 
-          $user = new User($data["id"],
-            $data["firstName"],
-            $data["lastName"],
-            $data["email"],
-            $data["password"],
-            $data["birthday"],
-            $photo,
-            $thumbnail
-          );
-          return $user;
-        }catch(SQLException $e) {
-          throw $e;
-        }
-      }else{
-        throw new SQLException($stmt , $sql);
-      }
-
-      throw new UnregistredUserException($email);
+      return FALSE;
     }
 
     //Delete an existing user
-    public function delete() {
+    public function delete($objectUser) {
+      $sql = "DELETE FROM users WHERE id = $objectUser->id";
 
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
+      }
     }
 
   }

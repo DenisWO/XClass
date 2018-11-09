@@ -7,127 +7,125 @@
   include_once __DIR__ . '/../../errors/NotFoundSQLException.php';
 
   class AttachmentDAO {
-    private $conector;
+    private $conn;
     public function __construct() {
-      $this->conector = getConnection();
+      $this->conn = getConnection();
     }
-    
+
     //Save a new Attachment
     public function save($objectAttachment) {
-      if (get_class($objectAttachment) == "Attachment") {
-        throw new WrongObjectException("Attachment" , get_class($objectAttachment));
-      }
 
-      if(empty($objectAttachment->getId())){
-        $sql = 'INSERT INTO Attachment (directory , filename , extension) VALUES (?,?,?)';
-        $stmt = $conector->prepare($sql);
-        $stmt->bind_param("sss", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() );
+      $photo = $objectUser->getPhoto();
+      $thumbnail = $objectUser->getThumbnail();
 
-        if (!$stmt) {
-          throw new SQLException($stmt , $sql);
-        }
+      $sql = "INSERT INTO Attachment (directory , filename , extension) VALUES ($objectAttachment->getDirectory(),$objectAttachment->getFilename(),$objectAttachment->getExtension())";
 
-        $stmt->execute();
-
-        if (!$stmt) {
-          throw new SQLException($stmt , $sql);
-        }
-      }else{
-        $this->update($objectAttachmenSQLExceptiont);
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
       }
     }
 
     //Update an existing Attachment
     public function update($objectAttachment) {
-      if (get_class($objectAttachment) == "Attachment") {
-        throw new WrongObjectException("Attachment" , get_class($objectAttachment));
-      }
 
-      //Refresh updated_at();
-      $objectAttachment->setUpdated_at();
-
-      $sql = "UPDATE Attachment SET directory = ? , filename = ? , extension = ? WHERE id = ? ";
-      $stmt = $conector->prepare($sql);
-      $stmt->bind_param("sssssi", $objectAttachment->getDirectory(), $objectAttachment->getFilename() , $objectAttachment->getExtension() , $objectAttachment->getId() );
-
-      if (!$stmt) {
-        throw new SQLException($stmt , $sql);
-      }
-
-      $stmt->execute();
-
-      if (!$stmt) {
-        throw new SQLException($stmt , $sql);
-      }
     }
 
     //Load ALL Attachmentments
     public function loadAll() {
+      $attachments = array();
+      $sql = "SELECT * FROM attachments";
+      $stmt = $this->conn->query($sql);
 
+      $nlinhas = $stmt->num_rows;
+
+    	if($nlinhas > 0){
+    		$attachments = array();
+
+    		while($linha = mysqli_fetch_array($stmt)){
+    			extract($linha);
+
+    			$cliEncontrado = array(
+            "directory" => $directory,
+            "filename" => $filename,
+            "extension" => $extension
+    			);
+    			array_push($attachments, $cliEncontrado);
+    		}
+    	}
+
+      return $attachments;
     }
 
     //Loads only the id specific Attachment
     public function loadId($id) {
-      $sql = "SELECT * FROM Attachment WHERE id = '$id'";
-      $conect = $conector->query($sql);
+      $sql = "SELECT * FROM attachment WHERE id = $id";
+      $stmt = $this->conn->query($sql);
 
-      if($dados = $conector->query($sql) === TRUE){
+      if($dados = $stmt->fetch_array()){
+
         $attachment = new Attachment(
-          $data["id"],
-          $data["directory"],
-          $data["filename"],
-          $data["extension"]
+          $dados["id"],
+          $dados["directory"],
+          $dados["filename"],
+          $dados["extension"],
         );
-        return $attachment;
-      }else{
-        throw new SQLException($stmt , $sql);
-      }
 
-      throw new NotFoundSQLException($conect);
+        return $attachment;
+    	}
+
+      return FALSE;
     }
 
     //Loads only the filename specific Attachment
     public function loadFilename($filename) {
-      $sql = "SELECT * FROM Attachment WHERE filename = '$filename'";
-      $conect = $conector->query($sql);
+      $sql = "SELECT * FROM attachment WHERE filename = $filename";
+      $stmt = $this->conn->query($sql);
 
-      if($dados = $conector->query($sql) === TRUE){
+      if($dados = $stmt->fetch_array()){
+
         $attachment = new Attachment(
-          $data["id"],
-          $data["directory"],
-          $data["filename"],
-          $data["extension"]
+          $dados["id"],
+          $dados["directory"],
+          $dados["filename"],
+          $dados["extension"],
         );
-        return $attachment;
-      }else{
-        throw new SQLException($stmt , $sql);
-      }
 
-      throw new NotFoundSQLException($conect);
+        return $attachment;
+    	}
+
+      return FALSE;
     }
 
     public function load($directory , $filename , $extension) {
-      $sql = "SELECT * FROM Attachment WHERE directory = '$directory' AND filename = '$filename' AND extension = '$extension'";
-      $conect = $conector->query($sql);
+      $sql = "SELECT * FROM attachments WHERE directory = '$directory' AND filename = '$filename' AND extension = '$extension'";
+      $stmt = $this->conn->query($sql);
 
-      if($dados = $conector->query($sql) === TRUE){
+      if($dados = $stmt->fetch_array()){
+
         $attachment = new Attachment(
-          $data["id"],
-          $data["directory"],
-          $data["filename"],
-          $data["extension"]
+          $dados["id"],
+          $dados["directory"],
+          $dados["filename"],
+          $dados["extension"],
         );
-        return $attachment;
-      }else{
-        throw new SQLException($stmt , $sql);
-      }
 
-      throw new NotFoundSQLException($conect);
+        return $attachment;
+    	}
+
+      return FALSE;
     }
 
     //Delete an existing Attachment
-    public function delete() {
+    public function delete($objectAttachment) {
+      $sql = "DELETE FROM attachments WHERE id = $objectAttachment->id";
 
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
+      }
     }
 
   }

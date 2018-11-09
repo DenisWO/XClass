@@ -25,6 +25,10 @@
       //Construction default
     }
 
+    public function getAttachmentById($id) {
+
+    }
+
     //Esta função pode lançar as seguintes exceções:
     //CannotConnectSQLException, SQLException, Created_atException, WrongObjectException, NullException e NotAImageException
     public function updateProfilePhoto($objectUser , $tmp_photo) {
