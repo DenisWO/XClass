@@ -14,7 +14,7 @@
 
       $teacher = $objectClass->getTeacher();
 
-      $sql = "INSERT INTO XClasses (teacher_id,name,instituiton,year,semester) VALUES ($teacher->getId() , $objectClass->getName() , $objectClass->getInstituiton() , $objectClass->getYear() , $objectClass->getSemester())";
+      $sql = "INSERT INTO XClassess (teacher_id,name,institution,year,semester) VALUES ({$teacher->getId()} , '{$objectClass->getName()}' , '{$objectClass->getInstitution()}', '{$objectClass->getYear()}', '{$objectClass->getSemester()}')";
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {
@@ -24,6 +24,13 @@
 
     //Update an existing Class
     public function update($objectClass) {
+      $teacher = $objectClass->getTeacher();
+      $sql = "UPDATE xclassess SET teacher_id = {$teacher->getId()}, name = '{$objectClass->getName()}', institution = '{$objectClass->getInstitution()}', year = '{$objectClass->getYear()}', semester = '{$objectClass->getSemester()}' WHERE id= '{$objectClass->getId()}'";
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
+      }
 
     }
 
@@ -40,7 +47,7 @@
           $dados["id"],
           $dados["name"],
           $dados["teacher_id"],
-          $dados["instituiton"],
+          $dados["institution"],
           $dados["year"],
           $dados["semester"]
         );
@@ -62,7 +69,7 @@
           $dados["id"],
           $dados["name"],
           $dados["teacher_id"],
-          $dados["instituiton"],
+          $dados["institution"],
           $dados["year"],
           $dados["semester"]
         );

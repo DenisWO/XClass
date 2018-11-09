@@ -2,16 +2,8 @@
   include_once __DIR__ . '/../model/bean/User.php';
   include_once __DIR__ . '/../model/dao/UserDAO.php';
 
-  $bd = getConnection();
-
-  $id = 1;
-  $firstName = "Joao";
-  $lastName = "dos Testes";
-  $email = "joaodostestes@gmail.com";
-  $password = "joaojoao";
-  $birthday = "1990-01-01";
-
-  $user = new User($id, $firstName, $lastName, $email, $password, $birthday);
+  $user1 = new User(1, 'Vitor', 'Amaral', 'vitor@hotmail.com', '123456', '20180704');
+  $user2 = new User(2, 'Lucas', 'Silva', 'lucas@hotmail.com', '123456','20180512');
 
   /*echo "Printando os dados de user: <br />";
   echo $user->getId() . "<br />";
@@ -21,7 +13,8 @@
   echo $user->getPassword() . "<br />";
   echo $user->getBirthday() . "<br />";*/
 
-  $dao = new UserDAO($bd);
+  $dao = new UserDAO();
   //$dao->save($user);
-  $dao->update($user);
+  $dao->save($user1);
+  $dao->save($user2);
 ?>

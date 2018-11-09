@@ -5,18 +5,22 @@
 
     private $id;
     private $name;
-    private $instituiton;
+    private $institution;
     private $teacher;  //Objeto usuario, declarado como professor
+    private $year;
+    private $semester;
     private $students; //Array de objetos usuarios, usados como alunos
     private $activities; //Array de atividades
 
-    public function __construct($id, $name, $instituiton, $teacher){
+    public function __construct($id, $name, $institution, $teacher, $year, $semester){
       $this->setId($id);
       $this->setName($name);
-      $this->setInstituiton($instituiton);
+      $this->setInstitution($institution);
       $this->setTeacher($teacher);
-      /*$this->students = array();
-      $this->activities = array();*/
+      $this->setYear($year);
+      $this->setSemester($semester);
+      $this->students = array();
+      $this->activities = array();
     }
     public function getId(){
       return $this->id;
@@ -24,20 +28,20 @@
     public function getName(){
       return $this->name;
     }
-    public function getInstituiton(){
-      return $this->instituiton;
+    public function getInstitution(){
+      return $this->institution;
     }
     public function getTeacher(){
       return $this->teacher;
     }
-    public function getCreated_At(){
-      return $this->created_at;
-    }
-    public function getUpdated_At(){
-      return $this->updated_at;
-    }
     public function getStudents(){
       return $this->students;
+    }
+    public function getYear(){
+      return $this->year;
+    }
+    public function getSemester(){
+      return $this->semester;
     }
     public function setId($id){
       $this->id = $id;
@@ -45,28 +49,23 @@
     public function setName($name){
       $this->name = $name;
     }
-    public function setInstituiton($instituiton){
-      $this->instituiton = $instituiton;
+    public function setInstitution($institution){
+      $this->institution = $institution;
     }
     public function setTeacher($teacher){
       if(isset($teacher)){
         $this->teacher = $teacher;
       }
     }
+    public function setYear($year){
+      $this->year = $year;
+    }
+    public function setSemester($semester){
+      $this->semester = $semester;
+    }
     public function setStudents($student){
       if(isset($student)){
         array_push($this->students, $student);
-      }
-    }
-    public function
-    public function setUpdated_at($updated_at){
-      $this->updated_at = $updated_at;
-    }
-    public function setCreated_at($created_at){
-      $this->created_at = $created_at;
-    } addStudent($student){
-      if(isset($student)){
-        $this->students[] = $student;
       }
     }
     public function removeStudent($student){

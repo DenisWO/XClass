@@ -1,29 +1,28 @@
 <?php
   include_once __DIR__ . '/../model/bean/XClass.php';
   include_once __DIR__ . '/../model/dao/XClassDAO.php';
-  include_once __DIR__ . '/../connection/Connection.php';
   include 'TestUser.php';
+  include_once __DIR__ . '/../model/bean/User.php';
 
-  $bancoDeDados = new Connection();
-  $bd = $bancoDeDados->getConnection();
 
   $id = 1;
   $name = "Programacao Orientada à Gambiarra";
-  $instituiton = "UIT";
-  $teacher = $user;
-  $created_at = "2018-01-01";
-  $updated_at = "2018-01-01";
+  $institution = "UIT";
+  $teacher = $user1;
+  $year = "2018";
+  $semester = "2";
 
-  $class = new XClass($id, $name, $instituiton, $teacher, $updated_at, $created_at);
+  $class = new XClass($id, $name, $institution, $teacher, $year, $semester);
 
   echo "Printando dados: <br />";
   echo $class->getId() . " <br />";
   echo $class->getName() . " <br />";
-  echo $class->getInstituiton() . " <br />";
-  echo $class->getTeacher()->getName() . " <br />";
-  echo $class->getCreated_At() . " <br />";
-  echo $class->getUpdated_At() . " <br />";
+  echo $class->getInstitution() . " <br />";
+  $teacher = $class->getTeacher();
+  echo $teacher->getId() . "<br>";
+  echo $class->getYear() . "<br>";
+  echo $class->getSemester() . "<br>";
 
-  $dao = new XClassDAO($bd);
-  $dao->save($class);
+  $dao = new XClassDAO();
+  $dao->update($class);
 ?>
