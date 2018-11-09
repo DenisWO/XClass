@@ -13,9 +13,7 @@
     public function save($objectUser) {
       $photo = $objectUser->getPhoto();
       $thumbnail = $objectUser->getThumbnail();
-      $params = "('".$objectUser->getFirstName(). "', '" . $objectUser->getLastName(). "', '" . $objectUser->getEmail(). "', '" . $objectUser->getPassword(). "', '" . $objectUser->getBirthday(). "', " . $photo->getId(). "," .$thumbnail->getId() . ")";
-      $sql = 'INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail_id) VALUES ' . $params;
-      echo $sql;
+      $sql = "INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail_id) VALUES ('{$objectUser->getFirstName()}', '{$objectUser->getLastName()}', '{$objectUser->getEmail()}', '{$objectUser->getPassword()}', '{$objectUser->getBirthday()}', {$photo->getId()}, {$thumbnail->getId()})";
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {
@@ -25,7 +23,12 @@
 
     //Update an existing user
     public function update($objectUser) {
-
+      $sql = "UPDATE users SET first_name = '{$objectUser->getFirstName()}', last_name = '{$objectUser->getLastName()}', email = '{$objectUser->getEmail()}', password = '{$objectUser->getPassword()}', birthday = '{$objectUser->getBirthday()}' WHERE id = {$objectUser->getId()}";
+      if($this->conn->query($sql) === TRUE){
+        return TRUE;
+      } else {
+        return FALSE;
+      }
     }
 
     //Load ALL users
@@ -36,7 +39,6 @@
       $users = array();
 
       while($dados = $stmt->fetch_array()){
-        var_dump($dados);
         $user = new User(
           $dados["id"],
           $dados["first_name"],
@@ -54,37 +56,33 @@
 
     //Loads only the id specific user
     public function loadId($id) {
-      $sql = "SELECT * FROM user WHERE id = $id";
+      $sql = "SELECT * FROM users WHERE id = {$id}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
-
         $user = new User(
           $dados["id"],
-          $dados["firstName"],
-          $dados["lastName"],
+          $dados["first_name"],
+          $dados["last_name"],
           $dados["email"],
           $dados["password"],
           $dados["birthday"]
         );
-
         return $user;
     	}
-
       return FALSE;
     }
 
     //Loads only the email specific user
     public function loadEmail($email) {
-      $sql = "SELECT * FROM user WHERE email = $email";
+      $sql = "SELECT * FROM users WHERE email = '{$email}'";
       $stmt = $this->conn->query($sql);
-
       if($dados = $stmt->fetch_array()){
 
         $user = new User(
           $dados["id"],
-          $dados["firstName"],
-          $dados["lastName"],
+          $dados["first_name"],
+          $dados["last_name"],
           $dados["email"],
           $dados["password"],
           $dados["birthday"]
@@ -98,13 +96,23 @@
 
     //Delete an existing user
     public function delete($objectUser) {
-      $sql = "DELETE FROM users WHERE id = $objectUser->id";
+      $sql = "DELETE FROM users WHERE id = {$objectUser->getId()}";
 
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {
           return FALSE;
       }
+    }
+    public function deleteAll(){
+      $sql = "DELETE FROM users";
+
+      if($this->conn->query($sql) === TRUE){
+        return TRUE;
+      } else{
+        return FALSE;
+      }
+
     }
 
   }

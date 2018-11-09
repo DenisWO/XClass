@@ -23,7 +23,5 @@
 
   $dao = new UserDAO($bd);
   //$dao->save($user);
-  $users = $dao->loadAll();
-  echo $users["id"];
-  echo $users["first_name"];
+  $dao->update($user);
 ?>
