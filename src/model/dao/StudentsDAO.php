@@ -2,18 +2,23 @@
 
   include_once __DIR__ . '/../../connection/Connection.php';
   include_once __DIR__ . '/../bean/User.php';
-  include_once __DIR__ . '/../bean/Xclass.php';
+  include_once __DIR__ . '/../bean/XClass.php';
   include_once __DIR__ . '/UserDAO.php';
   include_once __DIR__ . '/XClassDAO.php';
 
-  class UserDAO{
+  class StudentsDAO{
     private $conn;
     public function __construct() {
       $this->conn = getConnection();
     }
 
-    public function saveStudents($objectXClass) {
-      
+    public function save($objectXClass, $objectUser) {
+      $sql = "INSERT INTO students (class_id, user_id) VALUES ({$objectXClass->getId()}, {$objectUser->getId()})";
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
+      }
     }
 
     public function loadUsersByClass($classId) {
@@ -29,7 +34,7 @@
       while($dados = $stmt->fetch_array()){
         $user_id = $dados["user_id"];
         $dao = new UserDAO();
-        $user = $dao->loadById($user_id);
+        $user = $dao->loadId($user_id);
 
         array_push($users , $user);
     	}
@@ -50,8 +55,8 @@
 
       while($dados = $stmt->fetch_array()){
         $class_id = $dados["class_id"];
-        $dao = new ClassDAO();
-        $class = $dao->loadById($class_id);
+        $dao = new XClassDAO();
+        $class = $dao->loadId($class_id);
 
         array_push($XClasses , $class);
     	}

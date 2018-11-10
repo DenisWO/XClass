@@ -11,12 +11,16 @@
     //Save a new Attachment
     public function save($objectAttachment) {
 
+<<<<<<< HEAD
+      $sql = "INSERT INTO attachments (directory , filename , extension) VALUES ('{$objectAttachment->getDirectory()}','{$objectAttachment->getFilename()}','{$objectAttachment->getExtension()}')";
+=======
       $sql = "INSERT INTO Attachment (directory , filename , extension)
       VALUES (
         '{$objectAttachment->getDirectory()}',
         '{$objectAttachment->getFilename()}',
         '{$objectAttachment->getExtension()}'
       )";
+>>>>>>> 132d1a67e642e45b750de5c7b703c442470de532
 
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
@@ -37,7 +41,7 @@
 
     //Load ALL Attachmentments
     public function loadAll() {
-      $sql = "SELECT * FROM attachment";
+      $sql = "SELECT * FROM attachments";
       $stmt = $this->conn->query($sql);
 
       $attachments = array();
@@ -59,7 +63,7 @@
 
     //Loads only the id specific Attachment
     public function loadId($id) {
-      $sql = "SELECT * FROM attachment WHERE id = {$id}";
+      $sql = "SELECT * FROM attachments WHERE id = {$id}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
@@ -79,7 +83,7 @@
 
     //Loads only the filename specific Attachment
     public function loadFilename($filename) {
-      $sql = "SELECT * FROM attachment WHERE filename = {$filename}";
+      $sql = "SELECT * FROM attachments WHERE filename = {$filename}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){

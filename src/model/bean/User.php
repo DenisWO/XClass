@@ -87,7 +87,7 @@
       return $this->photo;
     }
 
-    private function setPhoto($photo) {
+    public function setPhoto($photo) {
       $this->photo = $photo;
     }
 
@@ -95,7 +95,7 @@
       return $this->thumbnail;
     }
 
-    private function setThumbnail($thumbnail) {
+    public function setThumbnail($thumbnail) {
       $this->thumbnail = $thumbnail;
     }
     public function getFullName(){
