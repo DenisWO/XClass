@@ -11,6 +11,7 @@
     //Save a new Attachment
     public function save($objectAttachment) {
 
+      $sql = "INSERT INTO attachments (directory , filename , extension) VALUES ('{$objectAttachment->getDirectory()}','{$objectAttachment->getFilename()}','{$objectAttachment->getExtension()}')";
       $sql = "INSERT INTO Attachment (directory , filename , extension)
       VALUES (
         '{$objectAttachment->getDirectory()}',

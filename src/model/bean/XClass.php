@@ -63,7 +63,7 @@
     public function setSemester($semester){
       $this->semester = $semester;
     }
-    public function setStudents($student){
+    public function setStudent($student){
       if(isset($student)){
         array_push($this->students, $student);
       }

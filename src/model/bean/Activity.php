@@ -1,6 +1,6 @@
 <?php
 
-  classId Activity{
+  class Activity{
     private $id; //Id da atividade
     private $name;
     private $description;
@@ -12,28 +12,28 @@
       $this->setDescription($description);
       $this->setDateDelivery($dateDelivery);
     }
-    public setId($id){
+    public function setId($id){
       $this->id = $id;
     }
-    public setName($name){
+    public function setName($name){
       $this->name = $name;
     }
-    public setDescription($description){
+    public function setDescription($description){
       $this->description = $description;
     }
-    public setDateDelivery($dateDelivery){
+    public function setDateDelivery($dateDelivery){
       $this->dateDelivery = $dateDelivery;
     }
-    public getId(){
+    public function getId(){
       return $this->id;
     }
-    public getName(){
+    public function getName(){
       return $this->name;
     }
-    public getDescription(){
+    public function getDescription(){
       return $this->description;
     }
-    public getDateDelivery(){
+    public function getDateDelivery(){
       return $this->dateDelivery;
     }
   }

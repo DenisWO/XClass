@@ -6,7 +6,7 @@
 
 
   $id = 1;
-  $name = "Programacao Orientada à Gambiarra";
+  $name = "Programacao Orientada a Gambiarra";
   $institution = "UIT";
   $teacher = $user1;
   $year = "2018";
@@ -14,15 +14,15 @@
 
   $class = new XClass($id, $name, $institution, $teacher, $year, $semester);
 
-  echo "Printando dados: <br />";
+  /*echo "Printando dados: <br />";
   echo $class->getId() . " <br />";
   echo $class->getName() . " <br />";
   echo $class->getInstitution() . " <br />";
   $teacher = $class->getTeacher();
   echo $teacher->getId() . "<br>";
   echo $class->getYear() . "<br>";
-  echo $class->getSemester() . "<br>";
+  echo $class->getSemester() . "<br>";*/
 
-  $dao = new XClassDAO();
-  $dao->update($class);
+  $classdao = new XClassDAO();
+
 ?>

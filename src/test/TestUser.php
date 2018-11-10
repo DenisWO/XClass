@@ -13,8 +13,10 @@
   echo $user->getPassword() . "<br />";
   echo $user->getBirthday() . "<br />";*/
 
-  $dao = new UserDAO();
+  $userdao = new UserDAO();
   //$dao->save($user);
-  $dao->save($user1);
-  $dao->save($user2);
+  /*$dao->save($user1);
+  $dao->save($user2);*/
+  $userdao->update($user1);
+  $userdao->update($user2);
 ?>

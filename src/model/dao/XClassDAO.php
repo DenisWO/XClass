@@ -16,6 +16,8 @@
 
       $teacher = $objectClass->getTeacher();
 
+      $sql = "INSERT INTO XClasses (teacher_id,name,institution,year,semester) VALUES ({$teacher->getId()} , '{$objectClass->getName()}' , '{$objectClass->getInstitution()}', '{$objectClass->getYear()}', '{$objectClass->getSemester()}')";
+      echo $sql;
       $sql = "INSERT INTO XClassess (teacher_id,name,institution,year,semester)
       VALUES (
          {$teacher->getId()},
@@ -26,18 +28,20 @@
       )";
 
       if ($this->conn->query($sql) === TRUE) {
-          return TRUE;
-      } else {
-          return FALSE;
+        return TRUE;
+      }
+      else {
+        return FALSE;
       }
     }
 
     //Update an existing Class
     public function update($objectClass) {
       $teacher = $objectClass->getTeacher();
+      $sql = "UPDATE XClasses SET teacher_id = {$teacher->getId()}, name = '{$objectClass->getName()}', institution = '{$objectClass->getInstitution()}', year = '{$objectClass->getYear()}', semester = '{$objectClass->getSemester()}', id = {$objectClass->getId()} WHERE id= '{$objectClass->getId()}'";
       $sql = "UPDATE XClasses SET teacher_id = {$teacher->getId()}, name = '{$objectClass->getName()}', institution = '{$objectClass->getInstitution()}', year = '{$objectClass->getYear()}', semester = '{$objectClass->getSemester()}' WHERE id= {$objectClass->getId()}";
       if ($this->conn->query($sql) === TRUE) {
-          return TRUE;
+        return TRUE;
       } else {
           return FALSE;
       }
@@ -47,7 +51,7 @@
     //Load ALL Classes
     public function loadAll() {
       $sql = "SELECT * FROM XClasses";
-      $stmt = $this->conn-FALSE>query($sql);
+      $stmt = $this->conn->query($sql);
 
       $xClasses = array();
 
@@ -89,7 +93,6 @@
           $dados["year"],
           $dados["semester"]
         );
-
         return $xClass;
     	}
 
@@ -101,7 +104,7 @@
       $sql = "DELETE FROM XClasses WHERE id = {$objectClass->getId()}";
 
       if ($this->conn->query($sql) === TRUE) {
-          return TRUE;
+        return TRUE;
       } else {
           return FALSE;
       }
