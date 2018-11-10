@@ -11,7 +11,7 @@
 
     //Save a new XClass
     public function save($objectClass) {
-
+      
       $teacher = $objectClass->getTeacher();
 
       $sql = "INSERT INTO XClassess (teacher_id,name,institution,year,semester) VALUES ({$teacher->getId()} , '{$objectClass->getName()}' , '{$objectClass->getInstitution()}', '{$objectClass->getYear()}', '{$objectClass->getSemester()}')";

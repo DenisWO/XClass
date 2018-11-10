@@ -48,6 +48,16 @@
           $dados["birthday"]
         );
 
+        $photo_id = $dados["photo_id"];
+        $thumbnail_id = $dados["thumbnail_id"];
+
+        $dao = new AttachmentDAO();
+        $photo = $dao->loadId($photo_id);
+        $thumbnail = $dao->loadId($thumbnail_id);
+
+        $user->setPhoto($photo);
+        $user->setThumbnail($thumbnail);
+
         array_push($users , $user);
     	}
 
@@ -68,6 +78,17 @@
           $dados["password"],
           $dados["birthday"]
         );
+
+        $photo_id = $dados["photo_id"];
+        $thumbnail_id = $dados["thumbnail_id"];
+
+        $dao = new AttachmentDAO();
+        $photo = $dao->loadId($photo_id);
+        $thumbnail = $dao->loadId($thumbnail_id);
+
+        $user->setPhoto($photo);
+        $user->setThumbnail($thumbnail);
+
         return $user;
     	}
       return FALSE;
@@ -87,6 +108,16 @@
           $dados["password"],
           $dados["birthday"]
         );
+
+        $photo_id = $dados["photo_id"];
+        $thumbnail_id = $dados["thumbnail_id"];
+
+        $dao = new AttachmentDAO();
+        $photo = $dao->loadId($photo_id);
+        $thumbnail = $dao->loadId($thumbnail_id);
+
+        $user->setPhoto($photo);
+        $user->setThumbnail($thumbnail);
 
         return $user;
     	}
