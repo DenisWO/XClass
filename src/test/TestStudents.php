@@ -6,7 +6,4 @@
     $class->setStudent($user2);
     $studentdao = new StudentsDAO();
 
-
-
-
 ?>

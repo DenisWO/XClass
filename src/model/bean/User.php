@@ -25,8 +25,6 @@
       // Verificar se a photo e thumbnail estao no BDA (funcao clase AttachmentManager)
     }
 
-    //Esta função pode lançar as seguintes exceções:
-    //CannotConnectSQLException, SQLException, Created_atException, WrongObjectException, NullException e NotAImageException
     public function changePhoto($tmp_photo) {
       $profileAttachmentManager = new ProfileAttachmentManager();
       $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
