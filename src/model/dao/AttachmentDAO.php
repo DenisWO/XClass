@@ -11,7 +11,12 @@
     //Save a new Attachment
     public function save($objectAttachment) {
 
-      $sql = "INSERT INTO Attachment (directory , filename , extension) VALUES ('{$objectAttachment->getDirectory()}','{$objectAttachment->getFilename()}','{$objectAttachment->getExtension()}')";
+      $sql = "INSERT INTO Attachment (directory , filename , extension)
+      VALUES (
+        '{$objectAttachment->getDirectory()}',
+        '{$objectAttachment->getFilename()}',
+        '{$objectAttachment->getExtension()}'
+      )";
 
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
@@ -22,7 +27,12 @@
 
     //Update an existing Attachment
     public function update($objectAttachment) {
-
+      $sql = "UPDATE attachments SET directory = '{$objectAttachment->getDirectory()}', filename = '{$objectAttachment->getFilename()}', extension = '{$objectAttachment->getExtension()}' WHERE id= {$objectAttachment->getId()}";
+      if ($this->conn->query($sql) === TRUE) {
+          return TRUE;
+      } else {
+          return FALSE;
+      }
     }
 
     //Load ALL Attachmentments

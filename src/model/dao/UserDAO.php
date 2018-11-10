@@ -2,6 +2,8 @@
 
   include_once __DIR__ . '/../../connection/Connection.php';
   include_once __DIR__ . '/../bean/User.php';
+  include_once __DIR__ . '/../bean/Attachment.php';
+  include_once __DIR__ . '/AttachmentDAO.php';
 
   class UserDAO{
     private $conn;
@@ -13,7 +15,17 @@
     public function save($objectUser) {
       $photo = $objectUser->getPhoto();
       $thumbnail = $objectUser->getThumbnail();
-      $sql = "INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail_id) VALUES ('{$objectUser->getFirstName()}', '{$objectUser->getLastName()}', '{$objectUser->getEmail()}', '{$objectUser->getPassword()}', '{$objectUser->getBirthday()}', {$photo->getId()}, {$thumbnail->getId()})";
+      $sql = "INSERT INTO users (first_name,last_name,email,password,birthday,photo_id,thumbnail_id)
+      VALUES (
+        '{$objectUser->getFirstName()}',
+        '{$objectUser->getLastName()}',
+        '{$objectUser->getEmail()}',
+        '{$objectUser->getPassword()}',
+        '{$objectUser->getBirthday()}',
+         {$photo->getId()},
+         {$thumbnail->getId()}
+      )";
+
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {

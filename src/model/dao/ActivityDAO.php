@@ -13,7 +13,14 @@
 
       $class = $objectActivity->getClass();
 
-      $sql = "INSERT INTO activities (class_id, name, description, date_delivery) VALUES ({$class->getId()} , '{$objectActivity->getName()}' , '{$objectActivity->getDescription()}' , '{$objectActivity->getDateDelivery()}')";
+      $sql = "INSERT INTO activities (class_id, name, description, date_delivery)
+      VALUES (
+        {$class->getId()},
+        '{$objectActivity->getName()}',
+        '{$objectActivity->getDescription()}',
+        '{$objectActivity->getDateDelivery()}'
+      )";
+      
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {

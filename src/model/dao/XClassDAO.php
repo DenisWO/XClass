@@ -2,6 +2,8 @@
 
   include_once __DIR__ . '/../../connection/Connection.php';
   include_once __DIR__ . '/../bean/XClass.php';
+  include_once __DIR__ . '/../bean/User.php';
+  include_once __DIR__ . '/UserDAO.php';
 
   class XClassDAO{
     private $conn;
@@ -11,10 +13,18 @@
 
     //Save a new XClass
     public function save($objectClass) {
-      
+
       $teacher = $objectClass->getTeacher();
 
-      $sql = "INSERT INTO XClassess (teacher_id,name,institution,year,semester) VALUES ({$teacher->getId()} , '{$objectClass->getName()}' , '{$objectClass->getInstitution()}', '{$objectClass->getYear()}', '{$objectClass->getSemester()}')";
+      $sql = "INSERT INTO XClassess (teacher_id,name,institution,year,semester)
+      VALUES (
+         {$teacher->getId()},
+        '{$objectClass->getName()}',
+        '{$objectClass->getInstitution()}',
+        '{$objectClass->getYear()}',
+        '{$objectClass->getSemester()}'
+      )";
+
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {
@@ -25,7 +35,7 @@
     //Update an existing Class
     public function update($objectClass) {
       $teacher = $objectClass->getTeacher();
-      $sql = "UPDATE xclassess SET teacher_id = {$teacher->getId()}, name = '{$objectClass->getName()}', institution = '{$objectClass->getInstitution()}', year = '{$objectClass->getYear()}', semester = '{$objectClass->getSemester()}' WHERE id= '{$objectClass->getId()}'";
+      $sql = "UPDATE XClasses SET teacher_id = {$teacher->getId()}, name = '{$objectClass->getName()}', institution = '{$objectClass->getInstitution()}', year = '{$objectClass->getYear()}', semester = '{$objectClass->getSemester()}' WHERE id= {$objectClass->getId()}";
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {
@@ -42,11 +52,14 @@
       $xClasses = array();
 
       while($dados = $stmt->fetch_array()){
+        $teacher_id = $dados["teacher_id"];
+        $dao = new UserDAO();
+        $teacher = $dao->loadId($teacher_id);
 
         $xClass = new XClass(
           $dados["id"],
           $dados["name"],
-          $dados["teacher_id"],
+          $teacher,
           $dados["institution"],
           $dados["year"],
           $dados["semester"]
@@ -64,11 +77,14 @@
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
+        $teacher_id = $dados["teacher_id"];
+        $dao = new UserDAO();
+        $teacher = $dao->loadId($teacher_id);
 
         $xClass = new XClass(
           $dados["id"],
           $dados["name"],
-          $dados["teacher_id"],
+          $teacher,
           $dados["institution"],
           $dados["year"],
           $dados["semester"]

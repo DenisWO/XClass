@@ -2,6 +2,7 @@
 
   include_once __DIR__ . "/../../model/dao/AttachmentDAO.php";
   include_once __DIR__ . "/../../model/bean/Attachment.php";
+  include_once __DIR__ . "/../../model/bean/User.php";
 
   class ProfileAttachmentManager{
 
@@ -22,27 +23,21 @@
       //Construction default
     }
 
-    public function getAttachmentById($id) {
-
-    }
-
-    //Esta função pode lançar as seguintes exceções:
-    //CannotConnectSQLException, SQLException, Created_atException, WrongObjectException, NullException e NotAImageException
     public function updateProfilePhoto($objectUser , $tmp_photo) {
 
-      //Check if there is an image
+      //Verifica se o arquivo é do tipo imagem
       if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $tmp_photo["type"])) {
 				return FALSE;
       }
 
-      //Take the path where the file will be saved
+      //Pega o endereço aonde será salvo o arquivo
       $directory = ProfileAttachmentManager::PATH_PROFILE_PHOTO;
 
-      //Take the extension of the image and put on $extension
+      //Pega a extensão do arquivo e coloca em $extension
       preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $tmp_photo["name"], $extension);
 
-      //The filename will be user->id
-      $filename = $objectUser["id"];
+      //O nome do arquivo será o ID do usuário
+      $filename = $objectUser->getId();
 
       $dao = new AttachmentDAO();
       $attachment = $dao->loadFilename($directory , $filename , $extension);
@@ -61,9 +56,7 @@
       $thumbnail = generateThumbnail($attachment);
     }
 
-    private function generateThumbnail($attachment){
-      //Esta função pode lançar as seguintes exceções CannotConnectSQLException, SQLException, Created_atException e WrongObjectException
-
+    private function generateThumbnail($attachment) {
       // Largura e altura máximos (máximo, pois como é proporcional, o resultado varia)
       $width  = ProfileAttachmentManager::THUMBNAIL_WIDTH;
       $height = ProfileAttachmentManager::THUMBNAIL_HEIGTH;
@@ -79,7 +72,7 @@
 
       if ($width/$height > $ratio_orig) {
         $width = $height*$ratio_orig;
-      }else{//Lança as seguintes exceções SQLException e Created_atException
+      }else{
         $height = $width/$ratio_orig;
       }
 
@@ -89,8 +82,8 @@
       imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
 
       // Gerando a imagem de saída para ver no browser, qualidade 75%:
-      header('Content-Type: image/jpeg');
-      imagejpeg($image_p, null, 75);
+      header('Content-Type: image/jpeg'); // Apagar posteriormente
+      imagejpeg($image_p, null, 75);      // Apagar posteriormente
 
       // Salvando a imgem
       imagejpeg($image_p, ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL . "/" . $attachment->getFullFilename() , 75);
@@ -108,7 +101,7 @@
 
       //Atualizando o registro já existente do thumbnail
       $dao->update($thumbnail);
-      if ($dao) {
+      if (!$dao) {
         //Caso o thumbnail ainda não exista, deve salvar um novo registro
         $thumbnail = new $thumbnail($directory , $filename , $extension);
         $dao = new AttachmentDAO();
@@ -127,11 +120,11 @@
     }
 
     public static function getDefaultPhoto() {
-      return new Attachment(0 , ProfileAttachmentManager::PATH_PROFILE_PHOTO     , ProfileAttachmentManager::ATTACHMENT_NAME_DEFAULT_PHOTO     , "png");
+      return new Attachment(1 , ProfileAttachmentManager::PATH_PROFILE_PHOTO     , ProfileAttachmentManager::ATTACHMENT_NAME_DEFAULT_PHOTO     , "png");
     }
 
     public static function getDefaultThumbnail() {
-      return new Attachment(1 , ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , ProfileAttachmentManager::ATTACHMENT_NAME_DEFAULT_THUMBNAIL , "png");
+      return new Attachment(2 , ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL , ProfileAttachmentManager::ATTACHMENT_NAME_DEFAULT_THUMBNAIL , "png");
     }
 
   }
