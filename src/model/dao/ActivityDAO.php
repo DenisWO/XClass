@@ -13,7 +13,7 @@
 
       $class = $objectActivity->getClass();
 
-      $sql = "INSERT INTO activities (class_id, name, description, date_delivery) VALUES ($class->getId(), $objectActivity->getName() , $objectActivity->getDescription() , $objectActivity->getDateDelivery())";
+      $sql = "INSERT INTO activities (class_id, name, description, date_delivery) VALUES ({$class->getId()} , '{$objectActivity->getName()}' , '{$objectActivity->getDescription()}' , '{$objectActivity->getDateDelivery()}')";
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {
@@ -48,9 +48,30 @@
       return $activities;
     }
 
+    public function loadByClass($classId) {
+      $sql = "SELECT * FROM activities WHERE class_id = {$classId}";
+      $stmt = $this->conn->query($sql);
+
+      $activities = array();
+
+      while($dados = $stmt->fetch_array()){
+
+        $activity = new Activity(
+          $dados["id"],
+          $dados["name"],
+          $dados["description"],
+          $dados["date_delivery"]
+        );
+
+        array_push($activities , $activity);
+    	}
+
+      return $activities;
+    }
+
     //Loads only the id specific Activity
     public function loadId($id) {
-      $sql = "SELECT * FROM activities WHERE id = $id";
+      $sql = "SELECT * FROM activities WHERE id = {$id}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
@@ -69,7 +90,7 @@
     }
 
     public function delete($objectActivity){
-      $sql = "DELETE FROM activities WHERE id = $objectActivity->id";
+      $sql = "DELETE FROM activities WHERE id = {$objectActivity->getId()}";
 
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;

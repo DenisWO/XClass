@@ -11,7 +11,7 @@
     //Save a new Attachment
     public function save($objectAttachment) {
 
-      $sql = "INSERT INTO Attachment (directory , filename , extension) VALUES ($objectAttachment->getDirectory(),$objectAttachment->getFilename(),$objectAttachment->getExtension())";
+      $sql = "INSERT INTO Attachment (directory , filename , extension) VALUES ('{$objectAttachment->getDirectory()}','{$objectAttachment->getFilename()}','{$objectAttachment->getExtension()}')";
 
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
@@ -27,7 +27,7 @@
 
     //Load ALL Attachmentments
     public function loadAll() {
-      $sql = "SELECT * FROM attachment WHERE id = $id";
+      $sql = "SELECT * FROM attachment";
       $stmt = $this->conn->query($sql);
 
       $attachments = array();
@@ -49,7 +49,7 @@
 
     //Loads only the id specific Attachment
     public function loadId($id) {
-      $sql = "SELECT * FROM attachment WHERE id = $id";
+      $sql = "SELECT * FROM attachment WHERE id = {$id}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
@@ -69,7 +69,7 @@
 
     //Loads only the filename specific Attachment
     public function loadFilename($filename) {
-      $sql = "SELECT * FROM attachment WHERE filename = $filename";
+      $sql = "SELECT * FROM attachment WHERE filename = {$filename}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
@@ -88,7 +88,7 @@
     }
 
     public function load($directory , $filename , $extension) {
-      $sql = "SELECT * FROM attachments WHERE directory = '$directory' AND filename = '$filename' AND extension = '$extension'";
+      $sql = "SELECT * FROM attachments WHERE directory = '{$directory}' AND filename = '{$filename}' AND extension = '{$extension}'";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
@@ -108,7 +108,7 @@
 
     //Delete an existing Attachment
     public function delete($objectAttachment) {
-      $sql = "DELETE FROM attachments WHERE id = $objectAttachment->id";
+      $sql = "DELETE FROM attachments WHERE id = {$objectAttachment->id}";
 
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;

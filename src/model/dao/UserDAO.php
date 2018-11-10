@@ -104,6 +104,8 @@
           return FALSE;
       }
     }
+
+    //Delete all users
     public function deleteAll(){
       $sql = "DELETE FROM users";
 
@@ -112,7 +114,6 @@
       } else{
         return FALSE;
       }
-
     }
 
   }

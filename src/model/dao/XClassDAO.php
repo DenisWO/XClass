@@ -60,7 +60,7 @@
 
     //Loads only the id specific Class
     public function loadId($id) {
-      $sql = "SELECT * FROM XClasses WHERE id = $id";
+      $sql = "SELECT * FROM XClasses WHERE id = {$id}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
@@ -82,7 +82,7 @@
 
     //Delete an existing Class
     public function delete($objectClass) {
-      $sql = "DELETE FROM XClasses WHERE id = $objectClass->id";
+      $sql = "DELETE FROM XClasses WHERE id = {$objectClass->getId()}";
 
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
