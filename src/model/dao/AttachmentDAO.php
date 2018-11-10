@@ -37,7 +37,7 @@
 
     //Load ALL Attachmentments
     public function loadAll() {
-      $sql = "SELECT * FROM attachment";
+      $sql = "SELECT * FROM attachments";
       $stmt = $this->conn->query($sql);
 
       $attachments = array();
@@ -59,7 +59,7 @@
 
     //Loads only the id specific Attachment
     public function loadId($id) {
-      $sql = "SELECT * FROM attachment WHERE id = {$id}";
+      $sql = "SELECT * FROM attachments WHERE id = {$id}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
@@ -79,7 +79,7 @@
 
     //Loads only the filename specific Attachment
     public function loadFilename($filename) {
-      $sql = "SELECT * FROM attachment WHERE filename = {$filename}";
+      $sql = "SELECT * FROM attachments WHERE filename = {$filename}";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){

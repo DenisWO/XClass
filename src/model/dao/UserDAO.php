@@ -127,7 +127,7 @@
         $dao = new AttachmentDAO();
         $photo = $dao->loadId($photo_id);
         $thumbnail = $dao->loadId($thumbnail_id);
-
+        
         $user->setPhoto($photo);
         $user->setThumbnail($thumbnail);
 
