@@ -9,9 +9,8 @@
     }
 
     //Save a new Activity
-    public function save($objectActivity) {
+    public function save($objectActivity, $class) {
 
-      $class = $objectActivity->getClass();
 
       $sql = "INSERT INTO activities (class_id, name, description, date_delivery)
       VALUES (
@@ -20,7 +19,7 @@
         '{$objectActivity->getDescription()}',
         '{$objectActivity->getDateDelivery()}'
       )";
-      
+
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
       } else {
@@ -29,8 +28,16 @@
     }
 
     //Update an existing Activity
-    public function update($objectActivity) {
-
+    public function update($objectActivity){
+        $sql = "UPDATE activities SET name = '{$objectActivity->getName()}',
+        description = '{$objectActivity->getDescription()}', date_delivery = '{$objectActivity->getDateDelivery()}',
+        id = {$objectActivity->getId()} WHERE id = {$objectActivity->getId()}";
+        echo $sql;
+        if($this->conn->query($sql) === TRUE){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
     }
 
     //Load ALL Activities
@@ -55,7 +62,7 @@
       return $activities;
     }
 
-    public function loadByClass($classId) {
+    public function loadClass($classId) {
       $sql = "SELECT * FROM activities WHERE class_id = {$classId}";
       $stmt = $this->conn->query($sql);
 

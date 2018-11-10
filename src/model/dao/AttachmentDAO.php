@@ -11,16 +11,13 @@
     //Save a new Attachment
     public function save($objectAttachment) {
 
-<<<<<<< HEAD
       $sql = "INSERT INTO attachments (directory , filename , extension) VALUES ('{$objectAttachment->getDirectory()}','{$objectAttachment->getFilename()}','{$objectAttachment->getExtension()}')";
-=======
       $sql = "INSERT INTO Attachment (directory , filename , extension)
       VALUES (
         '{$objectAttachment->getDirectory()}',
         '{$objectAttachment->getFilename()}',
         '{$objectAttachment->getExtension()}'
       )";
->>>>>>> 132d1a67e642e45b750de5c7b703c442470de532
 
       if ($this->conn->query($sql) === TRUE) {
           return TRUE;
