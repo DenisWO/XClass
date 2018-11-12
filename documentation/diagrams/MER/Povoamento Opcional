@@ -1,0 +1,2 @@
+INSERT INTO `XClass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('1', 'Daniel', 'Dutra', 'danieldhsd@gmail.com', '123456', '1992-06-06', '1', '2');
+
