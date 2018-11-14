@@ -9,9 +9,10 @@
     <div>
       <h2>Telas (view)</h2>
       <div><a href="./src/view/login/index.html">Login</a></div>
-      <div><a href="./src/view/cadastro/cadastro.html">Cadastro</a></div>
+      <div><a href="./src/view/cadastro/index.html">Cadastro</a></div>
       <div><a href="./src/view/pagprincipal/pagprincipal.php">Página Principal</a></div>
       <div><a href="./src/view/cabecalho/cabecalho.php">Cabeçalho</a></div>
+      <div><a href="./src/view/profile/index.php">Meu Perfil</a></div>
     </div>
     <div>
       <h2>Testes (test)</h2>
