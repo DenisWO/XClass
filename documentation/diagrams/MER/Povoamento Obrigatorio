@@ -1,3 +1,2 @@
-INSERT INTO `XClass`.`attachments` (`id`, `directory`, `filename`, `extension`) VALUES ('1', './../resources/image/profile_thumbnails', 'default', '.png');
-INSERT INTO `XClass`.`attachments` (`id`, `directory`, `filename`, `extension`) VALUES ('2', './../resources/image/profile_photos', 'default', '.png');
-
+INSERT INTO `XClass`.`attachments` (`id`, `directory`, `filename`, `extension`) VALUES ('1', 'resources/image/profile_thumbnails', 'default', '.png');
+INSERT INTO `XClass`.`attachments` (`id`, `directory`, `filename`, `extension`) VALUES ('2', 'resources/image/profile_photos', 'default', '.png');

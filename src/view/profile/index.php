@@ -9,11 +9,11 @@
         <h1>Selecione o usuario que deseja modificar</h1>
 
         <div>
-          <select><?php include __DIR__ . "/selectUsers.php"; ?></select>
+          <select name="usuario"><?php include __DIR__ . "/selectUsers.php"; ?></select>
         </div>
 
         <div>
-          <br><input type="submit" name="selecionar" value="Selecionar" />
+          <br><input type="submit" name="button" value="Modificar Perfil" />
         </div>
 
         <div><br><br><a href="../../index.php">Voltar Menu</a></div>

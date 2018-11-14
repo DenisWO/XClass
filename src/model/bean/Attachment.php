@@ -14,8 +14,12 @@
       $this->setExtension($extension);
     }
 
+    public function getAddress() {
+      return $this->getDirectory() . "/" . $this->getFilename() . $this->getExtension();
+    }
+
     public function getFullFilename() {
-      return $this->getFilename() . "." . $this->getExtension();
+      return $this->getFilename() . $this->getExtension();
     }
 
     public function getId() {
