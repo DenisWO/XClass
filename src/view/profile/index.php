@@ -8,7 +8,9 @@
       <form action="./editProfile.php" method="post" name="selecionar" >
         <h1>Selecione o usuario que deseja modificar</h1>
 
-        <div><select>  </select></div>
+        <div>
+          <select><?php include __DIR__ . "/selectUsers.php"; ?></select>
+        </div>
 
         <div>
           <br><input type="submit" name="selecionar" value="Selecionar" />
