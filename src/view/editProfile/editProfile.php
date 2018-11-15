@@ -1,15 +1,25 @@
 <?php
-  //Resgatar usuario do select
-
   include_once __DIR__ . '/../../model/bean/User.php';
   include_once __DIR__ . '/../../model/dao/UserDAO.php';
 
-  $user_id = $_POST['usuario'];
-  $dao = new UserDAO();
-  $user = $dao->loadId($user_id);
+  $user = new User("" , "" , "" , "" , "" , "");
+  if (isset($_GET['action'])) {
+    $id = $_POST['id'];
 
-  $backToRoot = "../../";
+    $dao = new UserDAO();
+    $user = $dao->loadId($id);
 
+    include __DIR__ . '/../../controller/user/UpdateUser.php';
+    
+  }
+
+  if (isset($_POST['usuario'])) {
+    $user_id = $_POST['usuario'];
+    $dao = new UserDAO();
+    $user = $dao->loadId($user_id);
+
+    $backToRoot = "../../";
+  }
 ?>
 
 <!doctype html>
@@ -28,6 +38,34 @@
 
     <!-- Custom styles for this template -->
     <link href="../../resources/css/bootstrap/form-validation.css" rel="stylesheet">
+
+    <script src='./../../resources/js/jquery-3.3.1.js' type='text/javascript'></script>
+    <script src='./../../resources/js/notify.min.js' type='text/javascript'></script>
+    <script src='./../../resources/js/notify.js' type='text/javascript'></script>
+
+    <!--Arquivo Ajax-->
+    <script>
+       $(document).ready(function() {
+        $('#submitBtn').click(function(){
+          var dataString = $('#ajax_form').serialize();
+
+          $.ajax({
+            type:"post",
+            url:"./../../controller/user/UpdateUser.php",
+            data: dataString,
+            success: function(data){
+
+            $("#result").text(data);
+            if(data=="Cadastro realizado com sucesso!!"){
+              $.notify("Atualizado com sucesso!", "success");
+            }
+         }
+         });
+         event.preventDefault();
+        });
+       });
+    </script>
+
   </head>
 
   <body class="bg-light">
@@ -42,7 +80,7 @@
       <div class="row">
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Dados Cadastrais</h4>
-          <form class="needs-validation" method="POST" action="./../../controller/user/UpdateUser.php">
+          <form class="needs-validation" method="POST" id="ajax_form" action="editProfile.php?action">
             <div class="row">
               <input type="hidden" name="id" value="<?php echo $user->getId()?>" />
               <div class="col-md-6 mb-3">
@@ -80,7 +118,7 @@
               </div>
             </div>
 
-            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Salvar modificações">
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Salvar modificações" name="submit" id="submitBtn">
           </form>
 
           <form>

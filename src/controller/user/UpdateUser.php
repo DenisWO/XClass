@@ -20,15 +20,16 @@
   $user->setPassword($password);
   $user->setBirthday($birthday);
 
-  $dao->update($user);
+  $result = $dao->update($user);
 
-  echo "<script src='./../../resources/js/notify.min.js' type='text/javascript' > </script>";
-  echo "<script src='./../../resources/js/notify.js' type='text/javascript' > </script>";
+  echo "<script src='./../../resources/js/jquery-3.3.1.js' type='text/javascript'></script>";
+  echo "<script src='./../../resources/js/notify.min.js' type='text/javascript'></script>";
+  echo "<script src='./../../resources/js/notify.js' type='text/javascript'></script>";
 
-  if ($dao) {
+  if ($result) {
     echo '<body><script type="text/javascript">$.notify("Atualizado com sucesso!", "success");</script></body>';
   }else{
-    echo '<script type="text/javascript">$.notify("Ocorreu um erro ao atualizar!", "error");</script>';
+    echo '<body><script type="text/javascript">$.notify("Ocorreu um erro ao atualizar!", "error");</script></body>';
   }
 
 ?>
