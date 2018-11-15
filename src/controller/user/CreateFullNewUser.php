@@ -5,7 +5,6 @@
   include_once __DIR__ . '/../../model/bean/User.php';
   include_once 'SaveUser.php';
 
-  $user;
   $firstName = $_POST['firstName'];
   $lastName = $_POST['lastName'];
   $email = $_POST['email'];

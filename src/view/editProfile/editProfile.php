@@ -42,8 +42,9 @@
       <div class="row">
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Dados Cadastrais</h4>
-          <form class="needs-validation" method="POST" action="">
+          <form class="needs-validation" method="POST" action="./../../controller/user/UpdateUser.php">
             <div class="row">
+              <input type="hidden" name="id" value="<?php echo $user->getId()?>" />
               <div class="col-md-6 mb-3">
                 <label for="firstName">Nome</label>
                 <input type="text" class="form-control" name="firstName" id="firstName" placeholder="" value="<?php echo $user->getFirstName() ?>" required>
