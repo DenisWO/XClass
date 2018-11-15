@@ -2,13 +2,16 @@
 
   include_once __DIR__ . '/../../model/bean/User.php';
   include_once __DIR__ . '/../../model/dao/UserDAO.php';
+  session_start();
 
   function saveNewUser($user) {
     $dao = new UserDAO();
     $dao->save($user);
 
     if ($dao) {
-      echo "Sua conta foi criada com sucesso!";
+      header('Location: ../../view/pagprincipal/pagprincipal.php');
+      $_SESSION['id'] = $user->getI();
+      $_SESSION['name']; = $user->getFullName()
     }else{
       echo "Erro ao salvar!";
     }

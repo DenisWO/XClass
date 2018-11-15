@@ -30,14 +30,14 @@
         <a class="nav-link" href="#">Participar de Turma</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Meu Perfil</a>
+        <a class="nav-link" href="../editProfile/index.php">Meu Perfil</a>
       </li>
     </ul>
     <form class="form-inline" action="/action_page.php">
         <input class="form-control mr-sm-2" type="text" placeholder="Procurar">
         <button class="btn btn-success" type="submit">Procurar</button>
     </form>
-  </div>  
+  </div>
 </nav>
 
 </body>

@@ -7,6 +7,8 @@
     <h1>Redirecionador de Telas</h1>
     <h6>No final do projeto este index redirecionara para a tela view/login/index.html automaticamente</h6>
     <div>
+      <h2>Pagina Inicial</h2>
+      <div><a href="./src/view/login/index.html">Pagina Inicial</a></div>
       <h2>Telas (view)</h2>
       <div><a href="./src/view/login/index.html">Login</a></div>
       <div><a href="./src/view/cadastro/index.html">Cadastro</a></div>

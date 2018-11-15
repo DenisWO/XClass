@@ -8,8 +8,14 @@
   if ($user) {
     echo "Login realizado com sucesso! <br>";
     echo "Seja bem vindo {$user->getFullName()}";
+    $_SESSION['id'] = $user->getId();
+    $_SESSION['login'] = $user->getEmail();
+    $_SESSION['name'] = $user->getFullName();
+    $_SESSION['senha'] = $user->getPassword();
+    header('Location: ../../view/pagprincipal/pagprincipal.php');
   }else{
     echo "Dados incorretos!";
+    unset($_SESSION);
   }
 
 ?>

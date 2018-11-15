@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+    if((!isset ($_SESSION['login']) == true) and (!isset ($_SESSION['senha']) == true))
+    {
+      unset($_SESSION['login']);
+      unset($_SESSION['senha']);
+      header('location: ../login/index.html');
+      }
+      $logado = $_SESSION['login'];
+?>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -13,24 +23,28 @@
 </head>
 <body>
     <?php
-        include_once "../cabecalho/cabecalho.php";
-        i
-    ?>
+        include_once __DIR__ . "/../cabecalho/cabecalho.php";
+        include __DIR__ . '/../../controller/XClass/SearchClasses.php';
+        include_once __DIR__ . '/../../model/bean/User.php';
 
-    <div class="container">
-        <div id="turma">
-            <div id="disProf">
-                <div class="text-dark" id="nomeDisciplina">
-                    <h3>Nome Disciplina</h3>
+        foreach ($class as $value) {
+            $teacher = $value->getTeacher();
+            echo '<div class="container">
+                <div id="turma">
+                    <div id="disProf">
+                        <div class="text-dark" id="nomeDisciplina">
+                            <h3>'. $value->getName().'</h3>
+                        </div>
+                        <div class="text-dark text-small" id="nomeProf">
+                            <h5>Nome Professor</h5>
+                        </div>
+                    </div>
+                    <div id="imagemPerfil">
+                        <img src="../../resources/image/xclass.png" width="80" heidth="80">
+                    </div>
                 </div>
-                <div class="text-dark text-small" id="nomeProf">
-                    <h5>Nome Professor</h5>
-                </div>
-            </div>
-            <div id="imagemPerfil">
-                <img src="../../resources/image/xclass.png" width="80" heidth="80">
-            </div>
-        </div>
-    </div>
+            </div>';
+        }
+    ?>
 </body>
 </html>

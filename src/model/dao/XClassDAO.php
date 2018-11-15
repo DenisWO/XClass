@@ -98,6 +98,31 @@
 
       return FALSE;
     }
+    public function loadTeacher($idTeacher){
+        $sql = "SELECT * FROM XClasses WHERE teacher_id = {$idTeacher}";
+        $stmt = $this->conn->query($sql);
+
+        $xClasses = array();
+
+        while($dados = $stmt->fetch_array()){
+          $teacher_id = $dados["teacher_id"];
+          $dao = new UserDAO();
+          $teacher = $dao->loadId($teacher_id);
+
+          $xClass = new XClass(
+            $dados["id"],
+            $dados["name"],
+            $teacher,
+            $dados["institution"],
+            $dados["year"],
+            $dados["semester"]
+          );
+
+          array_push($xClasses , $xClass);
+      	}
+
+        return $xClasses;
+    }
 
     //Delete an existing Class
     public function delete($objectClass) {
