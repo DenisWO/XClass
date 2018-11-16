@@ -18,7 +18,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="#">Turmas</a>
+        <a class="nav-link" href="../pagprincipal/pagprincipal.php">Turmas</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Calendário</a>

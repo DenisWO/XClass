@@ -63,8 +63,8 @@
         $xClass = new XClass(
           $dados["id"],
           $dados["name"],
-          $teacher,
           $dados["institution"],
+          $teacher,
           $dados["year"],
           $dados["semester"]
         );
@@ -88,8 +88,8 @@
         $xClass = new XClass(
           $dados["id"],
           $dados["name"],
-          $teacher,
           $dados["institution"],
+          $teacher,
           $dados["year"],
           $dados["semester"]
         );
@@ -112,8 +112,8 @@
           $xClass = new XClass(
             $dados["id"],
             $dados["name"],
-            $teacher,
             $dados["institution"],
+            $teacher,
             $dados["year"],
             $dados["semester"]
           );

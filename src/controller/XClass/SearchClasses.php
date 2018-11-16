@@ -7,12 +7,10 @@
         echo "Deu erro aqui caraio!";
         return;
     }
-    $_SESSION['id'] = 1;
 
     $daoClass = new XClassDAO();
     $class = $daoClass->loadTeacher($_SESSION['id']);
     $daoStudents = new StudentsDAO();
     $stds = $daoStudents->loadClassByUser($_SESSION['id']);
-    $t = $class[0];
-    var_dump($class[0]);
+    $class = array_merge($class, $stds);
 ?>
