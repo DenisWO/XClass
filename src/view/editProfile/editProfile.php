@@ -10,7 +10,7 @@
     $user = $dao->loadId($id);
 
     include __DIR__ . '/../../controller/user/UpdateUser.php';
-    
+
   }
 
   if (isset($_POST['usuario'])) {
@@ -30,6 +30,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../resources/image/xclass.png">
+    <link href="../../resources/css/editProfile/fileStyle.css" rel="stylesheet">
 
     <title>Cadastrar</title>
 
@@ -128,6 +129,8 @@
             <div>
               <p class="lead">Imagem de Perfil:</p>
               <img src="<?php $photo = $user->getPhoto(); echo $backToRoot . $photo->getAddress(); ?>"/>
+              <label class='fileStyle' for='selecao-arquivo'>Alterar foto &#187;</label><br>
+              <input id='selecao-arquivo' type='file'>
             </div>
 
             <div>
