@@ -7,8 +7,8 @@
   class ProfileAttachmentManager{
 
     //Constantes que definem o diretório de onde os arquivos serão armazenados e recuperados.
-    const PATH_PROFILE_PHOTO = "./../resources/image/profile_photos";
-    const PATH_PROFILE_THUMBNAIL = "./../resources/image/profile_thumbnails";
+    const PATH_PROFILE_PHOTO = "resources/image/profile_photos";
+    const PATH_PROFILE_THUMBNAIL = "resources/image/profile_thumbnails";
 
     const THUMBNAIL_WIDTH = 200; // Pixels
     const THUMBNAIL_HEIGTH = 200; // Pixels
@@ -24,7 +24,6 @@
     }
 
     public function updateProfilePhoto($objectUser , $tmp_photo) {
-
       //Verifica se o arquivo é do tipo imagem
       if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $tmp_photo["type"])) {
 				return FALSE;
@@ -35,6 +34,7 @@
 
       //Pega a extensão do arquivo e coloca em $extension
       preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $tmp_photo["name"], $extension);
+      $extension = $extension[0];
 
       //O nome do arquivo será o ID do usuário
       $filename = $objectUser->getId();
@@ -42,13 +42,13 @@
       $dao = new AttachmentDAO();
       $attachment = $dao->loadFilename($directory , $filename , $extension);
 
-      //Caso o usuário ja tenha um registro salvo, deve atualizar o registro
-      $dao->update($attachment);
-      if ($dao) {
+      if (!$attachment) {
         //Caso o usuário ainda não tenha um foto, deve salvar um novo registro
         $attachment = new Attachment($directory , $filename , $extension);
-        $dao = new AttachmentDAO();
         $dao->save($attachment);
+      }else{
+        //Caso o usuário ja tenha um registro salvo, deve atualizar o registro
+        $dao->update($attachment);
       }
 
       $this->photo = $attachment;
@@ -99,13 +99,14 @@
       $dao = new AttachmentDAO();
       $thumbnail = $dao->load($directory , $filename , $extension);
 
-      //Atualizando o registro já existente do thumbnail
-      $dao->update($thumbnail);
-      if (!$dao) {
+      if (!$thumbnail) {
         //Caso o thumbnail ainda não exista, deve salvar um novo registro
-        $thumbnail = new $thumbnail($directory , $filename , $extension[0]);
+        $thumbnail = new $thumbnail($directory , $filename , $extension);
         $dao = new AttachmentDAO();
         $dao->save($attachment);
+      }else{
+        //Atualizando o registro já existente do thumbnail
+        $dao->update($thumbnail);
       }
 
       return $thumbnail;

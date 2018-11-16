@@ -84,7 +84,8 @@
       $sql = "SELECT * FROM attachments WHERE filename = {$filename}";
       $stmt = $this->conn->query($sql);
 
-      if($dados = $stmt->fetch_array()){
+      if(!($stmt === FALSE)){
+        $dados = $stmt->fetch_array();
 
         $attachment = new Attachment(
           $dados["id"],
