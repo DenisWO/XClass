@@ -31,6 +31,9 @@
 
       $this->setPhoto($profileAttachmentManager->getPhoto());
       $this->setThumbnail($profileAttachmentManager->getThumbnail());
+
+      var_dump($profileAttachmentManager->getPhoto());
+      var_dump($profileAttachmentManager->getThumbnail());
     }
 
     public function getId() {

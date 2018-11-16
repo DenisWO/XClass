@@ -103,7 +103,7 @@
       $dao->update($thumbnail);
       if (!$dao) {
         //Caso o thumbnail ainda não exista, deve salvar um novo registro
-        $thumbnail = new $thumbnail($directory , $filename , $extension);
+        $thumbnail = new $thumbnail($directory , $filename , $extension[0]);
         $dao = new AttachmentDAO();
         $dao->save($attachment);
       }

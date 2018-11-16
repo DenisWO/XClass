@@ -2,23 +2,29 @@
   include_once __DIR__ . '/../../model/bean/User.php';
   include_once __DIR__ . '/../../model/dao/UserDAO.php';
 
+  echo "<script src='./../../resources/js/jquery-3.3.1.js' type='text/javascript'></script>";
+  echo "<script src='./../../resources/js/notify.min.js' type='text/javascript'></script>";
+  echo "<script src='./../../resources/js/notify.js' type='text/javascript'></script>";
+
+  //Configs default
   $user = new User("" , "" , "" , "" , "" , "");
-  if (isset($_GET['action'])) {
-    $id = $_POST['id'];
+  $backToRoot = "../../";
 
-    $dao = new UserDAO();
-    $user = $dao->loadId($id);
-
+  //Caso alterar os dados do perfil
+  if (isset($_GET['changeData'])) {
     include __DIR__ . '/../../controller/user/UpdateUser.php';
-
   }
 
+  //Caso alterar a foto de perfil
+  if (isset($_GET['changePhoto'])) {
+    include __DIR__ . '/../../controller/user/UpdateProfilePhoto.php';
+  }
+
+  //Carrega o usuario passado (trocar isso por session)
   if (isset($_POST['usuario'])) {
     $user_id = $_POST['usuario'];
     $dao = new UserDAO();
     $user = $dao->loadId($user_id);
-
-    $backToRoot = "../../";
   }
 ?>
 
@@ -81,7 +87,7 @@
       <div class="row">
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Dados Cadastrais</h4>
-          <form class="needs-validation" method="POST" id="ajax_form" action="editProfile.php?action">
+          <form class="needs-validation" method="POST" id="ajax_form" action="editProfile.php?changeData">
             <div class="row">
               <input type="hidden" name="id" value="<?php echo $user->getId()?>" />
               <div class="col-md-6 mb-3">
@@ -122,24 +128,24 @@
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Salvar modificações" name="submit" id="submitBtn">
           </form>
 
-          <form>
+          <form method="POST" id="ajax_form" action="editProfile.php?changePhoto" enctype="multipart/form-data">
             <div class="py-5 text-center">
               <h2>Modificar foto de perfil</h2>
             </div>
+            <input type="hidden" name="id" value="<?php echo $user->getId()?>" />
             <div>
               <p class="lead">Imagem de Perfil:</p>
               <img src="<?php $photo = $user->getPhoto(); echo $backToRoot . $photo->getAddress(); ?>"/>
-              <label class='fileStyle' for='selecao-arquivo'>Alterar foto &#187;</label><br>
-              <input id='selecao-arquivo' type='file'>
+              <label class='fileStyle' for='selecao-arquivo'>Selecionar &#187;</label>
+              <input id='selecao-arquivo' type='file' name='photo'>
+              <input class="fileStyle" type="submit" value="Salvar">
             </div>
-
-            <div>
-              <p class="lead">Thumbnail:</p>
-              <img src="<?php $thumbnail = $user->getThumbnail(); echo $backToRoot . $thumbnail->getAddress(); ?>"/>
-            </div>
-
-            <br><input class="btn btn-primary btn-lg btn-block" type="submit" value="Alterar Foto">
           </form>
+
+          <div>
+            <p class="lead">Thumbnail: (Apenas para testes)</p>
+            <img src="<?php $thumbnail = $user->getThumbnail(); echo $backToRoot . $thumbnail->getAddress(); ?>"/>
+          </div>
 
         </div>
       </div>
