@@ -24,6 +24,11 @@
     }
 
     public function updateProfilePhoto($objectUser , $tmp_photo) {
+      $testGD = get_extension_funcs("gd"); // Grab function list
+      if (!$testGD){
+        echo "GD não foi instalado no servidor -> Galera do Linux, tente isso -> sudo apt-get install php7.2-gd. <br>Se não funcionar tente ajuda em -> http://php.net/manual/en/image.installation.php";exit;
+      }
+
       //Verifica se o arquivo é do tipo imagem
       if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $tmp_photo["type"])) {
 				return FALSE;
@@ -44,7 +49,7 @@
 
       if (!$attachment) {
         //Caso o usuário ainda não tenha um foto, deve salvar um novo registro
-        $attachment = new Attachment($directory , $filename , $extension);
+        $attachment = new Attachment(-1 , $directory , $filename , $extension);
         $dao->save($attachment);
       }else{
         //Caso o usuário ja tenha um registro salvo, deve atualizar o registro
@@ -53,7 +58,10 @@
 
       $this->photo = $attachment;
 
-      $thumbnail = generateThumbnail($attachment);
+      //Salva a foto no servidor
+      move_uploaded_file($tmp_photo["tmp_name"], __DIR__ . "/../../" . $attachment->getAddress());
+
+      $thumbnail = $this->generateThumbnail($attachment);
     }
 
     private function generateThumbnail($attachment) {
@@ -62,7 +70,7 @@
       $height = ProfileAttachmentManager::THUMBNAIL_HEIGTH;
 
       // Endereço completo da imagem Ex: resources/img/exemplo.png
-      $address = $attachment->getDirectory() . "/" . $attachment->getFullFilename();
+      $address = "./../../" . $attachment->getDirectory() . "/" . $attachment->getFullFilename();
 
       // Obtendo o tamanho original
       list($width_orig, $height_orig) = getimagesize($address);
@@ -81,10 +89,6 @@
       $image = imagecreatefromjpeg($address);
       imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
 
-      // Gerando a imagem de saída para ver no browser, qualidade 75%:
-      header('Content-Type: image/jpeg'); // Apagar posteriormente
-      imagejpeg($image_p, null, 75);      // Apagar posteriormente
-
       // Salvando a imgem
       imagejpeg($image_p, ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL . "/" . $attachment->getFullFilename() , 75);
 
@@ -101,7 +105,7 @@
 
       if (!$thumbnail) {
         //Caso o thumbnail ainda não exista, deve salvar um novo registro
-        $thumbnail = new $thumbnail($directory , $filename , $extension);
+        $attachment = new Attachment(-1 , $directory , $filename , $extension);
         $dao = new AttachmentDAO();
         $dao->save($attachment);
       }else{

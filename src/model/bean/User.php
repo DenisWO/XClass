@@ -27,7 +27,11 @@
 
     public function changePhoto($tmp_photo) {
       $profileAttachmentManager = new ProfileAttachmentManager();
-      $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
+      $result = $profileAttachmentManager->updateProfilePhoto($this, $tmp_photo);
+
+      if (!$result) {
+        return FALSE;
+      }
 
       $this->setPhoto($profileAttachmentManager->getPhoto());
       $this->setThumbnail($profileAttachmentManager->getThumbnail());
