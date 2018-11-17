@@ -128,24 +128,19 @@
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Salvar modificações" name="submit" id="submitBtn">
           </form>
 
-          <form method="POST" id="ajax_form" action="editProfile.php?changePhoto" enctype="multipart/form-data">
+          <form method="POST" id="ajax_form2" action="editProfile.php?changePhoto" enctype="multipart/form-data">
             <div class="py-5 text-center">
               <h2>Modificar foto de perfil</h2>
             </div>
             <input type="hidden" name="id" value="<?php echo $user->getId()?>" />
             <div>
               <p class="lead">Imagem de Perfil:</p>
-              <img src="<?php $photo = $user->getPhoto(); echo $backToRoot . $photo->getAddress(); ?>"/>
+              <img src="<?php $photo = $user->getPhoto(); echo $backToRoot . $photo->getAddress(); ?>" height="200" width="200"/>
               <label class='fileStyle' for='selecao-arquivo'>Selecionar &#187;</label>
               <input id='selecao-arquivo' type='file' name='photo'>
               <input class="fileStyle" type="submit" value="Salvar">
             </div>
           </form>
-
-          <div>
-            <p class="lead">Thumbnail: (Apenas para testes)</p>
-            <img src="<?php $thumbnail = $user->getThumbnail(); echo $backToRoot . $thumbnail->getAddress(); ?>"/>
-          </div>
 
         </div>
       </div>

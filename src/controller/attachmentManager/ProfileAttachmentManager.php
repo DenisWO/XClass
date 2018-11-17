@@ -45,12 +45,13 @@
       $filename = $objectUser->getId();
 
       $dao = new AttachmentDAO();
-      $attachment = $dao->loadFilename($directory , $filename , $extension);
+      $attachment = $dao->load($directory , $filename , $extension);
 
       if (!$attachment) {
         //Caso o usuário ainda não tenha um foto, deve salvar um novo registro
         $attachment = new Attachment(-1 , $directory , $filename , $extension);
         $dao->save($attachment);
+        $attachment = $dao->load($attachment->getDirectory() , $attachment->getFilename() , $attachment->getExtension());
       }else{
         //Caso o usuário ja tenha um registro salvo, deve atualizar o registro
         $dao->update($attachment);
@@ -61,39 +62,60 @@
       //Salva a foto no servidor
       move_uploaded_file($tmp_photo["tmp_name"], __DIR__ . "/../../" . $attachment->getAddress());
 
-      $thumbnail = $this->generateThumbnail($attachment);
-    }
-
-    private function generateThumbnail($attachment) {
-      // Largura e altura máximos (máximo, pois como é proporcional, o resultado varia)
-      $width  = ProfileAttachmentManager::THUMBNAIL_WIDTH;
-      $height = ProfileAttachmentManager::THUMBNAIL_HEIGTH;
-
-      // Endereço completo da imagem Ex: resources/img/exemplo.png
-      $address = "./../../" . $attachment->getDirectory() . "/" . $attachment->getFullFilename();
-
-      // Obtendo o tamanho original
-      list($width_orig, $height_orig) = getimagesize($address);
-
-      // Calculando a proporção
-      $ratio_orig = $width_orig/$height_orig;
-
-      if ($width/$height > $ratio_orig) {
-        $width = $height*$ratio_orig;
+      if ($extension === ".jpeg") {
+        $thumbnail = $this->generateThumbnailJPEG($filename);
+      } else if ($extension === ".png") {
+        $thumbnail = $this->generateThumbnailPNG($filename);
       }else{
-        $height = $width/$ratio_orig;
+        echo "Erro - extensão imagem nao suportada";
+        return FALSE;
       }
 
-      // O resize propriamente dito. Na verdade, estamos gerando uma nova imagem.
-      $image_p = imagecreatetruecolor($width, $height);
-      $image = imagecreatefromjpeg($address);
-      imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+      return true;
+    }
 
-      // Salvando a imgem
-      imagejpeg($image_p, ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL . "/" . $attachment->getFullFilename() , 75);
+    private function generateThumbnailJPEG($objectUser) {
 
-      // Atualiza os registros no banco
-      $this->thumbnail = updateThumbnail($attachment->getFilename() , $attachment->getExtension());
+    }
+
+    private function generateThumbnailPNG($filename) {
+      // O caminho da nossa imagem no servidor
+      $fullFilename = $filename . ".png";
+      $backToRoot = "./../../";
+      $caminho_imagem_foto = $backToRoot . ProfileAttachmentManager::PATH_PROFILE_PHOTO;
+      $caminho_imagem_thumb = $backToRoot . ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL;
+
+      // Retorna o identificador da imagem
+      $imagem = imagecreatefrompng($caminho_imagem_foto . "/" . $fullFilename);
+
+      // Cria duas variáveis com a largura e altura da imagem
+      list( $largura, $altura ) = getimagesize( $caminho_imagem_foto . "/" . $fullFilename );
+
+      // Nova largura e altura
+      $nova_largura = ProfileAttachmentManager::THUMBNAIL_WIDTH;
+      $nova_altura = ProfileAttachmentManager::THUMBNAIL_HEIGTH;
+
+      // Cria uma nova imagem em branco
+      $nova_imagem = imagecreatetruecolor( $nova_largura, $nova_altura );
+
+      // Copia a imagem para a nova imagem com o novo tamanho
+      imagecopyresampled(
+          $nova_imagem, // Nova imagem
+          $imagem, // Imagem original
+          0, // Coordenada X da nova imagem
+          0, // Coordenada Y da nova imagem
+          0, // Coordenada X da imagem
+          0, // Coordenada Y da imagem
+          $nova_largura, // Nova largura
+          $nova_altura, // Nova altura
+          $largura, // Largura original
+          $altura // Altura original
+      );
+
+      // Cria a imagem
+      imagepng( $nova_imagem , $caminho_imagem_thumb . "/" . $fullFilename , 1 );
+
+      $this->thumbnail = $this->updateThumbnail($filename , ".png");
     }
 
     private function updateThumbnail($filename , $extension) {
@@ -105,9 +127,10 @@
 
       if (!$thumbnail) {
         //Caso o thumbnail ainda não exista, deve salvar um novo registro
-        $attachment = new Attachment(-1 , $directory , $filename , $extension);
+        $thumbnail = new Attachment(-1 , $directory , $filename , $extension);
         $dao = new AttachmentDAO();
-        $dao->save($attachment);
+        $dao->save($thumbnail);
+        $thumbnail = $dao->load($directory , $filename , $extension);
       }else{
         //Atualizando o registro já existente do thumbnail
         $dao->update($thumbnail);
