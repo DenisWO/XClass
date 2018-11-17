@@ -78,17 +78,15 @@
   </head>
 
   <body class="bg-light">
-
+    <?php include_once __DIR__ . "/../cabecalho/cabecalho.php"; ?>
     <div class="container">
       <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="../../resources/image/xclass.png" alt="" width="300" height="150">
         <h2>Perfil do Usuário</h2>
       </div>
 
       <form method="POST" id="ajax_form2" action="index.php?changePhoto" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $user->getId()?>" />
         <div class="col-md-8 order-md-1">
-          <h4 class="mb-3">Imagem de Perfil:</h4>
           <img src="<?php $photo = $user->getPhoto(); echo $backToRoot . $photo->getAddress(); ?>" height="200" width="200"/>
           <label class='fileStyle' for='selecao-arquivo'>Selecionar &#187;</label>
           <input id='selecao-arquivo' type='file' name='photo'>

@@ -1,13 +1,14 @@
 <?php
 
+  echo "<script src='./../../resources/js/jquery-3.3.1.js' type='text/javascript'></script>";
+  echo "<script src='./../../resources/js/notify.min.js' type='text/javascript'></script>";
+  echo "<script src='./../../resources/js/notify.js' type='text/javascript'></script>";
+
   if (isset($_GET['notSession'])) {
-    echo "<script src='./../../resources/js/jquery-3.3.1.js' type='text/javascript'></script>";
-    echo "<script src='./../../resources/js/notify.min.js' type='text/javascript'></script>";
-    echo "<script src='./../../resources/js/notify.js' type='text/javascript'></script>";
-    echo '<body><script type="text/javascript">$.notify("Voce precisa iniciar sessão!", "error");</script></body>';
+    echo '<body><script type="text/javascript">$.notify("Voce precisa iniciar sessão!", "info");</script></body>';
   }
   if($_GET['erro'] == 2){
-      echo "<script>window.alert('Erro de login! Tente novamente!')</script>";
+    echo '<body><script type="text/javascript">$.notify("Dados incorretos! Tente novamente!", "warn");</script></body>';
   }
 
 ?>
