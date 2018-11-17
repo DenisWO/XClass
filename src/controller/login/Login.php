@@ -12,7 +12,7 @@
     $_SESSION['login'] = $user->getEmail();
     $_SESSION['name'] = $user->getFullName();
     $_SESSION['senha'] = $user->getPassword();
-    header('Location: ../../view/pagprincipal/pagprincipal.php?notSession');
+    header('Location: ../../view/pagprincipal/pagprincipal.php?erro=0?notSession');
   }else{
     unset($_SESSION);
     header('Location:../../view/login/index.php?erro=2');
