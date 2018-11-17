@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <?php
-	if($_GET['erro'] == 2){
-		echo "<script> window.alert('Erro ao tentar criar classe!')</script>";
+	if (isset($_GET['erro'])) {
+
+		echo "<script src='./../../resources/js/jquery-3.3.1.js' type='text/javascript'></script>";
+		echo "<script src='./../../resources/js/notify.min.js' type='text/javascript'></script>";
+		echo "<script src='./../../resources/js/notify.js' type='text/javascript'></script>";
+
+		if($_GET['erro'] == 2){
+			echo '<body><script type="text/javascript">$.notify("Erro ao tentar criar classe!", "info");</script></body>';
+		}
 	}
 ?>
 <html>

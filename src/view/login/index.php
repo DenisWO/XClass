@@ -7,8 +7,10 @@
   if (isset($_GET['notSession'])) {
     echo '<body><script type="text/javascript">$.notify("Voce precisa iniciar sessão!", "info");</script></body>';
   }
-  if($_GET['erro'] == 2){
-    echo '<body><script type="text/javascript">$.notify("Dados incorretos! Tente novamente!", "warn");</script></body>';
+  if (isset($_GET['erro'])) {
+    if($_GET['erro'] == 2){
+      echo '<body><script type="text/javascript">$.notify("Dados incorretos! Tente novamente!", "warn");</script></body>';
+    }
   }
 
 ?>

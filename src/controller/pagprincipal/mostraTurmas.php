@@ -2,7 +2,7 @@
 
   include __DIR__ . '/../../controller/XClass/SearchClasses.php';
   include_once __DIR__ . '/../../model/bean/User.php';
-
+  
   foreach ($class as $value) {
     $teacher = $value->getTeacher();
     echo '<div class="container">
