@@ -11,6 +11,7 @@
     private $semester;
     private $students; //Array de objetos usuarios, usados como alunos
     private $activities; //Array de atividades
+    private $code;
 
     public function __construct($id, $name, $institution, $teacher, $year, $semester){
       $this->setId($id);
@@ -19,6 +20,7 @@
       $this->setTeacher($teacher);
       $this->setYear($year);
       $this->setSemester($semester);
+      $this->setCode();
       $this->students = array();
       $this->activities = array();
     }
@@ -42,6 +44,9 @@
     }
     public function getSemester(){
       return $this->semester;
+    }
+    public function getCode(){
+        return $this->code;
     }
     public function setId($id){
       $this->id = $id;
@@ -67,6 +72,9 @@
       if(isset($student)){
         array_push($this->students, $student);
       }
+    }
+    public function setCode(){
+        $this->code = substr(bin2hex(random_bytes(4)), 2);
     }
     public function removeStudent($student){
       $index = array_search($student, $this->students);

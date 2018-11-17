@@ -22,7 +22,8 @@
         '{$objectClass->getName()}',
         '{$objectClass->getInstitution()}',
         '{$objectClass->getYear()}',
-        '{$objectClass->getSemester()}'
+        '{$objectClass->getSemester()}',
+        '{$objectClass->getCode()}'
       )";
       if ($this->conn->query($sql) === TRUE) {
         return TRUE;
@@ -35,7 +36,6 @@
     //Update an existing Class
     public function update($objectClass) {
       $teacher = $objectClass->getTeacher();
-      $sql = "UPDATE XClasses SET teacher_id = {$teacher->getId()}, name = '{$objectClass->getName()}', institution = '{$objectClass->getInstitution()}', year = '{$objectClass->getYear()}', semester = '{$objectClass->getSemester()}', id = {$objectClass->getId()} WHERE id= '{$objectClass->getId()}'";
       $sql = "UPDATE XClasses SET teacher_id = {$teacher->getId()}, name = '{$objectClass->getName()}', institution = '{$objectClass->getInstitution()}', year = '{$objectClass->getYear()}', semester = '{$objectClass->getSemester()}' WHERE id= {$objectClass->getId()}";
       if ($this->conn->query($sql) === TRUE) {
         return TRUE;
@@ -63,7 +63,8 @@
           $dados["institution"],
           $teacher,
           $dados["year"],
-          $dados["semester"]
+          $dados["semester"],
+          $dados["code"]
         );
 
         array_push($xClasses , $xClass);
@@ -88,10 +89,35 @@
           $dados["institution"],
           $teacher,
           $dados["year"],
-          $dados["semester"]
+          $dados["semester"],
+          $dados["code"]
         );
         return $xClass;
     	}
+
+      return FALSE;
+    }
+    public function loadNewClasses($idTeacher) {
+      $sql = "SELECT * FROM XClasses WHERE teacher_id <> {$idTeacher}";
+      echo $sql;
+      $stmt = $this->conn->query($sql);
+
+      if($dados = $stmt->fetch_array()){
+        $teacher_id = $dados["teacher_id"];
+        $dao = new UserDAO();
+        $teacher = $dao->loadId($teacher_id);
+
+        $xClass = new XClass(
+          $dados["id"],
+          $dados["name"],
+          $dados["institution"],
+          $teacher,
+          $dados["year"],
+          $dados["semester"],
+          $dados["code"]
+        );
+        return $xClass;
+        }
 
       return FALSE;
     }
@@ -120,7 +146,8 @@
             $dados["institution"],
             $teacher,
             $dados["year"],
-            $dados["semester"]
+            $dados["semester"],
+            $dados["code"]
           );
 
           array_push($xClasses , $xClass);

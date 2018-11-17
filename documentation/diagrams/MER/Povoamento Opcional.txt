@@ -9,16 +9,16 @@ INSERT INTO `XClass`.`users` (`id`, `first_name`, `last_name`, `email`, `passwor
 INSERT INTO `XClass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('5', 'Julinho', 'da Van', 'julinho@choquedecultura.com', '123456', '19751205', '1', '2');
 
 
-INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('1', '2', 'Cinema', 'YouTube', 2018, '2');
+INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`, `code`) VALUES ('1', '2', 'Cinema', 'YouTube', 2018, '2', 'f22eo4');
 
 
-INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('2', '2', 'Apresentacao de Televisao', 'Rede Globo', 2018, '2');
+INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`, `code`) VALUES ('2', '2', 'Apresentacao de Televisao', 'Rede Globo', 2018, '2', 'r25as3');
 
 
-INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('3', '1', 'Programacao Front-end', 'UIT', 2018, '2');
+INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`, `code`) VALUES ('3', '1', 'Programacao Front-end', 'UIT', 2018, '2', 'o85qw6');
 
 
-INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('4', '4', 'Informacao no seculo XXI', 'YouTube', 2018, '2');
+INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`, `code`) VALUES ('4', '4', 'Informacao no seculo XXI', 'YouTube', 2018, '2', 'j69de0');
 
 INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('1', '1');
 

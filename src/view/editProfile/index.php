@@ -132,10 +132,11 @@
                     <div class="mb-3">
                         <input type="date" name="birthday" id="birthday" class="form-control" value="<?php echo $user->getBirthday() ?>">
                     </div>
+
               </div>
             </div>
-
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Salvar modificações" name="submit" id="submitBtn">
+            <a href="../pagprincipal/index.php?erro=0">Voltar</a>
           </form>
 
         </div>

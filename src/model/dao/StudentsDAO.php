@@ -62,7 +62,28 @@
     	}
       return $XClasses;
     }
+    public function loadNewClasses($userId) {
+      /*
+        Passa um id de usuario e retorna todas as XClasses pertencentes a aquele
+        usuario, as classes retornadas tem o array de estudantes e atividades vazia,
+        isso para otimizar o carregamento das classes
+      */
 
+      $sql = "SELECT * FROM students WHERE user_id <> {$userId}";
+      echo $sql;
+      $stmt = $this->conn->query($sql);
+
+      $XClasses = array();
+
+      while($dados = $stmt->fetch_array()){
+        $class_id = $dados["class_id"];
+        $dao = new XClassDAO();
+        $class = $dao->loadId($class_id);
+
+        array_push($XClasses , $class);
+    	}
+      return $XClasses;
+    }
   }
 
 ?>
