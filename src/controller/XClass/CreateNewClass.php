@@ -11,7 +11,7 @@
     if (!$dao) {
       header('location: ../../view/criarTurma/criarTurma.php?erro=2?notSession');
     }
-    header('location: ../../view/pagprincipal/pagprincipal.php?erro=2?notSession');
+    header('location: ../../view/pagprincipal/index.php?erro=2?notSession');
   }
   $dao = new XClassDAO();
   $id = $dao->loadLastId() +1;
