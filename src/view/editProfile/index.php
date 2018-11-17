@@ -27,13 +27,6 @@
   if (isset($_GET['changePhoto'])) {
     include __DIR__ . '/../../controller/user/UpdateProfilePhoto.php';
   }
-
-  //Carrega o usuario passado (trocar isso por session)
-  if (isset($_POST['usuario'])) {
-    $user_id = $_POST['usuario'];
-    $dao = new UserDAO();
-    $user = $dao->loadId($user_id);
-  }
 ?>
 
 <!doctype html>

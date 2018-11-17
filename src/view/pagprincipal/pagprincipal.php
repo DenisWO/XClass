@@ -5,7 +5,7 @@
     {
       unset($_SESSION['login']);
       unset($_SESSION['senha']);
-      header('location: ../login/index.html');
+      header('location: ../login/index.php?notSession');
       }
       $logado = $_SESSION['login'];
 ?>
