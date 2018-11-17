@@ -1,3 +1,14 @@
+<?php
+
+  if (isset($_GET['notSession'])) {
+    echo "<script src='./../../resources/js/jquery-3.3.1.js' type='text/javascript'></script>";
+    echo "<script src='./../../resources/js/notify.min.js' type='text/javascript'></script>";
+    echo "<script src='./../../resources/js/notify.js' type='text/javascript'></script>";
+    echo '<body><script type="text/javascript">$.notify("Voce precisa iniciar sessão!", "error");</script></body>';
+  }
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
   <head>
