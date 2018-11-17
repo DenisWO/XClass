@@ -30,7 +30,8 @@
       }
 
       //Verifica se o arquivo é do tipo imagem
-      if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $tmp_photo["type"])) {
+      if(!preg_match("/^image\/(jpeg|png)$/", $tmp_photo["type"])) {
+        echo "Suportado apenas JPEG e PNG";
 				return FALSE;
       }
 
@@ -38,7 +39,7 @@
       $directory = ProfileAttachmentManager::PATH_PROFILE_PHOTO;
 
       //Pega a extensão do arquivo e coloca em $extension
-      preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $tmp_photo["name"], $extension);
+      preg_match("/\.(png|jpeg){1}$/i", $tmp_photo["name"], $extension);
       $extension = $extension[0];
 
       //O nome do arquivo será o ID do usuário
@@ -66,16 +67,51 @@
         $thumbnail = $this->generateThumbnailJPEG($filename);
       } else if ($extension === ".png") {
         $thumbnail = $this->generateThumbnailPNG($filename);
-      }else{
-        echo "Erro - extensão imagem nao suportada";
+      } else{
         return FALSE;
       }
 
-      return true;
+      return TRUE;
     }
 
     private function generateThumbnailJPEG($objectUser) {
+      // O caminho da nossa imagem no servidor
+      $fullFilename = $filename . ".jpeg";
+      $backToRoot = "./../../";
+      $caminho_imagem_foto = $backToRoot . ProfileAttachmentManager::PATH_PROFILE_PHOTO;
+      $caminho_imagem_thumb = $backToRoot . ProfileAttachmentManager::PATH_PROFILE_THUMBNAIL;
 
+      // Retorna o identificador da imagem
+      $imagem = imagecreatefromjpeg($caminho_imagem_foto . "/" . $fullFilename);
+
+      // Cria duas variáveis com a largura e altura da imagem
+      list( $largura, $altura ) = getimagesize( $caminho_imagem_foto . "/" . $fullFilename );
+
+      // Nova largura e altura
+      $nova_largura = ProfileAttachmentManager::THUMBNAIL_WIDTH;
+      $nova_altura = ProfileAttachmentManager::THUMBNAIL_HEIGTH;
+
+      // Cria uma nova imagem em branco
+      $nova_imagem = imagecreatetruecolor( $nova_largura, $nova_altura );
+
+      // Copia a imagem para a nova imagem com o novo tamanho
+      imagecopyresampled(
+          $nova_imagem, // Nova imagem
+          $imagem, // Imagem original
+          0, // Coordenada X da nova imagem
+          0, // Coordenada Y da nova imagem
+          0, // Coordenada X da imagem
+          0, // Coordenada Y da imagem
+          $nova_largura, // Nova largura
+          $nova_altura, // Nova altura
+          $largura, // Largura original
+          $altura // Altura original
+      );
+
+      // Cria a imagem
+      imagejpeg( $nova_imagem , $caminho_imagem_thumb . "/" . $fullFilename , 1 );
+
+      $this->thumbnail = $this->updateThumbnail($filename , ".jpeg");
     }
 
     private function generateThumbnailPNG($filename) {
