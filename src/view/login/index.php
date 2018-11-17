@@ -6,6 +6,9 @@
     echo "<script src='./../../resources/js/notify.js' type='text/javascript'></script>";
     echo '<body><script type="text/javascript">$.notify("Voce precisa iniciar sessão!", "error");</script></body>';
   }
+  if($_GET['erro'] == 2){
+      echo "<script>window.alert('Erro de login! Tente novamente!')</script>";
+  }
 
 ?>
 

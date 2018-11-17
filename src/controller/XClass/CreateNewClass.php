@@ -9,17 +9,17 @@
     $dao->save($class);
 
     if (!$dao) {
-      echo "Erro ao tentar salvar classe!";
+      header('location: ../../view/criarTurma/criarTurma.php?erro=2?notSession');
     }
-
-    echo "Classe criada com sucesso!";
+    header('location: ../../view/pagprincipal/pagprincipal.php?erro=2?notSession');
   }
   $dao = new XClassDAO();
   $id = $dao->loadLastId() +1;
   $userdao = new UserDAO();
-  echo $_SESSION['id'];
   $user = $userdao->loadId($_SESSION['id']);
-  //$class = new XClass($id, $_POST['nomeTurma'], $_POST['instituicao'], $_POST['year'], $_POST['semestre'], )
+  $class = new XClass($id, $_POST['nomeTurma'], $_POST['instituicao'], $user, $_POST['ano'], $_POST['semestre']);
+
+  createNewClass($class);
 
 
 ?>

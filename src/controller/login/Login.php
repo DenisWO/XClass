@@ -12,10 +12,10 @@
     $_SESSION['login'] = $user->getEmail();
     $_SESSION['name'] = $user->getFullName();
     $_SESSION['senha'] = $user->getPassword();
-    header('Location: ../../view/pagprincipal/pagprincipal.php');
+    header('Location: ../../view/pagprincipal/pagprincipal.php?notSession');
   }else{
-    echo "Dados incorretos!";
     unset($_SESSION);
+    header('Location:../../view/login/index.php?erro=2');
   }
 
 ?>

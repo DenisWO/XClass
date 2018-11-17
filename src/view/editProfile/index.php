@@ -6,6 +6,7 @@
   echo "<script src='./../../resources/js/notify.min.js' type='text/javascript'></script>";
   echo "<script src='./../../resources/js/notify.js' type='text/javascript'></script>";
 
+  session_start();
   //Configs default
   $user = new User("" , "" , "" , "" , "" , "");
   $backToRoot = "../../";

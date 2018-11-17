@@ -16,9 +16,7 @@
 
       $teacher = $objectClass->getTeacher();
 
-      $sql = "INSERT INTO XClasses (teacher_id,name,institution,year,semester) VALUES ({$teacher->getId()} , '{$objectClass->getName()}' , '{$objectClass->getInstitution()}', '{$objectClass->getYear()}', '{$objectClass->getSemester()}')";
-      echo $sql;
-      $sql = "INSERT INTO XClassess (teacher_id,name,institution,year,semester)
+      $sql = "INSERT INTO XClasses (teacher_id,name,institution,year,semester)
       VALUES (
          {$teacher->getId()},
         '{$objectClass->getName()}',
@@ -26,7 +24,6 @@
         '{$objectClass->getYear()}',
         '{$objectClass->getSemester()}'
       )";
-
       if ($this->conn->query($sql) === TRUE) {
         return TRUE;
       }
