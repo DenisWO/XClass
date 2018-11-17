@@ -1,52 +1,53 @@
 INSERT INTO `XClass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('1', 'Daniel', 'Dutra', 'danieldhsd@gmail.com', '123456', '1992-06-06', '1', '2');
-INSERT INTO `xclass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('2', 'Rogerinho', 'do Ingá', 'rogerinho@choquedecultura.com', '123456', '19700201', '1', '2');
 
-INSERT INTO `xclass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('3', 'Maurilio', 'dos Anjos', 'maurilio@choquedecultura.com', '123456', '19800305', '1', '2');
+INSERT INTO `XClass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('2', 'Rogerinho', 'do Inga', 'rogerinho@choquedecultura.com', '123456', '19700201', '1', '2');
 
-INSERT INTO `xclass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('4', 'Renan', ' ', 'renan@choquedecultura.com', '123456', '19720506', '1', '2');
+INSERT INTO `XClass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('3', 'Maurilio', 'dos Anjos', 'maurilio@choquedecultura.com', '123456', '19800305', '1', '2');
 
-INSERT INTO `xclass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('5', 'Julinho', 'da Van', 'julinho@choquedecultura.com', '123456', '19751205', '1', '2');
+INSERT INTO `XClass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('4', 'Renan', ' ', 'renan@choquedecultura.com', '123456', '19720506', '1', '2');
 
-
-INSERT INTO `xclass`.`xclasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('1', '2', 'Cinema', 'YouTube', 2018, '2');
+INSERT INTO `XClass`.`users` (`id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `photo_id`, `thumbnail_id`) VALUES ('5', 'Julinho', 'da Van', 'julinho@choquedecultura.com', '123456', '19751205', '1', '2');
 
 
-INSERT INTO `xclass`.`xclasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('2', '2', 'Apresentação de Televisão', 'Rede Globo', 2018, '2');
+INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('1', '2', 'Cinema', 'YouTube', 2018, '2');
 
 
-INSERT INTO `xclass`.`xclasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('3', '1', 'Programaão Front-end', 'UIT', 2018, '2');
+INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('2', '2', 'Apresentacao de Televisao', 'Rede Globo', 2018, '2');
 
 
-INSERT INTO `xclass`.`xclasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('4', '4', 'Informação no século XXI', 'YouTube', 2018, '2');
+INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('3', '1', 'Programacao Front-end', 'UIT', 2018, '2');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('1', '1');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('1', '3');
+INSERT INTO `XClass`.`XClasses` (`id`, `teacher_id`, `name`, `institution`, `year`, `semester`) VALUES ('4', '4', 'Informacao no seculo XXI', 'YouTube', 2018, '2');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('1', '4');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('1', '1');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('2', '1');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('1', '3');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('2', '3');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('1', '4');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('2', '4');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('2', '1');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('3', '2');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('2', '3');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('3', '3');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('2', '4');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('3', '4');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('3', '2');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('1', '5');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('3', '3');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('2', '5');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('3', '4');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('3', '5');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('1', '5');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('4', '2');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('2', '5');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('4', '3');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('3', '5');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('4', '1');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('4', '2');
 
-INSERT INTO `xclass`.`students` (`class_id`, `user_id`) VALUES ('4', '5');
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('4', '3');
+
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('4', '1');
+
+INSERT INTO `XClass`.`students` (`class_id`, `user_id`) VALUES ('4', '5');

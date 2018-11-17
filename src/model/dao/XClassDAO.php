@@ -98,6 +98,14 @@
 
       return FALSE;
     }
+    public function loadLastId(){
+        $sql = "SELECT MAX(id) FROM XClasses";
+        $stmt = $this->conn->query($sql);
+        if($id = $stmt->fetch_array()){
+            return $id[0];
+        }
+        return FALSE;
+    }
     public function loadTeacher($idTeacher){
         $sql = "SELECT * FROM XClasses WHERE teacher_id = {$idTeacher}";
         $stmt = $this->conn->query($sql);

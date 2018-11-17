@@ -24,7 +24,7 @@
         <a class="nav-link" href="#">Calendário</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Criar Turma</a>
+        <a class="nav-link" href="../criarTurma/criarTurma.php">Criar Turma</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Participar de Turma</a>
