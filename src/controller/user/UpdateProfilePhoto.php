@@ -9,11 +9,11 @@
 
   $tmp_photo = $_FILES['photo'];
   if (empty($tmp_photo['name'])) {
-    echo '<body><script type="text/javascript">$.notify("Você precisa selecionar uma foto!", "error");</script></body>';
+    echo '<body><script type="text/javascript">$.notify("Você precisa selecionar uma foto!", "info");</script></body>';
   }else{
 
     $user->changePhoto($tmp_photo);
-    $result = $dao->save($user);
+    $result = $dao->update($user);
 
     if ($result) {
       echo '<body><script type="text/javascript">$.notify("A foto de perfil foi alterado!", "success");</script></body>';

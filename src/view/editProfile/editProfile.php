@@ -81,8 +81,18 @@
       <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="../../resources/image/xclass.png" alt="" width="300" height="150">
         <h2>Perfil do Usuário</h2>
-        <p class="lead">Modifique seus dados XClass!</p>
       </div>
+
+      <form method="POST" id="ajax_form2" action="editProfile.php?changePhoto" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $user->getId()?>" />
+        <div class="col-md-8 order-md-1">
+          <h4 class="mb-3">Imagem de Perfil:</h4>
+          <img src="<?php $photo = $user->getPhoto(); echo $backToRoot . $photo->getAddress(); ?>" height="200" width="200"/>
+          <label class='fileStyle' for='selecao-arquivo'>Selecionar &#187;</label>
+          <input id='selecao-arquivo' type='file' name='photo'>
+          <input class="fileStyle" type="submit" value="Salvar">
+        </div>
+      </form>
 
       <div class="row">
         <div class="col-md-8 order-md-1">
@@ -126,20 +136,6 @@
             </div>
 
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Salvar modificações" name="submit" id="submitBtn">
-          </form>
-
-          <form method="POST" id="ajax_form2" action="editProfile.php?changePhoto" enctype="multipart/form-data">
-            <div class="py-5 text-center">
-              <h2>Modificar foto de perfil</h2>
-            </div>
-            <input type="hidden" name="id" value="<?php echo $user->getId()?>" />
-            <div>
-              <p class="lead">Imagem de Perfil:</p>
-              <img src="<?php $photo = $user->getPhoto(); echo $backToRoot . $photo->getAddress(); ?>" height="200" width="200"/>
-              <label class='fileStyle' for='selecao-arquivo'>Selecionar &#187;</label>
-              <input id='selecao-arquivo' type='file' name='photo'>
-              <input class="fileStyle" type="submit" value="Salvar">
-            </div>
           </form>
 
         </div>
