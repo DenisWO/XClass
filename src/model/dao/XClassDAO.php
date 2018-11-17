@@ -63,10 +63,9 @@
           $dados["institution"],
           $teacher,
           $dados["year"],
-          $dados["semester"],
-          $dados["code"]
+          $dados["semester"]
         );
-
+        $xClass->setCode($dados["code"]);
         array_push($xClasses , $xClass);
     	}
 
@@ -89,17 +88,16 @@
           $dados["institution"],
           $teacher,
           $dados["year"],
-          $dados["semester"],
-          $dados["code"]
+          $dados["semester"]
         );
+        $xClass->setCode($dados["code"]);
         return $xClass;
     	}
 
       return FALSE;
     }
-    public function loadNewClasses($idTeacher) {
-      $sql = "SELECT * FROM XClasses WHERE teacher_id <> {$idTeacher}";
-      echo $sql;
+    public function loadCode($code) {
+      $sql = "SELECT * FROM XClasses WHERE code = '{$code}'";
       $stmt = $this->conn->query($sql);
 
       if($dados = $stmt->fetch_array()){
@@ -113,9 +111,9 @@
           $dados["institution"],
           $teacher,
           $dados["year"],
-          $dados["semester"],
-          $dados["code"]
+          $dados["semester"]
         );
+        $xClass->setCode($dados["code"]);
         return $xClass;
         }
 
@@ -146,10 +144,9 @@
             $dados["institution"],
             $teacher,
             $dados["year"],
-            $dados["semester"],
-            $dados["code"]
+            $dados["semester"]
           );
-
+          $xClass->setCode($dados["code"]);
           array_push($xClasses , $xClass);
       	}
 

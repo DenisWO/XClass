@@ -27,7 +27,7 @@
         <a class="nav-link" href="../criarTurma/criarTurma.php">Criar Turma</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../participation/index.php">Participar de Turma</a>
+        <a class="nav-link" href="../participation/index.php?erro=0">Participar de Turma</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../editProfile/index.php">Meu Perfil</a>

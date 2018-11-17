@@ -20,7 +20,7 @@
       $this->setTeacher($teacher);
       $this->setYear($year);
       $this->setSemester($semester);
-      $this->setCode();
+      $this->setCode(substr(bin2hex(random_bytes(4)), 2));
       $this->students = array();
       $this->activities = array();
     }
@@ -73,8 +73,9 @@
         array_push($this->students, $student);
       }
     }
-    public function setCode(){
-        $this->code = substr(bin2hex(random_bytes(4)), 2);
+    public function setCode($code){
+        //$this->code = substr(bin2hex(random_bytes(4)), 2);
+        $this->code = $code;
     }
     public function removeStudent($student){
       $index = array_search($student, $this->students);
