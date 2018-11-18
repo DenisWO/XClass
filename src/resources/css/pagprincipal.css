@@ -15,5 +15,55 @@
    margin: 0%;
 }
 #nomeProf{
+
    font-family: 'Times New Roman', Times, sans-serif;
+}
+
+#corpoIndex{
+
+   background-image: url(../image/fundo_index.jpeg);
+   background-repeat: no-repeat;
+
+}
+
+#titulo{
+
+   text-align: center;
+   font-size: 35px;
+   font-family: 'Times New Roman';
+}
+
+#links{
+
+   margin-top: 50px;
+   margin-left: 30px;
+   display: block;
+}
+
+#login{
+
+   margin: 0px;
+   width: 300px;
+   height: 400px;
+}
+
+#cadastroUser{
+
+   width: 300px;
+   height: 400px;
+}
+
+#Sobre{
+
+   margin-top: 100px;
+   text-align: justify;
+   margin-left: 50px;
+   margin-right: 100px;
+   font-family: 'Times New Roman';
+   font-size: 20px;
+   border-style: double;
+   border-width: 0px;
+   border-left: 0px;
+   border-right: 0px;
+   border-top: 3px;
 }
