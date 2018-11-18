@@ -17,27 +17,39 @@
   	
   	<div>
   		
-  		<h1 id="titulo"> Bem vindo ao Portal Acadêmico - XClass</h1>
+  		<img src="src/resources/image/titulo.png">
 
   	</div>
 
   	<div id="links">
 
-  			<a href="src/view/login/index.php"> <img src="src/resources/image/login_image.jpg"> </a>
-
-	  		<a href="src/view/cadastro/index.html"> <img src="src/resources/image/cad_image.jpg"> </a>
-
-	  	<div>	
-	  		<img src="src/resources/image/brasao_uit.jpeg">
-	  	</div>
-
-	  	</div>
-
-	  		<p id="Sobre"> Sistema de gerenciamento de arquivos acadêmicos, que tem como objetivo organizar todo o tipo de conteúdo acadêmico ministrado em um determinado curso profissionalizante, fundamental, médio, graduação, pós-graduação, etc. Acesse já e aproveite! </p>
-
-	  	<div>
-  	
+		<div class="linksDiv">
+			<a href="src/view/login/index.php"> <img src="src/resources/image/login_image.jpg"> </a>	
+		</div>
+		
+		<div class="linksDiv">
+			<a href="src/view/cadastro/index.html"> <img src="src/resources/image/cad_image.jpg"> </a>			
+		</div>
+		
+		<div class="linksDiv">
+			<img id="uit" src="src/resources/image/brasao_uit.png" height="270px" width="270px">	
+		</div>	
+ 	
   	</div>
+
+  	<div>
+  		
+  		<h2 id="tituloSuporte"> Suporte Técnico </h2>
+  		<img id="suporteImage" src="src/resources/image/manutencao.png">
+
+  	</div>
+
+  	</div>
+
+  		<h3 id="tituloSobre"> Sobre </h3>
+		<p id="Sobre"> Sistema de gerenciamento de arquivos acadêmicos, que tem como objetivo organizar todo o tipo de conteúdo acadêmico ministrado em um determinado curso profissionalizante, fundamental, médio, graduação, pós-graduação, etc. Acesse já e aproveite! </p>
+
+	<div>
 
   </body>
 

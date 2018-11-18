@@ -35,8 +35,15 @@
 
 #links{
 
+   border-color: black;
+   border-width: 0px;
+   border-left: 0px;
+   border-right: 0px;
+   border-top: 3px;
+   border-style: double;
+   margin-bottom: 0px;
    margin-top: 50px;
-   margin-left: 30px;
+   margin-left: 20px;
    display: block;
 }
 
@@ -53,17 +60,54 @@
    height: 400px;
 }
 
+#tituloSobre{
+
+   border-color: black;
+   border-width: 0px;
+   border-left: 0px;
+   border-right: 0px;
+   border-top: 3px;
+   border-style: double;
+   margin-bottom: 0px;
+   font-size: 23px;
+   margin-left: 20px;
+   text-align: left;
+}
+
 #Sobre{
 
-   margin-top: 100px;
    text-align: justify;
    margin-left: 50px;
    margin-right: 100px;
    font-family: 'Times New Roman';
    font-size: 20px;
-   border-style: double;
+}
+
+#tituloSuporte{
+
+   border-color: black;
    border-width: 0px;
    border-left: 0px;
    border-right: 0px;
    border-top: 3px;
+   border-style: double;
+   margin-bottom: 0px;
+   text-align: left;
+   margin-left: 20px;
+   font-family: 'Times New Roman';
+   font-size: 23px;
+}
+
+.linksDiv{
+
+   margin-right: 90px;
+   margin-left: 60px;
+   width: 450px;
+   height: 450px;
+   display: inline;
+}
+
+#suporteImage{
+
+   margin-left: 500px;
 }
