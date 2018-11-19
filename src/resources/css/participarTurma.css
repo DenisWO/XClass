@@ -1,0 +1,16 @@
+body{
+
+	background-repeat: no-repeat;
+	background-image: url(../image/fundo_participar_turma.jpeg);
+}
+
+#formularioParticiparTurma{
+
+	margin-top: 200px;
+	margin-left: 800px;
+	font-size: 23px;
+	font-style: bold;
+	color: white;
+	text-align: center;
+
+}

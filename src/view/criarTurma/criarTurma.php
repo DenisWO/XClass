@@ -50,7 +50,7 @@
 	              	</div>
 	              	<hr class="mb-4">
             			<input class="btn btn-primary btn-lg btn-block" type="submit" value="Criar Turma">
-						<a href="../pagprincipal/index.php?erro=0">Voltar</a>
+						<a href="../../../index.php">Voltar</a>
             	</div>
 			</form>
 		</div>
