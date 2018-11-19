@@ -10,6 +10,16 @@
 			echo '<body><script type="text/javascript">$.notify("Erro ao tentar criar classe!", "info");</script></body>';
 		}
 	}
+
+	session_start();
+
+    if((!isset ($_SESSION['login']) == true) and (!isset ($_SESSION['senha']) == true))
+    {
+      unset($_SESSION['login']);
+      unset($_SESSION['senha']);
+      header('location: ../login/index.php?notSession');
+      }
+      $logado = $_SESSION['login'];
 ?>
 <html>
 <head>
@@ -49,8 +59,7 @@
 	                	<input type="number" min="2010" max="2019" class="form-control" id="ano" name="ano" required>
 	              	</div>
 	              	<hr class="mb-4">
-            			<input class="btn btn-primary btn-lg btn-block" type="submit" value="Criar Turma">
-						<a href="../../../index.php">Voltar</a>
+            			<input class="btn btn-primary btn-lg btn-block" type="submit" value="Criar Turma">	 
             	</div>
 			</form>
 		</div>

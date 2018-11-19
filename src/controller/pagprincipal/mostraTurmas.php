@@ -19,10 +19,11 @@
                 <img src="../../resources/image/xclass.png" width="80" heidth="80">
             </div>
             <div id="button">
-              <button id="button" name="button" onclick="GoToPage()">Entrar</button>
+              <button id="button" name="button" ><a href="./../../view/turma/index.php?'.$value->getCode().'">Entrar</a></button>
             </div>
         </div>
     </div>';
   }
 
 ?>
+

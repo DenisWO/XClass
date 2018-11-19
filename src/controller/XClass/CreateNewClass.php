@@ -21,5 +21,6 @@
 
   createNewClass($class);
 
+  echo $class->getCode();
 
 ?>

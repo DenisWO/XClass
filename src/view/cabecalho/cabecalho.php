@@ -8,7 +8,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="../../../index.php">
     <img src="../../resources/image/xclass.png" alt="Logo" style="width:40px;">
       XClass
   </a>
@@ -21,7 +21,7 @@
         <a class="nav-link" href="../pagprincipal/index.php?erro=0">Turmas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Calendário</a>
+        <a class="nav-link" href="../calendario/index.php">Calendário</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../criarTurma/criarTurma.php">Criar Turma</a>
@@ -33,10 +33,7 @@
         <a class="nav-link" href="../editProfile/index.php">Meu Perfil</a>
       </li>
     </ul>
-    <form class="form-inline" action="/action_page.php">
-        <input class="form-control mr-sm-2" type="text" placeholder="Procurar">
-        <button class="btn btn-success" type="submit">Procurar</button>
-    </form>
+    
   </div>
 </nav>
 
