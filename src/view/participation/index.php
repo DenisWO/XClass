@@ -12,7 +12,8 @@
         <form action="../../controller/XClass/EnterOnNewClass.php" method="post">
             <label>Entre com o codigo da turma: </label>
             <input type="text" name="codigoTurma"/>
-            <input type="submit" value="Participar" />
+            <input type="submit" value="Participar" /><br>
+			<a href="../pagprincipal/index.php?erro=0">Voltar</a>
         </form>
     </body>
 </html>
