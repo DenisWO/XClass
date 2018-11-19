@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <?php
     session_start();
-    if($_GET['erro'] == 2){
+    if (isset($_GET['erro'])) {
+      if($_GET['erro'] == 2){
         echo "<script> window.alert('Classe criada com sucesso!')</script>";
+      }  
     }
+    
     if((!isset ($_SESSION['login']) == true) and (!isset ($_SESSION['senha']) == true))
     {
       unset($_SESSION['login']);

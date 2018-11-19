@@ -11,7 +11,7 @@
     if ($dao) {
       header('Location: ../../view/pagprincipal/index.php');
       $_SESSION['id'] = $user->getI();
-      $_SESSION['name']; = $user->getFullName();
+      $_SESSION['name'] = $user->getFullName();
     }else{
       echo "Erro ao salvar!";
     }
